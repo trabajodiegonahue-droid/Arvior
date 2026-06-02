@@ -93,14 +93,18 @@ function leadCreate(array $input, int $accountId, array $opts = []): array {
     $db = getDB();
 
     // Dedup por cuenta: mismo email en los últimos N minutos → éxito silencioso.
+    // El intervalo NO va como placeholder (`INTERVAL ? MINUTE` puede fallar con
+    // prepares server-side según el motor): se interpola el entero ya casteado,
+    // lo que es seguro frente a inyección y portable en MySQL/MariaDB. La ventana
+    // de tiempo se evalúa con NOW() en la BD para no depender del reloj de PHP.
     if (empty($opts['skip_dedup'])) {
-        $window = (int) ($opts['dedup_window_min'] ?? 5);
+        $window = max(1, (int) ($opts['dedup_window_min'] ?? 5));
         $dupe = $db->prepare(
-            'SELECT COUNT(*) FROM leads
+            "SELECT COUNT(*) FROM leads
              WHERE account_id = ? AND email = ?
-               AND created_at > DATE_SUB(NOW(), INTERVAL ? MINUTE)'
+               AND created_at > DATE_SUB(NOW(), INTERVAL $window MINUTE)"
         );
-        $dupe->execute([$accountId, $email, $window]);
+        $dupe->execute([$accountId, $email]);
         if ((int) $dupe->fetchColumn() > 0) {
             return ['ok' => true, 'duplicate' => true];
         }

@@ -33,10 +33,21 @@ $wantsJson =
     (stripos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false) ||
     (strtolower($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'xmlhttprequest');
 
-// CORS: la landing del cliente vive en otro dominio. Intake es escritura pública
-// por token, así que permitimos el POST cross-origin para el modo JSON.
+// CORS — DECISIÓN MVP (Fase 1): origen abierto ('*').
+// La landing de cada cliente vive en su propio dominio y el intake es una
+// escritura pública autorizada por `public_token` (no por cookie/sesión), que
+// solo crea un lead —acción de bajo privilegio—. Por eso aceptamos el POST
+// cross-origin desde cualquier origen en modo JSON. El token sigue siendo el
+// control de acceso real.
+//
+// PREPARADO PARA EL FUTURO (sin implementar aún para mantener Fase 1 acotada):
+// para restringir por dominio, basta resolver la cuenta por su token y devolver
+// aquí su dominio permitido en vez de '*'. El punto de cambio es esta única
+// constante; el resto del flujo no cambia.
+const INTAKE_ALLOWED_ORIGIN = '*';
+
 if ($wantsJson) {
-    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Origin: ' . INTAKE_ALLOWED_ORIGIN);
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
     header('Vary: Origin');

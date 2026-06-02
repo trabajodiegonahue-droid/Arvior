@@ -58,33 +58,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
         // El sitio propio de ARVIOR escribe en la cuenta interna. La creación
         // (validación + dedup por cuenta + insert + actividad) está centralizada
         // en leadCreate(); intake.php usa la misma para las cuentas de clientes.
-        $accountId = accountInternalId();
+        //
+        // Ventana de migración (R1): si el código de Fase 1 ya está desplegado
+        // pero las migraciones aún no corrieron desde /admin/, el esquema
+        // multi-cuenta no existe. NO redirigimos a /gracias (sería simular un
+        // guardado que no ocurrió): mostramos un error controlado y visible.
+        // Mejor un fallo honesto que una pérdida silenciosa.
+        $accountId = (leadsSchemaReady()) ? accountInternalId() : null;
 
         if ($accountId === null) {
-            // Esquema todavía sin migrar (R1): no romper el form público.
-            error_log('index.php submit_lead: cuenta interna no disponible (¿migraciones sin correr?).');
-            redirect('/gracias');
-        }
-
-        $result = leadCreate([
-            'name'    => $name,
-            'email'   => $email,
-            'phone'   => $_POST['phone']   ?? '',
-            'message' => $_POST['message'] ?? '',
-            'source'  => $_POST['source']  ?? 'website',
-        ], $accountId);
-
-        if (empty($result['ok'])) {
-            $error = $result['error'] ?? 'No se pudo enviar el formulario.';
+            error_log('index.php submit_lead: esquema multi-cuenta no disponible (¿migraciones sin correr desde /admin/?).');
+            $error = 'No pudimos procesar tu mensaje en este momento. Probá de nuevo en unos minutos o escribinos por otro medio.';
         } else {
-            // Dedup silencioso o alta real: en ambos casos, éxito de cara al usuario.
-            if (empty($result['duplicate']) && !empty($result['lead'])) {
-                $lead = $result['lead'];
-                // Notificaciones: no deben romper el flujo si fallan.
-                try { notifyLeadCreated($lead); } catch (Throwable $e) { error_log('notifyLead: ' . $e->getMessage()); }
-                try { sendLeadAutoReply($lead); } catch (Throwable $e) { error_log('autoReply: ' . $e->getMessage()); }
+            $result = leadCreate([
+                'name'    => $name,
+                'email'   => $email,
+                'phone'   => $_POST['phone']   ?? '',
+                'message' => $_POST['message'] ?? '',
+                'source'  => $_POST['source']  ?? 'website',
+            ], $accountId);
+
+            if (empty($result['ok'])) {
+                $error = $result['error'] ?? 'No se pudo enviar el formulario.';
+            } else {
+                // Dedup silencioso o alta real: en ambos casos, éxito de cara al usuario.
+                if (empty($result['duplicate']) && !empty($result['lead'])) {
+                    $lead = $result['lead'];
+                    // Notificaciones: no deben romper el flujo si fallan.
+                    try { notifyLeadCreated($lead); } catch (Throwable $e) { error_log('notifyLead: ' . $e->getMessage()); }
+                    try { sendLeadAutoReply($lead); } catch (Throwable $e) { error_log('autoReply: ' . $e->getMessage()); }
+                }
+                redirect('/gracias');
             }
-            redirect('/gracias');
         }
     }
 }
