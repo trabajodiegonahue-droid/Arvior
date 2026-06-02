@@ -6,7 +6,9 @@
 
 El home vive en [`index.php`](../index.php). El layout (`<head>`, header, footer)
 lo provee [`lib/layout.php`](../lib/layout.php). Los estilos del front están en
-[`assets/css/site.css`](../assets/css/site.css).
+[`assets/css/site.css`](../assets/css/site.css). La estrategia detrás está en
+[`ARVIOR_MASTERPLAN.md`](ARVIOR_MASTERPLAN.md); el sistema visual en
+[`ARVIOR_BRAND_SYSTEM.md`](ARVIOR_BRAND_SYSTEM.md).
 
 ---
 
@@ -15,10 +17,15 @@ lo provee [`lib/layout.php`](../lib/layout.php). Los estilos del front están en
 Una sola landing one-page con un objetivo: **convertir visitas en leads
 cualificados** a través del formulario `#contact` (o WhatsApp / "Book a Meeting").
 
-El recorrido narrativo está diseñado como un embudo descendente:
+Pero antes de convertir, la home tiene un trabajo de marca: **probar en segundos
+que ARVIOR es una empresa tecnológica que construye sistemas, no una agencia.** El
+peso visual del hero (eclipse), el lenguaje de "systems / build / scale" y la
+sección de tecnología existen para sostener ese posicionamiento.
+
+El recorrido narrativo es un embudo descendente:
 
 ```
-Hero (promesa) → What we build (capacidades) → Process (cómo trabajamos)
+Hero (promesa + estatus) → What we build (capacidades) → Process (cómo trabajamos)
 → Selected work (prueba) → Technologies (credibilidad técnica)
 → CTA + Contact (acción)
 ```
@@ -31,9 +38,9 @@ Cada sección responde una pregunta del visitante en el orden en que la haría.
 
 Antes del HTML del home, `index.php` resuelve dos responsabilidades:
 
-1. **Router mínimo (CMS).** Si el path no es `/` y coincide con un slug
-   publicado en `pages`, renderiza esa página vía `layoutStart/layoutEnd` y hace
-   `exit`. Permite páginas adicionales sin tocar el código.
+1. **Router mínimo (CMS).** Si el path no es `/` y coincide con un slug publicado en
+   `pages`, renderiza esa página vía `layoutStart/layoutEnd` y hace `exit`. Permite
+   páginas adicionales sin tocar el código.
 2. **Manejo de leads (POST).** Si llega `action=submit_lead`:
    - Anti-spam: honeypot (`website`) + timing (`form_started`, < 2s = bot) →
      *fake success* silencioso.
@@ -43,8 +50,8 @@ Antes del HTML del home, `index.php` resuelve dos responsabilidades:
      (envueltos en try/catch para no romper el flujo).
    - Redirige a `/gracias`.
 
-Luego `layoutStart([...])` con la meta description global de ARVIOR, y se define
-el closure `$icon()` con los SVG inline de las cuatro líneas de servicio.
+Luego `layoutStart([...])` con la meta description global de ARVIOR, y se define el
+closure `$icon()` con los SVG inline de las cuatro líneas de servicio.
 
 ---
 
@@ -55,20 +62,21 @@ el closure `$icon()` con los SVG inline de las cuatro líneas de servicio.
 | | |
 |---|---|
 | **Pregunta que responde** | "¿Qué es esto y vale mi atención?" |
-| **Intención** | Promesa grande + estética premium inmediata |
+| **Intención** | Promesa grande + estatus de empresa de producto inmediato |
 | **Elementos** | Eclipse glow de fondo, badge "Technology · Automation · AI", kicker `ARVIOR`, H1 con palabra degradada, subtítulo, dos CTAs |
 
 Copy actual:
 - Badge: *Technology · Automation · AI*
 - H1: **Building [systems] for modern businesses.** ("systems" en `.text-gradient`)
 - Sub: *Technology, automation, software and AI solutions designed to help
-  businesses grow — engineered with the precision of a venture studio.*
+  businesses grow — engineered with precision and built to scale.*
 - CTAs: **Explore Solutions** (primario → `#solutions`) · **Book a Meeting**
   (secundario → `#contact`)
 
 Notas de diseño: el `.hero__glow` (orbe + anillo de eclipse violeta/azul) es la
-firma visual. El hero está centrado, con `isolation: isolate` para el z-index del
-glow. Es la sección con mayor peso vertical (`clamp(5rem,12vw,9rem)` superior).
+firma visual y la **única fuente de luz mayor** de la página (Brand System §3.1). El
+hero está centrado, con `isolation: isolate` para el z-index del glow. Es la sección
+con mayor peso vertical (`clamp(5rem,12vw,9rem)` superior).
 
 ---
 
@@ -80,8 +88,8 @@ glow. Es la sección con mayor peso vertical (`clamp(5rem,12vw,9rem)` superior).
 | **Intención** | Traducir la promesa en 4 capacidades concretas |
 | **Layout** | `.card-grid` de 4 columnas (`.s-card`) |
 
-Las cuatro cards = las cuatro líneas de servicio del Masterplan, cada una con su
-ícono (`web`, `sys`, `auto`, `ai`):
+Las cuatro cards = las cuatro líneas de construcción del Masterplan §4, cada una con
+su ícono (`web`, `sys`, `auto`, `ai`):
 
 1. **Websites** — sitios premium que convierten y representan la marca.
 2. **Systems** — plataformas internas, dashboards y software a medida.
@@ -93,7 +101,7 @@ Eyebrow: *What we build* · Título: **Digital systems, end to end.**
 Interacción: glow radial que sigue el cursor (`--mx/--my`) + lift en hover.
 
 > **Gancho de Fase 1:** cada card debería linkear a su página de servicio dedicada
-> cuando existan (ver Masterplan §5).
+> cuando existan (ver Masterplan §9).
 
 ---
 
@@ -108,11 +116,12 @@ Interacción: glow radial que sigue el cursor (`--mx/--my`) + lift en hover.
 Eyebrow: *Our process* · Título: **A clear path from idea to scale.**
 
 Pasos: **01 Strategy · 02 Design · 03 Build · 04 Scale** (ver tabla en Masterplan
-§3). Cada paso es un `.process__step` con número en color acento y un conector
+§6). Cada paso es un `.process__step` con número en color acento y un conector
 horizontal sutil entre pasos (oculto en mobile).
 
 `section--tight` reduce el padding: es una sección de transición, no un momento de
-peso.
+peso. Refuerza el posicionamiento: el método empieza en *estrategia* y termina en
+*escala*, no en "te entrego una página".
 
 ---
 
@@ -126,15 +135,15 @@ peso.
 
 Eyebrow: *Selected work* · Título: **Systems we've shipped.**
 
-Tres proyectos, uno por categoría (refuerza las líneas de servicio):
+Tres proyectos, uno por categoría (refuerza las líneas de construcción):
 - **Platform** — Operations Hub (unifica ventas, inventario, reporting).
 - **Automation** — Lead Engine (captura, califica y rutea leads en tiempo real).
 - **AI** — Support Agent (asistente que resuelve requests integrado a las tools).
 
 Cada `.proj` tiene un glow radial de color distinto por posición (azul/violeta).
 
-> ⚠️ **Contenido placeholder.** Reemplazar por casos de estudio reales con
-> métricas es prioridad de Fase 1. Es la sección de menor credibilidad hoy.
+> ⚠️ **Contenido placeholder.** Reemplazar por casos de estudio reales con métricas
+> es prioridad de Fase 1. Es la sección de menor credibilidad hoy.
 
 ---
 
@@ -152,8 +161,8 @@ Stack mostrado (array PHP, fácil de editar):
 `PHP · MySQL · JavaScript · Python · Node · React · OpenAI · REST APIs ·
 Automation · Cloud · Docker · Linux`.
 
-Las pills se iluminan en hover (borde violeta). Sección ligera, de respiro antes
-del cierre.
+Las pills se iluminan en hover (borde violeta). Sección ligera, de respiro antes del
+cierre — y prueba tácita de que detrás hay ingeniería, no solo diseño.
 
 ---
 
@@ -168,18 +177,18 @@ del cierre.
 Dos momentos:
 
 1. **CTA emocional** (`.cta`): **Let's build something [valuable].** ("valuable"
-   degradado) + sub *"Tell us where you want to go. We'll design the systems to
-   get you there."* Caja con glow radial superior y borde redondeado 28px.
+   degradado) + sub *"Tell us where you want to go. We'll design the systems to get
+   you there."* Caja con glow radial superior y borde redondeado 28px.
 
 2. **Bloque de contacto** (`.contact`, 2 columnas):
    - Izquierda: eyebrow *Get in touch*, título **Start a conversation.**, lead de
      bajo compromiso (*"No commitment — just a clear next step."*).
    - Derecha: `.contact__panel` con el formulario
-     ([`components/lead_form.php`](../components/lead_form.php)) y, si hubo error
-     de validación, una `.alert--error`.
+     ([`components/lead_form.php`](../components/lead_form.php)) y, si hubo error de
+     validación, una `.alert--error`.
 
-`#contact` tiene `scroll-margin-top: 90px` para compensar el header sticky cuando
-se llega por ancla.
+`#contact` tiene `scroll-margin-top: 90px` para compensar el header sticky cuando se
+llega por ancla.
 
 ---
 
@@ -187,9 +196,9 @@ se llega por ancla.
 
 Provistos por `layout.php` salvo que la página use `hide_chrome` (landings):
 
-- **Header** ([`site_header.php`](../components/site_header.php)): topbar de
-  contacto (teléfono, email, horarios, redes) + barra principal con logo, menú de
-  páginas publicadas y CTA de WhatsApp; drawer hamburguesa en mobile.
+- **Header** ([`site_header.php`](../components/site_header.php)): topbar de contacto
+  (teléfono, email, horarios, redes) + barra principal con logo, menú de páginas
+  publicadas y CTA de WhatsApp; drawer hamburguesa en mobile.
 - **Footer** ([`site_footer.php`](../components/site_footer.php)).
 - **WhatsApp flotante** ([`whatsapp_float.php`](../components/whatsapp_float.php)),
   activable por setting `whatsapp_float`.
@@ -204,7 +213,8 @@ Todo el JS del home está al final de `index.php` en una IIFE:
    (threshold 0.12, `rootMargin -8%`). Fallback: si no hay IO, se muestran todos.
 2. **Cursor glow en cards** — `pointermove` setea `--mx/--my` en cada `.s-card`.
 
-Cero dependencias, cero build. Coherente con la filosofía del Masterplan §4.
+Cero dependencias, cero build. Coherente con la filosofía del Masterplan §7 — y es
+parte del pitch: la propia home es un sistema rápido y simple.
 
 ---
 
@@ -217,8 +227,7 @@ Inyectados por `layoutStart()`:
   designed to help modern businesses grow."*
 - Open Graph + Twitter Card completos (con `og:image` si hay `seo_default_image`).
 - `<link rel="canonical">` absoluto.
-- **JSON-LD** de negocio automático (`businessJsonLd()`) si
-  `business_seo_jsonld = 1`.
+- **JSON-LD** de negocio automático (`businessJsonLd()`) si `business_seo_jsonld = 1`.
 - Favicon con cache-busting por `filemtime`.
 - GA y Meta Pixel opcionales por setting (`ga_id`, `pixel_id`).
 
@@ -239,7 +248,7 @@ Breakpoints en `site.css §11`:
 
 | Sección | Rol en el embudo | Palanca de optimización |
 |---|---|---|
-| Hero | Captar atención + 1ª CTA | Claridad del H1, fuerza del eclipse |
+| Hero | Captar atención + estatus + 1ª CTA | Claridad del H1, fuerza del eclipse |
 | What we build | Calificar interés | Linkear a páginas de servicio (Fase 1) |
 | Process | Reducir fricción/riesgo | Mantener corto y concreto |
 | Selected work | Prueba | **Reemplazar placeholders por casos reales** |
@@ -255,5 +264,5 @@ Breakpoints en `site.css §11`:
 
 ## 9. Documentos relacionados
 
-- [`ARVIOR_MASTERPLAN.md`](ARVIOR_MASTERPLAN.md) — estrategia, roadmap, arquitectura.
-- [`ARVIOR_BRAND_SYSTEM.md`](ARVIOR_BRAND_SYSTEM.md) — tokens, tipografía, color, voz.
+- [`ARVIOR_MASTERPLAN.md`](ARVIOR_MASTERPLAN.md) — estrategia, identidad, roadmap, arquitectura.
+- [`ARVIOR_BRAND_SYSTEM.md`](ARVIOR_BRAND_SYSTEM.md) — tokens, tipografía, color, voz, componentes.

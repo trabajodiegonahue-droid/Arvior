@@ -1,69 +1,174 @@
 # ARVIOR — Masterplan
 
-> Documento maestro de estrategia, producto y arquitectura.
+> Documento maestro de estrategia, identidad y arquitectura.
+> Es la fuente de verdad de *quiénes somos* y *hacia dónde vamos*.
 > Última revisión: 2026-06-02 · Estado: foundation
 
 ---
 
-## 1. Qué es ARVIOR
+## 0. Lectura en una frase
 
-ARVIOR es un **estudio de tecnología** que diseña y construye sistemas digitales
-para negocios modernos: sitios web de alto rendimiento, software a medida,
-automatizaciones e inteligencia artificial aplicada.
+> **ARVIOR es una empresa tecnológica que construye sistemas.**
+> No es una agencia. No es un estudio que entrega "páginas".
+> Diseña, ingenia y opera la infraestructura digital sobre la que corren negocios modernos.
 
-El posicionamiento es deliberado: no nos presentamos como una "agencia web" más,
-sino como un **venture studio de ingeniería** — precisión, criterio de producto y
-una estética premium que comunica solvencia técnica antes de la primera reunión.
+Todo lo que sigue —marca, copy, home, producto— existe para hacer creíble esa
+frase antes de que el cliente lea una sola línea de texto.
 
-> **One-liner:** *Building systems for modern businesses.*
+---
 
-### 1.1 Propuesta de valor
+## 1. Identidad
 
-| Para quién | Problema | Lo que ARVIOR entrega |
-|---|---|---|
-| Negocios que crecen | Procesos manuales, herramientas desconectadas | Infraestructura digital confiable que escala |
-| Founders / PYMEs ambiciosas | Web genérica que no convierte ni representa la marca | Sitios premium orientados a conversión |
-| Equipos operativos | Trabajo repetitivo que consume al equipo | Automatizaciones e integraciones end-to-end |
-| Productos existentes | Falta de apalancamiento / diferenciación | Features de IA reales, integradas a la operación |
+### 1.1 Qué es ARVIOR
 
-### 1.2 Las cuatro líneas de servicio
+ARVIOR es una **empresa de tecnología** que construye sistemas digitales
+end-to-end: sitios de alto rendimiento, plataformas y software a medida,
+automatizaciones e inteligencia artificial aplicada a la operación real de un
+negocio.
 
-1. **Websites** — sitios y landing pages de alto rendimiento, pensadas para
-   convertir y representar la marca al máximo nivel.
+La distinción es deliberada y no negociable:
+
+| ARVIOR **es** | ARVIOR **no es** |
+|---|---|
+| Una empresa tecnológica | Una agencia |
+| Constructora de sistemas | Vendedora de "diseños" o "campañas" |
+| Un socio de ingeniería de largo plazo | Un proveedor de entregables sueltos |
+| Producto, infraestructura, criterio técnico | Estética sin sustento operativo |
+| Dueña de la calidad de lo que despliega | Intermediaria que terceriza el core |
+
+Una agencia entrega un archivo y se va. ARVIOR entrega un **sistema que funciona,
+que se mantiene y que escala** — y se queda como la capa de ingeniería del cliente.
+
+### 1.2 El nombre
+
+**ARVIOR** se escribe siempre en mayúsculas. Es una marca corta, sin tilde, sin
+significado literal — un nombre construido para sonar a empresa de tecnología
+seria: sólido, neutro, internacional. Funciona igual en inglés que en español y
+no encierra a la marca en una vertical (no dice "web", no dice "AI"), lo que deja
+espacio para la expansión descrita en §8.
+
+---
+
+## 2. Misión, visión y posicionamiento
+
+### 2.1 Misión — *por qué existimos hoy*
+
+> **Construir los sistemas digitales que un negocio necesita para operar y crecer,
+> con la precisión de una empresa de producto y la confiabilidad de
+> infraestructura.**
+
+Convertimos procesos manuales, herramientas desconectadas y webs genéricas en
+infraestructura digital confiable: software que corre la operación, no slides que
+la describen.
+
+### 2.2 Visión — *en qué nos convertimos*
+
+> **Ser la empresa tecnológica de referencia para negocios que quieren tratar su
+> tecnología como un activo, no como un gasto.**
+
+A tres años, ARVIOR deja de venderse proyecto por proyecto y pasa a ser el **socio
+tecnológico permanente** de su cartera: sistemas propios, producto reutilizable y
+una marca que comunica solvencia de ingeniería desde el primer pixel.
+
+### 2.3 Posicionamiento
+
+Una sola línea, defendible:
+
+> **Para negocios que necesitan tecnología seria sin montar un equipo interno,
+> ARVIOR es la empresa que diseña, construye y opera sus sistemas digitales —
+> con estándar de producto, no de agencia.**
+
+| Eje | ARVIOR | Agencia típica | Freelancer | Software enlatado |
+|---|---|---|---|---|
+| Qué entrega | Sistemas operables | Entregables sueltos | Tareas | Producto rígido |
+| Profundidad técnica | Alta, in-house | Variable, tercerizada | Individual | Cerrada |
+| Estética | Premium por defecto | Plantilla | Inconsistente | Funcional |
+| Relación | Socio de largo plazo | Por proyecto | Por hora | Licencia |
+| A medida | Sí, sobre base propia | A veces | Sí | No |
+
+**Territorio de marca:** la intersección entre *empresa de producto* (rigor,
+estética, criterio) e *infraestructura* (confiabilidad, operabilidad, escala).
+Ahí no compite la agencia promedio.
+
+### 2.4 One-liners aprobados
+
+- **Principal:** *Building systems for modern businesses.*
+- **Producto:** *We design and build the technology that scales with you.*
+- **Cierre:** *Let's build something valuable.*
+
+---
+
+## 3. Arquetipo de marca
+
+**Arquetipo primario: El Creador (The Creator)** — la pulsión de *construir*,
+de hacer realidad lo que otros solo describen. Materializa visión en sistemas que
+funcionan. Valora artesanía, precisión y durabilidad por encima de la novedad.
+
+**Arquetipo de apoyo: El Sabio / Arquitecto (The Sage)** — autoridad técnica
+serena. No grita; demuestra. Toma decisiones por criterio, no por hype.
+
+| Dimensión | Cómo se expresa en ARVIOR |
+|---|---|
+| Deseo central | Construir algo que perdure y funcione |
+| Promesa | "Lo construimos bien, y va a escalar contigo" |
+| Voz | Confiada, sobria, precisa — nunca ruidosa |
+| Miedo que evita | Lo improvisado, lo barato, lo que se rompe |
+| Enemigo | La mediocridad genérica, el "más de lo mismo" |
+
+**Lo que el arquetipo prohíbe:** tono de growth-hacker, urgencia falsa,
+superlativos vacíos, estética de plantilla. Si una pieza suena a "agencia que
+busca clientes", está fuera de arquetipo.
+
+---
+
+## 4. Líneas de construcción (qué construimos)
+
+Cuatro líneas. Son el eje narrativo de toda la comunicación —hero, sección "What
+we build", portfolio (un caso por línea)— y la estructura de la oferta.
+
+1. **Websites** — sitios y landings de alto rendimiento, pensados para convertir y
+   representar la marca al máximo nivel. La web es el primer sistema.
 2. **Systems** — plataformas internas, dashboards y software a medida que
    convierten procesos manuales en infraestructura confiable.
-3. **Automation** — workflows e integraciones que conectan herramientas y
-   eliminan trabajo repetitivo.
-4. **AI** — asistentes, agentes y features inteligentes integrados a productos
-   y operaciones para crear apalancamiento real.
+3. **Automation** — workflows e integraciones que conectan herramientas y eliminan
+   trabajo repetitivo end-to-end.
+4. **AI** — asistentes, agentes y features inteligentes integrados a productos y
+   operaciones para crear apalancamiento real.
 
-Estas cuatro líneas son el eje narrativo de toda la comunicación: aparecen en el
-hero, en la sección "What we build" y en el portfolio (un caso por línea).
+| Para quién | Problema | Lo que ARVIOR construye |
+|---|---|---|
+| Negocios que crecen | Procesos manuales, tools desconectadas | Infraestructura digital que escala |
+| Founders / PYMEs ambiciosas | Web genérica que no convierte | Sistemas premium orientados a conversión |
+| Equipos operativos | Trabajo repetitivo que consume al equipo | Automatización e integraciones end-to-end |
+| Productos existentes | Falta de apalancamiento | Features de IA reales, integradas a la operación |
 
 ---
 
-## 2. Principios
+## 5. Principios de empresa
 
-Estos principios guían tanto el producto que vendemos como el sitio que lo vende.
+Guían tanto el producto que vendemos como el sitio que lo vende. Son criterios de
+decisión, no eslóganes.
 
-1. **Premium por defecto.** Cada superficie —tipografía, espaciado, motion—
+1. **El sistema es la entrega.** No vendemos pantallas; vendemos sistemas que
+   corren la operación del cliente. La pregunta de aceptación es siempre
+   "¿funciona y se opera solo?", no "¿se ve bien?".
+2. **Premium por defecto.** Cada superficie —tipografía, espaciado, motion—
    comunica calidad. Si algo se ve barato, se reescribe.
-2. **Cero dependencias innecesarias.** El sitio corre en PHP plano sobre hosting
-   compartido, sin build step, sin frameworks de front. La simplicidad es una
-   ventaja operativa, no una limitación.
-3. **Ship rápido, optimizar después.** Estrategia → Diseño → Build → Scale. Se
-   entrega valor temprano y se mejora con datos.
-4. **El sistema es la entrega.** No vendemos páginas, vendemos sistemas que
-   corren la operación del cliente.
-5. **Confiabilidad sobre novedad.** Tecnología moderna pero probada. Nada se
+3. **Confiabilidad sobre novedad.** Tecnología moderna pero probada. Nada se
    despliega si no es operable por una persona sin contexto.
+4. **Simplicidad como ventaja.** Cero dependencias innecesarias. La propia web
+   corre en PHP plano sobre hosting compartido, sin build step. Si nuestro sistema
+   es simple y rápido, eso *es* el pitch.
+5. **Ship rápido, optimizar después.** Strategy → Design → Build → Scale. Valor
+   temprano, mejora con datos.
+6. **Dueños de la calidad.** Lo que sale con la marca ARVIOR lo respondemos
+   nosotros. No tercerizamos el criterio técnico.
 
 ---
 
-## 3. Proceso de trabajo (cara al cliente)
+## 6. Cómo trabajamos (proceso de cara al cliente)
 
-El proceso es a la vez metodología interna y mensaje de marketing (sección
-"Our process" del home):
+Metodología interna y mensaje de marketing a la vez (sección "Our process"):
 
 | # | Fase | Qué pasa |
 |---|---|---|
@@ -72,23 +177,27 @@ El proceso es a la vez metodología interna y mensaje de marketing (sección
 | 03 | **Build** | Ingeniería del producto con tecnología moderna y confiable; entrega rápida. |
 | 04 | **Scale** | Optimizamos, automatizamos y hacemos crecer el sistema con el negocio. |
 
+El proceso comunica el posicionamiento: empieza en *estrategia* (no en "diseño de
+una página") y termina en *escala* (no en "entregamos y chau").
+
 ---
 
-## 4. Arquitectura técnica del sitio
+## 7. Arquitectura técnica del sitio
 
-### 4.1 Filosofía
+### 7.1 Filosofía
 
 El sitio público de ARVIOR es la **primera demostración de producto**: si nuestra
-propia web es rápida, limpia y mantenible sin un stack pesado, eso *es* el pitch.
+propia web es rápida, limpia y mantenible sin un stack pesado, eso *es* la prueba
+de que sabemos construir sistemas.
 
-- **Stack:** PHP plano + MySQL (PDO). Sin frameworks, sin Node en producción,
-  sin build de assets. CSS plano servido directo.
+- **Stack:** PHP plano + MySQL (PDO). Sin frameworks, sin Node en producción, sin
+  build de assets. CSS plano servido directo.
 - **Hosting:** cPanel tradicional (Hostinger). Deploy por `git pull` vía Terminal
   con deploy key SSH. Ver [`DEPLOY.md`](../DEPLOY.md).
-- **Migraciones:** sistema propio idempotente (`lib/migrate.php`), se ejecuta al
-  visitar `/admin/`. Los `.sql` viven en `migrations/` numerados.
+- **Migraciones:** sistema propio idempotente (`lib/migrate.php`), corre al visitar
+  `/admin/`. Los `.sql` viven numerados en `migrations/`.
 
-### 4.2 Mapa del repositorio
+### 7.2 Mapa del repositorio
 
 ```
 index.php              Router mínimo + homepage + manejo de leads
@@ -127,22 +236,22 @@ uploads/               Contenido subido (git-ignored)
 Guias/                 Referencias de diseño (inspiración, no se sirve)
 ```
 
-### 4.3 Capacidades del CMS
+### 7.3 Capacidades del CMS
 
 El panel `/admin/` ya soporta, mediante migraciones:
 
 - **Leads** — captura desde el form público con anti-spam (honeypot + timing +
   dedupe por email), notas por lead, notificación por email (Resend).
-- **Pages** — CMS de páginas con slug, body HTML, SEO (meta description,
-  OG image), layout y opción `hide_chrome` para landings.
+- **Pages** — CMS de páginas con slug, body HTML, SEO (meta description, OG image),
+  layout y opción `hide_chrome` para landings.
 - **Media library** — subida y gestión de imágenes con pipeline de procesado.
-- **Business info** — contacto, dirección, redes, horarios, sucursales,
-  JSON-LD automático para SEO local.
+- **Business info** — contacto, dirección, redes, horarios, sucursales, JSON-LD
+  automático para SEO local.
 - **Brand settings** — logo y favicon configurables.
 - **Users** — multiusuario con perfil, último login, rate limiting de auth.
 - **Mailing** — integración con Resend.
 
-### 4.4 Decisiones de arquitectura clave
+### 7.4 Decisiones de arquitectura clave
 
 - **Deploy outbound-only.** El firewall del hosting bloquea conexiones entrantes
   desde datacenters (descartó GitHub Actions FTP/SFTP). El `git pull` saliente
@@ -150,39 +259,72 @@ El panel `/admin/` ya soporta, mediante migraciones:
 - **`config.php` y `/uploads/` nunca viajan por git.** Sobreviven entre deploys
   porque `git pull` no borra archivos no rastreados.
 - **Tema dark acotado a `.site-body`.** El front es dark premium; el admin y el
-  login quedan claros. Esto evita que el rebrand del sitio toque el panel.
-- **Sin cache de salida.** Cada request renderiza. Simplifica el modelo mental;
-  el tráfico esperado no lo justifica todavía.
+  login quedan claros. El rebrand del sitio no toca el panel.
+- **Sin cache de salida.** Cada request renderiza. Simplifica el modelo mental; el
+  tráfico esperado no lo justifica todavía.
 
 ---
 
-## 5. Roadmap
+## 8. Expansión futura de la marca
+
+ARVIOR está nombrada y posicionada para crecer más allá de "servicios web". La
+expansión sigue tres horizontes:
+
+### Horizonte 1 — Empresa de servicios de ingeniería (hoy)
+Construcción a medida por las cuatro líneas. Marca única, una home, un proceso.
+El sitio actual cubre este horizonte.
+
+### Horizonte 2 — Productización
+Lo que se repite entre clientes se convierte en **producto propio**:
+- El motor de leads + CMS + sistema de páginas → plataforma reutilizable de sitios
+  ("ARVIOR como base sobre la que construimos rápido").
+- Automatizaciones recurrentes → catálogo de integraciones empaquetadas.
+- Features de IA → asistentes/agentes reutilizables como módulos.
+
+La marca soporta sub-líneas sin renombrar: `ARVIOR Systems`, `ARVIOR Automation`,
+`ARVIOR AI` como verticales bajo la misma identidad visual.
+
+### Horizonte 3 — Plataforma y portafolio
+- **Portal de cliente**: estado de proyectos, sistemas y métricas en vivo.
+- **Productos SaaS** derivados de los sistemas más exitosos (modelo venture studio:
+  ARVIOR construye, opera y eventualmente escala producto propio).
+- **Marca paraguas**: ARVIOR como sello de calidad de ingeniería sobre varios
+  productos, igual que las referencias del sector (plataformas, no campañas).
+
+**Regla de expansión:** cada nuevo horizonte se construye *sobre* el sistema
+anterior, no lo reemplaza. La marca no pivota; se acumula. Por eso el nombre es
+neutro y el sistema visual (BRAND_SYSTEM) está diseñado como tokens reutilizables,
+no como un layout único.
+
+---
+
+## 9. Roadmap
 
 ### Fase 0 — Foundation ✅ (actual)
 Sitio público dark premium en línea, CMS operativo, captura de leads, deploy
-estable por `git pull`, documentación de marca y arquitectura (este conjunto de
-docs).
+estable por `git pull`, documentación de marca y arquitectura (este conjunto).
 
 ### Fase 1 — Conversión y contenido
 - Páginas de servicio dedicadas (una por línea: Websites / Systems / Automation / AI).
 - Casos de estudio reales reemplazando el portfolio placeholder.
-- Página "About" con la narrativa de venture studio.
+- Página "About" con la narrativa de empresa tecnológica.
 - Optimización de Core Web Vitals y SEO on-page.
 
 ### Fase 2 — Prueba social y captación
 - Testimonios / logos de clientes.
 - Sección de pricing o "engagement models".
-- Blog / insights técnicos para SEO de fondo.
+- Insights técnicos para SEO de fondo.
 - Lead scoring básico y secuencias de email.
 
-### Fase 3 — Producto y escala
+### Fase 3 — Producto y escala (ver §8 Horizontes 2-3)
 - Portal de cliente (estado de proyectos).
 - Demos interactivas de capacidades de IA.
+- Productización de los sistemas reutilizables.
 - Analítica de conversión por sección (ver HOMEPAGE_ARCHITECTURE).
 
 ---
 
-## 6. Métricas que importan
+## 10. Métricas que importan
 
 | Objetivo | Métrica primaria | Dónde se mide |
 |---|---|---|
@@ -193,8 +335,8 @@ docs).
 
 ---
 
-## 7. Documentos relacionados
+## 11. Documentos relacionados
 
-- [`ARVIOR_BRAND_SYSTEM.md`](ARVIOR_BRAND_SYSTEM.md) — identidad visual, tokens, voz.
+- [`ARVIOR_BRAND_SYSTEM.md`](ARVIOR_BRAND_SYSTEM.md) — identidad visual, tokens, arquetipo aplicado, voz, componentes.
 - [`ARVIOR_HOMEPAGE_ARCHITECTURE.md`](ARVIOR_HOMEPAGE_ARCHITECTURE.md) — anatomía del home.
 - [`DEPLOY.md`](../DEPLOY.md) — flujo de despliegue al hosting.
