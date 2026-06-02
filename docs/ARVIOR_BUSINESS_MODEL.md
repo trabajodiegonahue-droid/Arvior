@@ -34,7 +34,7 @@ y **se queda corriendo el sistema**.
 La regla anti-agencia: **un ICP nítido, no "negocios modernos".** Empezamos
 angostos a propósito; la amplitud llega con el producto, no con el servicio.
 
-### 1.1 ICP principal — PYME de servicios en crecimiento (LatAm, hispanohablante)
+### 1.1 ICP principal — PYME de servicios en crecimiento (Chile primero → LatAm hispanohablante)
 
 | Dimensión | Definición |
 |---|---|
@@ -131,7 +131,7 @@ Esto alinea el discurso ("el sistema es la entrega") con la oferta real.
 > implementación arranca con Build + primer mes de Operate pagados. ARVIOR no trabaja
 > gratis "hasta que funcione". **Permanencia mínima: 6 meses**, luego mensual.
 
-### 3.2 Cifras ilustrativas de arranque (LatAm PYME — a validar)
+### 3.2 Cifras ilustrativas de arranque (PYME, Chile/CLP primero — a validar)
 
 > Los rangos de precio canónicos viven en [`ARVIOR_OFFER.md`](ARVIOR_OFFER.md) §6–§12
 > y [`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md) §3; esta tabla los cita, no

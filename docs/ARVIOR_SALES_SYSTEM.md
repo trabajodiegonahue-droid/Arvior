@@ -246,7 +246,7 @@ Operate se lea como inversión con retorno, no como gasto.
 | **3. El sistema** | Captura → califica → seguimiento → convierte (4 pasos, 1 imagen) | Simple, memorable |
 | **4. Las 3 opciones** | Entrada / Profesional / Premium, con Build + Operate juntos | Ancla en Profesional (§5.3) |
 | **5. Qué incluye / qué no** | Alcance y exclusiones claras ([Offer §5](ARVIOR_OFFER.md)) | Protege margen, evita scope creep |
-| **6. Garantías** | Puesta en marcha, <5 min, datos del cliente ([Offer §13](ARVIOR_OFFER.md)) | Baja el riesgo percibido a casi cero |
+| **6. Garantías** | Alcance, <5 min, datos del cliente, permanencia mínima 6 meses ([Offer §13](ARVIOR_OFFER.md)) | Baja el riesgo percibido a casi cero |
 | **7. Siguiente paso** | Cómo empezar + plazo de entrega + validez de la propuesta | Crea acción y leve urgencia |
 
 ### 5.2 Qué mostrar y qué NO mostrar
