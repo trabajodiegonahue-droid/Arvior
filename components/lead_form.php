@@ -23,18 +23,18 @@ $leadSource = $leadSource ?? 'website';
     <input type="text" name="website" value="" style="display:none" tabindex="-1" autocomplete="off">
 
     <p class="lead-form__field">
-        <label>Nombre <input name="name" required></label>
+        <label>Name <input name="name" required placeholder="Your name"></label>
     </p>
     <p class="lead-form__field">
-        <label>Email <input name="email" type="email" required></label>
+        <label>Email <input name="email" type="email" required placeholder="you@company.com"></label>
     </p>
     <p class="lead-form__field">
-        <label>Teléfono <input name="phone"></label>
+        <label>Phone <input name="phone" placeholder="Optional"></label>
     </p>
     <p class="lead-form__field">
-        <label>Mensaje <textarea name="message" rows="4"></textarea></label>
+        <label>Message <textarea name="message" rows="4" placeholder="Tell us about your project"></textarea></label>
     </p>
     <p class="lead-form__submit">
-        <button type="submit" class="btn">Enviar</button>
+        <button type="submit" class="btn">Send message</button>
     </p>
 </form>

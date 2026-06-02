@@ -57,7 +57,7 @@ function layoutStart(array $opts = []): void {
     $GLOBALS['__layout_opts'] = $opts + ['hide_chrome' => $hideChrome];
     $h = htmlspecialchars(...);
     ?><!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,9 +84,13 @@ function layoutStart(array $opts = []): void {
 <?php if ($faviconHref): ?>
 <link rel="icon" href="<?= $h($faviconHref) ?>">
 <?php endif; ?>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 <link rel="stylesheet" href="/assets/css/base.css">
 <link rel="stylesheet" href="/assets/css/layout.css">
 <link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/site.css">
 <?php if (!$hideChrome): ?>
 <link rel="stylesheet" href="/assets/css/site_header.css">
 <?php endif; ?>
@@ -108,7 +112,7 @@ foreach ($extraJsonLd as $extra) {
 }
 ?>
 </head>
-<body>
+<body class="site-body">
 <?php
     if (!$hideChrome) {
         $GLOBALS['currentSlug'] = $currentSlug;
