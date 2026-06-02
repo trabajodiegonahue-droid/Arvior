@@ -339,9 +339,11 @@ Operate se lea como inversión con retorno, no como gasto.
 ### 7.2 Qué se firma
 
 - Contrato/acuerdo: Build (alcance + precio + plazo) **y** Operate (plan + mensualidad
-  + permanencia sugerida 12 meses + garantías de [Offer §13](ARVIOR_OFFER.md)).
-- Condiciones de pago: Build (anticipo % + saldo contra hito) y Operate (mensual desde
-  puesta en marcha, [Offer §12, regla 3](ARVIOR_OFFER.md)).
+  + **permanencia mínima 6 meses, luego mensual** + garantías de [Offer §13](ARVIOR_OFFER.md)).
+- Condiciones de pago: Build (anticipo % + saldo contra hito) y Operate (**mensual
+  desde el día 1**, [Offer §12, regla 3](ARVIOR_OFFER.md)). **La implementación arranca
+  con Build + primer mes de Operate pagados** — ARVIOR no trabaja gratis hasta que
+  funcione.
 
 ### 7.3 Handoff inmediato (el cierre no es el final)
 

@@ -165,19 +165,24 @@ retención se conecta con la expansión del [Sales System §8](ARVIOR_SALES_SYST
 |---|---|---|
 | **Mensual** | Reporte de ROI en vivo (§3) | Mantener el valor presente |
 | **Trimestral** | Revisión de objetivos + propuesta de siguiente escalón | Detectar gatillos de expansión |
-| **Pre-renovación (mes 10–11)** | Reunión de balance del año + plan del próximo | Renovar desde el valor, no desde el contrato |
+| **Pre-fin del mínimo (mes 5)** | Reunión de balance del semestre + plan de continuidad | Llegar al mes 6 (fin del mínimo) decidido a seguir, desde el valor |
+| **Balance anual (cuentas que siguen)** | Reunión de balance del año + plan del próximo | Renovar desde el valor, no desde el contrato |
 | **Cada hito del cliente** | Felicitar / capitalizar (sucursal, premio, campaña) | Profundizar la relación |
 
-### 5.2 La renovación (mes 12 → mensual)
+### 5.2 La renovación (mínimo 6 meses → mensual)
 
-La permanencia sugerida es 12 meses, luego mensual sin amarre
-([Offer §9–§11](ARVIOR_OFFER.md)). La renovación **no se pide: se construye todo el año**.
+La permanencia mínima es **6 meses**, y luego la cuenta pasa a mensual sin amarre
+([Offer §9–§11](ARVIOR_OFFER.md)). La continuidad **no se pide: se construye desde el
+primer mes**.
 
-- Si el health score fue verde y el ROI se demostró cada mes, la renovación es trámite.
-- En la reunión de balance: mostrar el **acumulado del año** (todos los leads
-  capturados, todo lo recuperado) — el número grande del año entero.
-- Plantear el próximo año como **crecimiento**, no como continuidad: "este año capturaste
-  X; el próximo, con [expansión], apuntamos a Y".
+- **Mes 6 (fin del mínimo):** si el health score fue verde y el ROI se demostró cada
+  mes, el paso a mensual es trámite — el cliente ya vio el valor.
+- En la reunión de balance: mostrar el **acumulado del período** (todos los leads
+  capturados, todo lo recuperado) — el número grande del semestre/año.
+- Plantear el siguiente tramo como **crecimiento**, no como continuidad: "en estos
+  meses capturaste X; con [expansión], apuntamos a Y".
+- A partir del mes 6, cada cuenta sigue mensual; la **reunión de balance anual**
+  mantiene el ritual de renovar desde el valor para las cuentas de larga vida.
 
 ### 5.3 Expansión como retención (NRR > 110%)
 
@@ -215,7 +220,7 @@ retención, la regla es:
 3. **El reporte mensual de ROI en vivo es el producto de la retención** — no un PDF.
 4. **Haz que el valor suba con el tiempo:** optimización visible mes a mes.
 5. **Bajar de plan > perder la cuenta.** Retener es preferible a reiniciar el CAC.
-6. **Renueva construyendo todo el año,** no pidiendo en el mes 12.
+6. **Renueva construyendo desde el primer mes,** no pidiendo al final del período (la permanencia mínima es 6 meses, luego mensual).
 7. **La cuenta sana crece:** expande desde la fuerza, anclado en su propio dato.
 
 ---

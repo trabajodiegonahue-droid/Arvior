@@ -10,6 +10,18 @@
 > Business Model · Revenue System · Offer · Sales System · Onboarding System ·
 > Retention System · Revenue Operations.
 
+> ✅ **Estado de resolución (2026-06-02).** El fundador tomó las 6 decisiones binarias
+> de §7 y se aplicó la corrección de coherencia a todos los documentos. Los hallazgos
+> que dependían de esas decisiones quedan marcados **✅ RESUELTO** con la decisión
+> efectiva. Esta auditoría se conserva como **registro del razonamiento** detrás de
+> cada decisión; la fuente de verdad operativa son los documentos ya corregidos.
+>
+> **Decisiones efectivas:** D1 Operate se cobra desde el día 1 (implementación arranca
+> con Build + 1er mes pagados; no se trabaja gratis). · D2 Permanencia mínima 6 meses,
+> luego mensual. · D3 Runtime `n8n` autoalojado. · D4 WhatsApp API Oficial para
+> clientes. · D5 Entrada cubre su CAC (Build subido + solo canales de bajo CAC). · D6
+> Chile primero, luego LatAm.
+
 ---
 
 ## 0. Cómo leer esta auditoría
@@ -86,11 +98,14 @@ regla. Sin una definición clara de **qué activa el reloj del cobro** (¿la fir
 de caja y de relación.
 
 **Dirección de resolución.** Definir el **gatillo de facturación de Operate** de
-forma única y escribirlo en el contrato: lo más defendible es *"Operate se factura
-desde el go-live / primer lead capturado (F1), no desde la firma"*, lo que alinea
-las dos reglas (el cobro empieza cuando hay valor demostrable, dentro de los 90
-días de la garantía). Esto debe quedar en el SOP de cierre y en el contrato → ver
-[`ARVIOR_SOPS_MAP.md`](ARVIOR_SOPS_MAP.md) (SOP-05 Cierre/Contrato).
+forma única y escribirlo en el contrato, y eliminar la garantía que generaba la
+contradicción.
+
+> ✅ **RESUELTO (D1).** **Operate se cobra desde el día 1** y la **implementación
+> arranca con Build + primer mes de Operate pagados**. ARVIOR **no trabaja gratis**
+> hasta que funcione; la garantía de Offer §13 se reescribió como **garantía de
+> alcance** (cumplir lo firmado), no de "Operate gratis". Aplicado en Offer §12–§13,
+> Sales §7.2, Onboarding §0/§1.2, SOP-05/06/08/15.
 
 ---
 
@@ -117,11 +132,13 @@ antes de resolverlo, ARVIOR incumple su propia garantía en producción.
 
 **Dirección de resolución.** Esto **no contradice** "simplicidad como ventaja",
 pero exige reconocer que la *capa de automatización* es un sistema aparte del
-*sitio público*. Hay que definir el stack mínimo de automatización (cron del
-cPanel + cola en MySQL + worker, o un servicio externo de automatización/colas) y
-declararlo como parte de "ARVIOR Core" → ver
-[`ARVIOR_OPERATING_SYSTEM.md`](ARVIOR_OPERATING_SYSTEM.md) §4 (sistema de gestión)
-y §6 (qué automatizar primero). Es la decisión técnica más urgente del negocio.
+*sitio público*.
+
+> ✅ **RESUELTO (D3).** Se adoptó **`n8n` autoalojado** como motor de automatización
+> estándar (respuesta < 5 min, secuencias, agentes de IA, integraciones), **parte de
+> ARVIOR Core, separado del sitio PHP plano**, priorizando no depender de plataformas
+> externas. Documentado en Masterplan §7.5 (nueva sección) y referenciado en Revenue
+> System §2, Business Model §3.2 y Operating System §4.3.
 
 ---
 
@@ -140,12 +157,14 @@ deja sin operar la promesa central a todas las cuentas a la vez (riesgo
 correlacionado). El modelo de margen 75–85% (Business Model §3.2) no incluye el
 costo por conversación de WhatsApp.
 
-**Dirección de resolución.** Decidir explícitamente el camino de WhatsApp (API
-oficial vía proveedor vs. respuesta humana asistida al inicio), incorporar su costo
-al margen del recurrente, y tener un canal de respaldo (email/SMS) para que la
-garantía de < 5 min no dependa de un solo proveedor → ver
-[`ARVIOR_OPERATING_SYSTEM.md`](ARVIOR_OPERATING_SYSTEM.md) §4 y la entrada de riesgo
-en §6.
+**Dirección de resolución.** Adoptar la API Oficial e incorporar su costo al margen.
+
+> ✅ **RESUELTO (D4).** **API Oficial de WhatsApp (vía BSP)** como estándar para
+> clientes; soluciones no oficiales solo para pruebas internas/experimentales. Su
+> costo por conversación entra en el margen del recurrente (Business Model §3.2).
+> Aplicado en Masterplan §7.5, Revenue System §2, Offer §8, Onboarding §3.2. Queda
+> como buena práctica operativa tener canal de respaldo (email) para no depender de un
+> solo proveedor.
 
 ---
 
@@ -155,7 +174,7 @@ en §6.
 
 - CAC objetivo: *< USD 1.500; idealmente neto ≤ 0 vía Build* (Business Model §5.1,
   RevOps §1.3).
-- Build **Entrada**: USD 850 – 1.400 (Offer §6, Revenue System §3.2).
+- Build **Entrada** (precio original auditado): USD 850 – 1.400 (Offer §6, Revenue System §3.2).
 - Tesis repetida en todos los docs: *"el Build financia / cubre el CAC"*
   (Business Model §0, §3.1; Revenue System §3; Sales §0).
 
@@ -167,13 +186,16 @@ es probable que sea un volumen relevante de clientes. **La afirmación "Build cu
 CAC" es cierta para Profesional/Premium, falsa para Entrada**, y el modelo la
 trata como universal.
 
-**Dirección de resolución.** Aceptar que Entrada es un **producto de adquisición de
-bajo/negativo margen one-time** cuyo retorno es 100% recurrente, y por tanto: (a)
-limitar el CAC pagado en Entrada (sólo referidos / inbound barato, nunca ads
-costosos), o (b) subir el piso de Entrada. La métrica a vigilar para Entrada no es
-"payback inmediato" sino **payback < 6 meses**. Esto se gobierna en el dashboard →
-ver [`ARVIOR_FOUNDER_DASHBOARD.md`](ARVIOR_FOUNDER_DASHBOARD.md) (segmentar CAC y
-payback por escalón).
+**Dirección de resolución.** Hacer que Entrada cubra su CAC, sin ofertas que pierdan
+dinero desde el inicio.
+
+> ✅ **RESUELTO (D5).** Se aplicaron **ambas** palancas: (a) se **subió el piso de
+> Entrada** a USD 1.500–2.300 (margen ~70% → ≥ 1.050), y (b) se **limitó el CAC de
+> Entrada a < USD 800 vendiéndola solo por referido/inbound** (cero ads pagas). Así el
+> margen del Build cubre el CAC con holgura (verificación en Business Model §5.2). La
+> tesis "Build cubre CAC" ahora es cierta **por escalón** (CAC segmentado: Entrada <
+> 800, Profesional/Premium < 1.500) en Business Model §5.1 y RevOps §1.3. El dashboard
+> vigila CAC/payback por escalón.
 
 ---
 
@@ -194,10 +216,12 @@ vs 1.300). Quien cite el Business Model para un board dirá un número; quien ci
 Oferta para un cliente dirá otro. **No es grave conceptualmente, pero es exactamente
 el tipo de inconsistencia que erosiona la confianza interna en los números.**
 
-**Dirección.** La Oferta y el Revenue System son la fuente de verdad de precios
-(son los documentos "vivos/comerciales"); el Business Model debería citar esos
-rangos, no unos propios. Nota para una futura revisión del Business Model (fuera del
-alcance de este sistema, que no modifica documentos existentes).
+**Dirección.** La Oferta y el Revenue System son la fuente de verdad de precios; el
+Business Model debe citar esos rangos, no unos propios.
+
+> ✅ **RESUELTO.** Business Model §3.2 ahora **cita** la grilla canónica de Offer/Revenue
+> System (Build 1.500–7.900, Operate 95–1.300) en vez de rangos propios, con una nota
+> explícita de que no redefine precios. Los tres documentos coinciden.
 
 ---
 
@@ -232,8 +256,12 @@ Año 5).
 **El riesgo.** Menor, pero real: el objetivo operativo de arranque debe ser **uno**.
 Mezclar 100/110 en la misma etapa hace que el tablero no tenga una línea roja clara.
 
-**Dirección.** Fijar **NRR > 110% como objetivo de arranque** (es el más citado) y
-reservar 120% para la etapa de Escala. Se consolida en el dashboard.
+**Dirección.** Fijar **NRR > 110% como objetivo de arranque** y reservar 120% para
+Escala.
+
+> ✅ **RESUELTO.** Se unificó **NRR > 110%** en todos los documentos de arranque
+> (corregidos los "> 100%" en Business Model §3.1 y Revenue System §4.4); 120% queda
+> solo en Business Model §7 (Año 5 / Escala).
 
 ---
 
@@ -270,10 +298,13 @@ Offer §14) no tiene fricción contractual alguna; si no, "sin permanencia forza
 es falso. **El contrato real necesita una respuesta binaria que los documentos no
 dan.**
 
-**Dirección.** Decidir el término exacto: lo más coherente con "permanencia se gana,
-no se amarra" (Retention §1) es **mes a mes con aviso de 30 días desde el inicio**,
-y usar el reporte de ROI —no la cláusula— como retención. Pero debe **decidirse y
-escribirse** en la plantilla de contrato (SOP-05).
+**Dirección.** Decidir el término exacto y escribirlo en el contrato.
+
+> ✅ **RESUELTO (D2).** **Permanencia mínima de 6 meses, luego mensual** sin amarre.
+> El período mínimo protege la puesta en marcha y el primer ciclo de optimización; el
+> reporte de ROI sostiene la permanencia después. Aplicado en Offer §9–§13, Sales
+> §7.2, Retention §5.2, y la cadencia de renovación se reancló a mes 5–6 (fin del
+> mínimo) en Retention §5.1, RevOps §3.3, SOP-11 y el dashboard.
 
 ---
 
@@ -306,9 +337,12 @@ el sitio público comunica en inglés a "LatAm". Operar cobros en 1 país es dis
 a operar en "LatAm". Ningún documento define el **rail de cobro y facturación por
 país**.
 
-**Dirección.** Declarar **Chile como mercado operativo de arranque** (donde está la
-facturación y la pasarela), con LatAm como expansión, y definir el stack de cobro →
-ver [`ARVIOR_OPERATING_SYSTEM.md`](ARVIOR_OPERATING_SYSTEM.md) §4.
+**Dirección.** Declarar Chile como mercado operativo de arranque, con LatAm como
+expansión.
+
+> ✅ **RESUELTO (D6).** **Chile primero** (cobro en CLP, facturación y pasarela
+> locales), validar localmente, luego LatAm. Aplicado en Business Model §1.1 y §8
+> (contradicción 6) y en el cierre de mes (SOP-15, rail por país).
 
 ---
 
@@ -396,20 +430,21 @@ Una auditoría honesta también marca las fortalezas, para protegerlas al operar
 
 ## 7. Decisiones binarias que el fundador debe tomar (resumen accionable)
 
-Estas son las decisiones que ningún documento toma y que **bloquean la operación**
-hasta resolverse. No las decide esta auditoría; las pone sobre la mesa.
+Estas eran las decisiones que ningún documento tomaba y que bloqueaban la operación.
+**El fundador las tomó el 2026-06-02**; quedan aquí registradas como decididas.
 
-| # | Decisión pendiente | Opción por defecto sugerida | Bloquea |
+| # | Decisión | ✅ Decisión tomada | Aplicada en |
 |---|---|---|---|
-| D1 | ¿Cuándo se factura Operate? (firma / F1 / go-live) | **Go-live / primer lead (F1)** | Contrato, SOP-05 |
-| D2 | ¿Término del contrato? (12m forzado / mes a mes 30d) | **Mes a mes, aviso 30 días** | Contrato, churn |
-| D3 | ¿Stack de automatización? (cron+cola propia / servicio externo) | **Cron cPanel + cola MySQL + worker** para arrancar | Garantía < 5 min, Premium |
-| D4 | ¿Camino de WhatsApp? (API vía proveedor / humano asistido) | **Humano asistido al inicio; API al escalar** | Captura, margen |
-| D5 | ¿CAC máximo pagado en Entrada? | **Sólo referido/inbound; cero ads pagas** | Unit economics |
-| D6 | ¿Mercado operativo de cobro de arranque? | **Chile (CLP) primero; LatAm expansión** | Facturación, pasarela |
+| D1 | ¿Cuándo se factura Operate? | **Desde el día 1**; implementación arranca con Build + 1er mes de Operate pagados. No se trabaja gratis | Offer §12–§13, Sales §7.2, Onboarding §0/§1.2, SOP-05/06/08/15 |
+| D2 | ¿Término del contrato? | **Permanencia mínima 6 meses, luego mensual** sin amarre | Offer §9–§13, Sales §7.2, Retention §5 |
+| D3 | ¿Stack de automatización? | **n8n autoalojado**; no depender de plataformas externas cuando se pueda | Masterplan §7.5, Revenue System §2, OS §4.3 |
+| D4 | ¿Camino de WhatsApp? | **API Oficial** para clientes; no oficiales solo interno/experimental | Masterplan §7.5, Revenue System §2, Offer §8, Onboarding §3.2 |
+| D5 | ¿CAC de Entrada? | **Entrada cubre su CAC:** Build subido a USD 1.500–2.300 + solo referido/inbound (CAC < 800) | Offer §6/§12, Revenue System §3, Business Model §5, RevOps §1.3 |
+| D6 | ¿Mercado de cobro de arranque? | **Chile (CLP) primero; LatAm expansión** | Business Model §1.1/§8, SOP-15 |
 
-> Estas seis decisiones, tomadas, desbloquean ~80% de la ejecución. Están diseñadas
-> para resolverse en una sola sesión del fundador.
+> Las seis decisiones están **tomadas y propagadas**. Lo que queda abierto del §1.1
+> (cuello del fundador) no es una decisión binaria sino el trabajo continuo del
+> sistema operativo: delegar y automatizar en orden.
 
 ---
 

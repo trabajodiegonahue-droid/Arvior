@@ -7,6 +7,11 @@
 >
 > Base: [`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md) ·
 > [`ARVIOR_BUSINESS_MODEL.md`](ARVIOR_BUSINESS_MODEL.md)
+>
+> 💡 **Decisiones de negocio vigentes** (fundador, 2026-06-02): Operate se cobra
+> desde el día 1; la implementación arranca con Build + primer mes de Operate
+> pagados. Permanencia mínima 6 meses, luego mensual. WhatsApp por API Oficial.
+> Mercado de arranque: Chile (CLP), luego LatAm.
 
 ---
 
@@ -85,6 +90,9 @@ Decirlo de entrada protege el margen y la relación:
 - ❌ **No reemplazamos a tu equipo de ventas/atención.** El cierre humano sigue siendo
   tuyo; nosotros hacemos que llegue caliente y a tiempo.
 - ❌ **No es una web "y nos vamos".** No vendemos el Build sin Operate (ver §13, objeción).
+- ❌ **No trabajamos gratis "hasta que funcione".** La implementación arranca con
+  Build + primer mes de Operate pagados; el alcance comprometido se cumple, pero el
+  Operate se cobra desde el día 1 (ver §12 y §13).
 - ❌ **No incluye** producción de contenido de marca, fotografía, ni gestión de redes
   sociales (cotizables aparte).
 - ❌ **El Build no es "ilimitado".** Cada escenario tiene un alcance definido; lo extra
@@ -99,10 +107,11 @@ Decirlo de entrada protege el margen y la relación:
 
 | | |
 |---|---|
-| **Inversión (Build)** | CLP $790.000 – $1.300.000 · USD 850 – 1.400 |
+| **Inversión (Build)** | CLP $1.400.000 – $2.200.000 · USD 1.500 – 2.300 |
 | **Operate obligatorio** | Plan **Core** (§9) |
 | **Ideal para** | Negocio que recién ordena su captación; valida el modelo |
 | **Tiempo de entrega** | ~2–3 semanas |
+| **Canal de venta** | Solo referido / inbound (CAC bajo): el Build de Entrada **cubre su CAC** (§12) |
 
 **Incluye:**
 - 1 landing premium orientada a conversión.
@@ -123,7 +132,7 @@ IA (eso es Profesional/Premium).
 
 | | |
 |---|---|
-| **Inversión (Build)** | CLP $1.900.000 – $3.200.000 · USD 2.000 – 3.400 |
+| **Inversión (Build)** | CLP $2.500.000 – $3.800.000 · USD 2.600 – 4.000 |
 | **Operate obligatorio** | Plan **Growth** (§10) |
 | **Ideal para** | Clínicas, estudios, servicios con gasto de ads y dolor de seguimiento |
 | **Tiempo de entrega** | ~4–6 semanas |
@@ -149,14 +158,15 @@ IA (eso es Profesional/Premium).
 
 | | |
 |---|---|
-| **Inversión (Build)** | CLP $4.200.000 – $7.000.000 · USD 4.400 – 7.400 |
+| **Inversión (Build)** | CLP $4.500.000 – $7.500.000 · USD 4.700 – 7.900 |
 | **Operate obligatorio** | Plan **Intelligence** (§11) |
 | **Ideal para** | Alto volumen de consultas o ticket alto; quiere IA y operación sofisticada |
 | **Tiempo de entrega** | ~6–10 semanas |
 
 **Incluye todo lo de Profesional, más:**
 - Sitio + landings por campaña.
-- **Agente de IA conversacional** que responde, califica y agenda 24/7.
+- **Agente de IA conversacional** que responde, califica y agenda 24/7 (sobre la **API
+  Oficial de WhatsApp**, el estándar de ARVIOR para clientes).
 - Nurture multicanal + secuencias largas.
 - Integraciones a medida.
 - Calendario + recordatorios automáticos.
@@ -174,7 +184,7 @@ IA (eso es Profesional/Premium).
 |---|---|
 | **Inversión** | CLP $90.000 – $160.000 / mes · USD 95 – 170 / mes |
 | **Va con** | Build Entrada |
-| **Permanencia sugerida** | 12 meses, luego mensual |
+| **Permanencia mínima** | 6 meses, luego mensual |
 
 **Incluye cada mes:**
 - Operación e infraestructura (uptime, captura, panel funcionando).
@@ -190,7 +200,7 @@ IA (eso es Profesional/Premium).
 |---|---|
 | **Inversión** | CLP $260.000 – $480.000 / mes · USD 280 – 500 / mes |
 | **Va con** | Build Profesional |
-| **Permanencia sugerida** | 12 meses, luego mensual |
+| **Permanencia mínima** | 6 meses, luego mensual |
 
 **Incluye todo lo de Core, más:**
 - **Optimización activa de conversión** (A/B, landings, formularios, copy).
@@ -206,7 +216,7 @@ IA (eso es Profesional/Premium).
 |---|---|
 | **Inversión** | CLP $650.000 – $1.250.000 / mes · USD 680 – 1.300 / mes |
 | **Va con** | Build Premium |
-| **Permanencia sugerida** | 12 meses, luego mensual |
+| **Permanencia mínima** | 6 meses, luego mensual |
 
 **Incluye todo lo de Growth, más:**
 - **Operación del agente de IA** (monitoreo, afinamiento, mejora continua).
@@ -223,16 +233,25 @@ Para que nunca improvises en reunión:
 ```
    PRECIO TOTAL  =  Build (una vez)  +  Operate (mensual, el negocio)
 
-   Entrada      →  Build $790K–1,3M    +  Core      $90K–160K /mes
-   Profesional  →  Build $1,9M–3,2M    +  Growth    $260K–480K /mes   ⭐
-   Premium      →  Build $4,2M–7M      +  Intelligence $650K–1,25M /mes
+   Entrada      →  Build $1,4M–2,2M    +  Core      $90K–160K /mes
+   Profesional  →  Build $2,5M–3,8M    +  Growth    $260K–480K /mes   ⭐
+   Premium      →  Build $4,5M–7,5M    +  Intelligence $650K–1,25M /mes
 ```
 
 **Reglas de oro al cotizar:**
 1. **Nunca vendas Build sin Operate.** Si solo quieren el Build, sube su precio (premium "no estratégico") para desincentivarlo.
 2. **Presenta tres opciones, ancla en Profesional.** Tres precios hacen que el del medio se sienta sensato.
-3. **El Operate se cobra desde el día 1**, no "cuando esté listo". Operar empieza con la puesta en marcha.
+3. **El Operate se cobra desde el día 1**, no "cuando esté listo". La **implementación
+   arranca con Build + primer mes de Operate pagados**; ARVIOR no trabaja gratis hasta
+   que funcione.
 4. **Habla de inversión y retorno, no de costo.** "Esto se paga solo con X clientes nuevos al mes."
+5. **Entrada cubre su CAC.** Por eso Entrada se vende solo por referido/inbound (CAC
+   bajo); nunca con ads pagas que la harían perder dinero. Su Build (USD 1.500–2.300,
+   margen ~70%) supera el CAC de un cierre por referido.
+
+> **Permanencia:** todos los planes tienen **permanencia mínima de 6 meses** y luego
+> pasan a mensual sin amarre. La permanencia se gana con el valor del reporte de ROI,
+> no se usa como rehén (§13).
 
 ---
 
@@ -240,15 +259,17 @@ Para que nunca improvises en reunión:
 
 Garantías que puedes sostener sin riesgo de negocio:
 
-- ✅ **Garantía de puesta en marcha:** si en 90 días el sistema no está capturando y
-  haciendo seguimiento de leads como se prometió, seguimos trabajando sin cobrar
-  Operate hasta que funcione.
+- ✅ **Garantía de alcance:** entregamos el alcance y los hitos que define el contrato.
+  Si algo de lo comprometido no queda funcionando, lo completamos sin cobrarte Build
+  adicional. *(No es "trabajamos gratis hasta que vendas": es que cumplimos lo que
+  firmamos. El Operate se cobra desde el día 1, §12 regla 3.)*
 - ✅ **Garantía de respuesta < 5 minutos:** el seguimiento automático responde al lead
   en menos de 5 minutos, o ajustamos el sistema sin costo.
 - ✅ **Tus datos son tuyos:** si algún día te vas, te entregamos tu base de leads
   exportada. (Sin cláusulas de rehén — la permanencia la gana el valor, no el encierro.)
-- ✅ **Sin permanencia forzada tras el período inicial:** mensual después de los 12
-  meses. Te quedas porque rinde.
+- ✅ **Permanencia mínima de 6 meses, luego mensual:** el período inicial protege la
+  puesta en marcha y el primer ciclo de optimización; después te quedas mes a mes
+  porque rinde, no porque estés amarrado.
 
 > ⚠️ **Lo que NO se garantiza** (decirlo da credibilidad): no garantizamos *cantidad*
 > de ventas — eso depende de tu tráfico, tu oferta y tu equipo de cierre. Garantizamos

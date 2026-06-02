@@ -26,8 +26,10 @@ Tres reglas que lo gobiernan:
    que funciona.
 2. **El cliente nunca está en silencio.** Comunicación proactiva en cada hito; el
    cliente siempre sabe qué pasó, qué sigue y cuándo.
-3. **Operate empieza el día 1.** No se cobra "cuando esté listo": operar arranca con la
-   puesta en marcha ([Offer §12, regla 3](ARVIOR_OFFER.md)).
+3. **Operate se cobra desde el día 1** y la **implementación arranca con Build +
+   primer mes de Operate pagados** ([Offer §12, regla 3](ARVIOR_OFFER.md)). No se
+   trabaja gratis "hasta que funcione": el primer mes de Operate ya está pagado cuando
+   empieza el build.
 
 ---
 
@@ -52,7 +54,8 @@ el cliente nunca tenga que repetir lo que ya contó en la venta.
 ### 1.2 Acciones automáticas del día 0
 
 - Crear la cuenta en el sistema de ARVIOR (cliente, proyecto, plan de Operate activo).
-- Confirmar primer pago / OC; activar facturación recurrente desde la puesta en marcha.
+- **Confirmar pago de Build + primer mes de Operate** (es lo que habilita el arranque
+  de la implementación); activar facturación recurrente **desde el día 1**.
 - Agendar el **kickoff** (≤ 5 días hábiles desde el pago).
 - Enviar correo de bienvenida con: qué sigue, qué necesitamos de él, fecha de kickoff y
   un punto de contacto con nombre y cara (no un "soporte@").
@@ -98,7 +101,7 @@ goteo (mata la confianza y atrasa).
 | Acceso | Para qué | Cuándo |
 |---|---|---|
 | Dominio / DNS | Publicar el sitio/landing | Antes de salir a producción |
-| Cuenta de WhatsApp Business | Captura y respuesta por WhatsApp | Fase de captura |
+| WhatsApp Business **API** (Oficial, vía BSP) | Captura y respuesta automática por WhatsApp — estándar de ARVIOR | Fase de captura |
 | Plataforma de ads (lectura) | Conectar y medir el embudo | Si hay integración con ads |
 | Calendario | Agendamiento integrado | Profesional/Premium |
 | CRM/herramienta actual | Integrar o migrar datos | Si aplica |
@@ -213,8 +216,8 @@ Al cerrar el primer mes / go-live, la cuenta pasa formalmente a **modo Operate**
 ```
 DÍA 0 — HANDOFF Y ACTIVACIÓN
 [ ] Paquete de handoff de Comercial completo (§1.1)
-[ ] Cuenta creada + Operate activado + facturación recurrente
-[ ] Primer pago / OC confirmado
+[ ] Cuenta creada + Operate activado + facturación recurrente (desde día 1)
+[ ] Pago de Build + primer mes de Operate confirmado (habilita el arranque)
 [ ] Correo de bienvenida enviado (contacto con nombre)
 [ ] Kickoff agendado (≤5 días hábiles)
 [ ] Primer referido solicitado

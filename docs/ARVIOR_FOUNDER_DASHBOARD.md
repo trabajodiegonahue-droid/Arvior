@@ -127,7 +127,7 @@ Cuatro reglas:
  Rojos atendidos <48h: ___/___
  ROI demostrado:       ___/___ cuentas
  % subieron de plan (6m): __%
- Renovaciones próximas (mes 10–11): ___
+ Cuentas llegando a fin del mínimo (mes 5–6): ___
 ```
 
 ### 3.3 Vista 3 — Mix de cartera (resuelve Audit §2.2)
