@@ -34,13 +34,13 @@ y **se queda corriendo el sistema**.
 La regla anti-agencia: **un ICP nítido, no "negocios modernos".** Empezamos
 angostos a propósito; la amplitud llega con el producto, no con el servicio.
 
-### 1.1 ICP principal — PYME de servicios en crecimiento (LatAm, hispanohablante)
+### 1.1 ICP principal — PYME de servicios en crecimiento (Chile primero → LatAm hispanohablante)
 
 | Dimensión | Definición |
 |---|---|
 | **Quién** | Negocios de servicios establecidos y en crecimiento: clínicas (dental/estética/salud), despachos profesionales (legal/contable), inmobiliarias, retail multi-sucursal, e-commerce con operación real, franquicias locales |
 | **Tamaño** | 10–50 empleados · facturación aprox. USD 300K–5M/año |
-| **Geografía** | LatAm hispanohablante primero (coherente con admin/WhatsApp en español) |
+| **Geografía** | **Chile primero** (mercado operativo de cobro: CLP, facturación y pasarela locales), luego LatAm hispanohablante. Validar el sistema localmente antes de escalar |
 | **Quién decide** | Dueño/a o gerente general. Ciclo de venta corto, decisión emocional + ROI |
 | **Dolor central** | "Crecimos más rápido que nuestras herramientas": web genérica que no convierte, leads que se pierden en WhatsApp/planillas, procesos manuales, equipo saturado |
 | **Señal de oportunidad** | **Ya gastan en marketing** (ads, redes) pero pierden lo que captan por falta de sistema detrás. Tienen presupuesto y dolor, no madurez técnica |
@@ -121,21 +121,29 @@ Esto alinea el discurso ("el sistema es la entrega") con la oferta real.
 |---|---|---|---|
 | **1. Build (Setup)** | Diseño + construcción del Revenue System | One-time | Genera caja y margen inmediato; **financia el CAC** |
 | **2. Operate (Core)** | Hosting + mantenimiento + automatizaciones e IA corriendo + soporte + optimización | **Recurrente mensual** | **El negocio.** MRR → ARR |
-| **3. Grow (Expansión)** | Nuevos módulos, más automatización, agentes de IA, operaciones, retainer de crecimiento | Recurrente / proyecto | **NRR > 100%**: el cliente crece dentro de ARVIOR |
+| **3. Grow (Expansión)** | Nuevos módulos, más automatización, agentes de IA, operaciones, retainer de crecimiento | Recurrente / proyecto | **NRR > 110%**: el cliente crece dentro de ARVIOR |
 
 > **Regla de oro comercial:** nunca vender Build sin Operate. Si un cliente solo
 > quiere el one-time, es cliente de agencia, no de ARVIOR (o se cobra el Build a
 > precio de "no estratégico", premium, para desincentivarlo).
+>
+> **Facturación (decisión vigente):** Operate se cobra **desde el día 1** y la
+> implementación arranca con Build + primer mes de Operate pagados. ARVIOR no trabaja
+> gratis "hasta que funcione". **Permanencia mínima: 6 meses**, luego mensual.
 
-### 3.2 Cifras ilustrativas de arranque (LatAm PYME — a validar)
+### 3.2 Cifras ilustrativas de arranque (PYME, Chile/CLP primero — a validar)
 
-| Métrica | Rango de arranque | A validar con |
+> Los rangos de precio canónicos viven en [`ARVIOR_OFFER.md`](ARVIOR_OFFER.md) §6–§12
+> y [`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md) §3; esta tabla los cita, no
+> los redefine.
+
+| Métrica | Rango de arranque (USD) | A validar con |
 |---|---|---|
-| Build (setup) | USD 1,500 – 6,000 | Primeros 5 cierres |
-| Operate (MRR) | USD 200 – 1,200 / mes | Disposición a pagar mensual |
-| Grow (upsell) | +USD 150 – 800 / mes | Expansión a los 3–6 meses |
-| **ACV recurrente** | **USD 3,000 – 18,000 / año** | Mezcla de la cartera |
-| Margen bruto recurrente | 75 – 85% | Costo real de operar (infra + tu tiempo + tokens IA) |
+| Build (setup) | 1.500 – 7.900 (Entrada 1.500–2.300 · Pro 2.600–4.000 · Premium 4.700–7.900) | Primeros 5 cierres |
+| Operate (MRR) | 95 – 1.300 / mes (Core 95–170 · Growth 280–500 · Intelligence 680–1.300) | Disposición a pagar mensual |
+| Grow (upsell) | +150 – 800 / mes | Expansión a los 3–6 meses |
+| **ACV recurrente** | **1.200 – 16.000 / año** (según plan y expansión) | Mezcla de la cartera |
+| Margen bruto recurrente | 75 – 85% | Costo real de operar (infra n8n + tu tiempo + tokens IA + conversaciones WhatsApp API) |
 
 El margen alto del recurrente es posible **gracias a** la decisión de infra simple
 del Masterplan (PHP plano, hosting eficiente, sin stack pesado). Aquí esa decisión
@@ -202,7 +210,7 @@ externo para empezar (sí puede acelerarse con él más adelante).
 |---|---|---|
 | **MRR** | Σ Operate + Grow de todas las cuentas | Crecer mes a mes |
 | **ARR** | MRR × 12 | Métrica de board, reemplaza "leads/semana" |
-| **CAC** | Costo de adquirir una cuenta (tu tiempo + ads + contenido). Parcialmente **cubierto por el fee de Build** | < USD 1,500; idealmente neto ≤ 0 vía Build |
+| **CAC** | Costo de adquirir una cuenta (tu tiempo + ads + contenido). **Cubierto por el margen del Build** | **Segmentado:** Entrada < USD 800 (solo referido/inbound) · Profesional/Premium < USD 1.500. En todos los casos el margen del Build cubre el CAC (neto ≤ 0) |
 | **LTV** | MRR × margen bruto × vida media (meses) + margen del Build | > 4× CAC |
 | **Vida media** | 1 / churn mensual | > 30 meses |
 | **Churn lógico** | % cuentas que cancelan el recurrente / mes | < 2–3% mensual |
@@ -222,6 +230,20 @@ LTV total       = 14,400 + 2,100 (Build)   = USD 16,500
 LTV : CAC       = 16,500 / 1,000           ≈ 16:1   (objetivo > 4:1 ✔, holgado)
 Payback         ≈ inmediato (Build cubre CAC) ✔
 ```
+
+**Verificación del escalón Entrada (que el Build cubra el CAC):**
+
+```
+Build Entrada:   USD 1,500   margen ~70% → 1,050
+CAC Entrada:     < USD 800   (solo referido/inbound; cero ads pagas)
+Margen Build − CAC = 1,050 − 800 = +250   → el Build cubre el CAC ✔ (neto positivo)
+```
+
+> Entrada **no pierde dinero desde el inicio**: su Build cubre su CAC siempre que se
+> venda por canales baratos (referido/inbound). Si se intentara adquirir Entrada con
+> ads pagas, el CAC subiría por encima del margen del Build y dejaría de cumplir esta
+> regla — por eso Entrada está restringida a canales de bajo CAC ([Offer §12, regla
+> 5](ARVIOR_OFFER.md)).
 
 > El número clave a vigilar no es el LTV optimista — es **el churn y la vida
 > media**. Si las cuentas no se quedan, todo el modelo colapsa. Por eso la
@@ -296,8 +318,9 @@ una agencia, por definición de su modelo, no puede acumular.
 No roadmap de features — **roadmap de negocio.** Cada hito define la pregunta que
 hay que responder antes de avanzar.
 
-### Año 1 — *Validar el wedge y nacer el recurrente*
-- **Producto:** Revenue System estandarizado sobre el repo actual; primeros módulos de automatización + IA en producción.
+### Año 1 — *Validar el wedge y nacer el recurrente (en Chile)*
+- **Producto:** Revenue System estandarizado sobre el repo actual; primeros módulos de automatización (motor **n8n** autoalojado) + IA + WhatsApp API en producción.
+- **Mercado:** Chile primero — validar el sistema localmente (cobro CLP) antes de abrir LatAm.
 - **Negocio:** 10–25 cuentas recurrentes. **ARR USD 60–180K.** Build financia el CAC.
 - **Foco:** dominar **un problema replicable** (el Revenue System) en un conjunto de rubros con el mismo dolor — no un solo vertical (ver [`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md)). Reemplazar portfolio placeholder por 3–5 casos reales con métricas.
 - **Pregunta a responder:** ¿el cliente paga mensual y se queda? (churn < 3%).
@@ -331,7 +354,7 @@ hay que responder antes de avanzar.
 | # | Contradicción detectada | Resolución en este modelo |
 |---|---|---|
 | **2** | Visión "dejar de venderse proyecto por proyecto" vs todo optimizado a leads | El proyecto (Build) es el **CAC financiado**; el negocio es el recurrente (Operate + Grow). No se elimina el proyecto, se le da su rol correcto (§0, §3) |
-| **6** | Copy en inglés vs operación en español → mercado indefinido | **Mercado primario: LatAm hispanohablante** (ICP §1.1). Español primero; inglés se reserva para el ICP secundario internacional/US-hispano. Decisión tomada, no ambigua |
+| **6** | Copy en inglés vs operación en español → mercado indefinido | **Mercado operativo de arranque: Chile** (cobro en CLP, facturación y pasarela locales), luego LatAm hispanohablante (ICP §1.1). Español primero; inglés se reserva para el ICP secundario internacional/US-hispano. Decisión tomada, no ambigua |
 | **1** | "No vendemos páginas" vs línea #1 = Websites | "Websites" nunca se vende solo: es el front-end del Revenue System (§2.2) |
 | **3** | "Premium" vs infra de bajo costo | La infra simple se recategoriza como **ventaja de margen** del recurrente, no como valor de marca (§3.2) |
 | **4** | "Confiabilidad sobre novedad" vs IA destacada | La IA se despliega como **agentes acotados y confiables** sobre rieles probados (Operate), no como features experimentales sueltas |

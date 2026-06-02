@@ -235,15 +235,16 @@ un **artefacto obligatorio** que viaja con la cuenta:
 
 ### 4.3 Decisiones de stack pendientes (de Audit §7)
 
-El sistema de gestión depende de tres decisiones binarias que el fundador debe
-cerrar (Audit §7), porque condicionan qué se construye:
+El sistema de gestión se apoya en tres decisiones del fundador ya tomadas (Audit §7),
+porque condicionan qué se construye:
 
-- **D3 — Runtime de automatización:** dónde corren las secuencias, la respuesta < 5
-  min y los agentes de IA. Por defecto sugerido: **cron del cPanel + cola en MySQL +
-  worker** para arrancar; servicio externo de colas al escalar. **Esto es parte de
-  Core, no del sitio público.**
-- **D4 — WhatsApp:** humano asistido al inicio, API vía proveedor al escalar.
-- **D6 — Cobro:** pasarela y facturación de Chile primero (CLP), LatAm como
+- **D3 — Runtime de automatización: `n8n` autoalojado** como estándar. Es donde corren
+  las secuencias, la respuesta < 5 min y los agentes de IA. **Se prioriza no depender
+  de plataformas externas** cuando n8n lo resuelve. **Es parte de Core, no del sitio
+  público** ([Masterplan §7.5](ARVIOR_MASTERPLAN.md)).
+- **D4 — WhatsApp: API Oficial** (vía BSP) como estándar para clientes; soluciones no
+  oficiales solo para pruebas internas/experimentales.
+- **D6 — Cobro:** pasarela y facturación de **Chile primero (CLP)**, LatAm como
   expansión.
 
 > Hasta que el CRM de 5 etapas y el runtime de automatización existan en Core, el
@@ -309,8 +310,8 @@ cerrar (Audit §7), porque condicionan qué se construye:
    el "caso #0" que hace creíble la venta (Audit §3.6).
 3. **Generación del reporte de ROI** (datos automáticos; la conversación sigue
    siendo humana). Ataca la trampa de tiempo del §6.1.
-4. **Secuencias de seguimiento/nurture** (email primero, WhatsApp después por D4).
-5. **Facturación recurrente** (cobro automático desde go-live, D1).
+4. **Secuencias de seguimiento/nurture** sobre n8n (email primero, WhatsApp API después por D4).
+5. **Facturación recurrente** (cobro automático **desde el día 1**, D1).
 6. **Alertas de health score** (que el rojo avise solo, no que se descubra tarde).
 
 > **La secuencia 6.2 + 6.3 es el plan de descompresión del fundador.** Cada elemento

@@ -96,6 +96,13 @@ dedupe + CMS + leads + mailing — ver [`ARVIOR_MASTERPLAN.md`](ARVIOR_MASTERPLA
 seguimiento y conversión montadas encima. Ese es el 80% repetible que se vuelve
 [Core](ARVIOR_BUSINESS_MODEL.md#42-fase-plataforma-interna--arvior-core).
 
+> **Estándares técnicos del sistema** (decisiones de arquitectura, Masterplan §7.4):
+> el sitio público sigue en PHP plano, pero las etapas SEGUIR/CONVERTIR (respuesta
+> < 5 min, secuencias, agentes de IA) corren sobre **n8n** como motor de
+> automatización de ARVIOR Core —autoalojado, sin depender de plataformas externas
+> cuando es evitable—; y el canal WhatsApp con clientes usa la **API Oficial de
+> WhatsApp**. Las soluciones no oficiales quedan solo para pruebas internas.
+
 ---
 
 ## 3. Build — tres escenarios (Chile y LatAm)
@@ -127,14 +134,16 @@ adquisición (CAC), **no ser el negocio** — nunca se vende sin Operate (§4, y
 
 | Escenario | CLP (Chile) | USD (LatAm) | Para quién |
 |---|---|---|---|
-| **Entrada** | $790.000 – $1.300.000 | 850 – 1.400 | Negocio que empieza a captar en serio; valida el modelo con bajo riesgo |
-| **Profesional** | $1.900.000 – $3.200.000 | 2.000 – 3.400 | El estándar. Negocio con gasto de ads y dolor real de seguimiento |
-| **Premium** | $4.200.000 – $7.000.000 | 4.400 – 7.400 | Alto volumen / ticket alto; quiere IA y operación sofisticada |
+| **Entrada** | $1.400.000 – $2.200.000 | 1.500 – 2.300 | Negocio que empieza a captar en serio; valida el modelo con bajo riesgo. **Solo referido/inbound** (CAC bajo) para que el Build cubra su CAC |
+| **Profesional** | $2.500.000 – $3.800.000 | 2.600 – 4.000 | El estándar. Negocio con gasto de ads y dolor real de seguimiento |
+| **Premium** | $4.500.000 – $7.500.000 | 4.700 – 7.900 | Alto volumen / ticket alto; quiere IA y operación sofisticada |
 
 > El Entrada existe para bajar la fricción de entrada, **no** para vender barato. Su
-> precio de Build cubre el CAC; el negocio está en que ese cliente entra a Operate y
-> sube de escalón. Un Build sin Operate se cotiza a precio "no estratégico" (premium)
-> para desincentivarlo.
+> Build (USD 1.500–2.300, margen ~70%) **cubre el CAC** de un cierre por referido/inbound
+> (CAC objetivo Entrada < USD 800, [`ARVIOR_BUSINESS_MODEL.md`](ARVIOR_BUSINESS_MODEL.md)
+> §5.1); por eso Entrada **no se vende con ads pagas**, que la harían perder dinero. El
+> negocio está en que ese cliente entra a Operate y sube de escalón. Un Build sin
+> Operate se cotiza a precio "no estratégico" (premium) para desincentivarlo.
 
 ---
 
@@ -186,7 +195,7 @@ El recurrente está deliberadamente diseñado para que quedarse sea obvio e irse
 5. **Relación, no transacción.** La revisión estratégica (Intelligence) convierte a
    ARVIOR en asesor de crecimiento, no en proveedor de hosting.
 
-### 4.4 Expansión: la recurrencia que crece (NRR > 100%)
+### 4.4 Expansión: la recurrencia que crece (NRR > 110%)
 
 El cliente no solo se queda: **gasta más dentro de ARVIOR** sin que cueste adquirirlo
 de nuevo. Caminos de expansión:

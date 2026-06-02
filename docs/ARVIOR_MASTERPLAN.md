@@ -190,12 +190,18 @@ El sitio público de ARVIOR es la **primera demostración de producto**: si nues
 propia web es rápida, limpia y mantenible sin un stack pesado, eso *es* la prueba
 de que sabemos construir sistemas.
 
-- **Stack:** PHP plano + MySQL (PDO). Sin frameworks, sin Node en producción, sin
-  build de assets. CSS plano servido directo.
+- **Stack del sitio público:** PHP plano + MySQL (PDO). Sin frameworks, sin Node en
+  el sitio, sin build de assets. CSS plano servido directo.
 - **Hosting:** cPanel tradicional (Hostinger). Deploy por `git pull` vía Terminal
   con deploy key SSH. Ver [`DEPLOY.md`](../DEPLOY.md).
 - **Migraciones:** sistema propio idempotente (`lib/migrate.php`), corre al visitar
   `/admin/`. Los `.sql` viven numerados en `migrations/`.
+
+> **Dos capas, no una.** El *sitio público* (esta web, marketing, captura) es PHP
+> plano. La *capa de automatización y operación* —respuesta < 5 min, secuencias,
+> agentes de IA, integraciones— **no corre en el sitio**: corre en un motor de
+> automatización dedicado (ver §7.5). Confundirlas fue el riesgo que la auditoría
+> detectó; mantenerlas separadas es la decisión.
 
 ### 7.2 Mapa del repositorio
 
@@ -262,6 +268,34 @@ El panel `/admin/` ya soporta, mediante migraciones:
   login quedan claros. El rebrand del sitio no toca el panel.
 - **Sin cache de salida.** Cada request renderiza. Simplifica el modelo mental; el
   tráfico esperado no lo justifica todavía.
+
+### 7.5 Capa de automatización y operación (ARVIOR Core)
+
+La oferta recurrente promete **respuesta < 5 minutos, secuencias multicanal y agentes
+de IA 24/7** ([`ARVIOR_OFFER.md`](ARVIOR_OFFER.md) §13). Eso requiere un runtime
+siempre activo, dirigido por eventos — algo que el sitio PHP plano, sin procesos en
+segundo plano, no provee. Por eso la automatización es un sistema aparte:
+
+- **Motor de automatización: `n8n` como estándar**, autoalojado (self-hosted) en
+  infraestructura propia. Es el orquestador de webhooks, colas, secuencias,
+  recordatorios e integraciones de todas las cuentas. **Se prioriza no depender de
+  plataformas SaaS externas** cuando n8n puede resolverlo, para proteger margen,
+  datos y control.
+- **WhatsApp: API Oficial de WhatsApp** (vía proveedor BSP) como estándar para
+  clientes. Las soluciones no oficiales quedan **solo para pruebas internas o
+  experimentales**, nunca en producción de cliente. Su costo por conversación entra
+  en el margen del recurrente ([`ARVIOR_BUSINESS_MODEL.md`](ARVIOR_BUSINESS_MODEL.md) §3.2).
+- **IA aplicada:** los agentes y features de IA se orquestan desde n8n sobre rieles
+  probados (Principio §5.3, "confiabilidad sobre novedad"): acotados, monitoreados,
+  con respaldo humano, no experimentos sueltos.
+- **Coherencia con "simplicidad como ventaja":** n8n autoalojado **es** la versión
+  simple y dueña de su stack del orquestador — no contradice el principio, lo aplica
+  a la capa de operación. El sitio sigue siendo PHP plano; la automatización tiene su
+  propio motor.
+
+> Esta capa, estandarizada y reutilizada entre clientes, es buena parte de lo que el
+> [`ARVIOR_BUSINESS_MODEL.md`](ARVIOR_BUSINESS_MODEL.md) §4.2 llama **ARVIOR Core**:
+> el 80% repetible que baja el costo marginal por cuenta.
 
 ---
 

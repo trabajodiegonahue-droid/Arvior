@@ -142,14 +142,15 @@ Instanciarlos es parte de los 90 días (Operating System §7.1).
 - **Pasos:**
   1. Emitir contrato: Build (alcance + precio + plazo) **y** Operate (plan +
      mensualidad + garantías).
-  2. **Aplicar las decisiones binarias del fundador (Audit §7):**
-     - **D1 — Gatillo de cobro de Operate:** Operate se factura desde **go-live /
-       primer lead (F1)**, no desde la firma (resuelve la contradicción Audit §1.2).
-     - **D2 — Término:** mes a mes con aviso de 30 días (o el término que el fundador
-       fije), escrito explícito — no "permanencia sugerida" ambigua.
+  2. **Aplicar las decisiones del fundador (Audit §7):**
+     - **D1 — Cobro de Operate:** Operate se factura **desde el día 1**; la
+       **implementación arranca con Build + primer mes de Operate pagados**. ARVIOR
+       **no trabaja gratis** hasta que funcione (resuelve la contradicción Audit §1.2).
+     - **D2 — Permanencia:** **mínima 6 meses**, luego mensual sin amarre; escrito
+       explícito en el contrato.
   3. Condiciones de pago del Build: anticipo % + saldo contra hito.
-  4. Cobrar el anticipo / primer pago. **Sin pago, no hay cierre** (etapa 5 requiere
-     primer pago).
+  4. Cobrar el anticipo del Build **+ el primer mes de Operate**. **Sin ese pago no
+     arranca la implementación** (etapa 5 requiere el primer pago confirmado).
   5. Guardar contrato firmado en la carpeta Drive del cliente.
   6. Disparar **SOP-06 (handoff) el mismo día** y **SOP-13 (referido)**.
 - **DoD:** contrato firmado + primer pago confirmado + en Drive. CRM → **etapa 5
@@ -169,7 +170,8 @@ Instanciarlos es parte de los 90 días (Operating System §7.1).
      acordadas**, plan de Operate, decisor/usuarios, sensibilidades de plazo.
   2. Crear la cuenta en el CRM (cliente, proyecto, plan de Operate activo) y la
      **carpeta Drive**.
-  3. Activar facturación recurrente con gatillo en go-live (D1).
+  3. Activar facturación recurrente **desde el día 1** (D1); confirmar que el primer
+     mes de Operate está pagado antes de arrancar la implementación.
   4. Agendar kickoff ≤ 5 días hábiles.
   5. Enviar correo de bienvenida con **contacto con nombre y cara** (no "soporte@").
 - **DoD:** paquete de handoff completo en el CRM + cuenta creada + kickoff agendado +
@@ -207,11 +209,11 @@ Instanciarlos es parte de los 90 días (Operating System §7.1).
      - *"Captura técnicamente lista"* → comprometido por fecha (ARVIOR lo controla).
      - *"Primer lead real"* → evento esperado, **no prometido por fecha** (depende del
        tráfico del cliente).
-  4. Verificar la **automatización #1**: respuesta < 5 min funcionando antes del
-     go-live (sin esto, no hay go-live; Audit §1.3).
+  4. Verificar la **automatización #1**: respuesta < 5 min funcionando sobre **n8n**
+     (runtime estándar, D3) antes del go-live (sin esto, no hay go-live; Audit §1.3).
   5. Capacitar al equipo del cliente y entregar el panel.
-  6. Aceptación / go-live firmado → activa cobro de Operate (D1) y dispara Operate
-     (SOP-09/10).
+  6. Aceptación / go-live firmado → la cuenta pasa a **modo Operate** (el cobro de
+     Operate ya viene corriendo desde el día 1, D1) y dispara Operate (SOP-09/10).
 - **DoD:** go-live aceptado con DoD por fase cumplido + respuesta < 5 min verificada +
   cliente capacitado. Cuenta pasa a modo Operate.
 
@@ -248,7 +250,9 @@ Instanciarlos es parte de los 90 días (Operating System §7.1).
      secuencias de seguimiento y respuesta (humano + IA).
   3. Registrar **qué se optimizó** (alimenta el reporte SOP-09 — "esto es lo que hago
      por ti").
-  4. Vigilar costos variables (tokens IA, conversaciones WhatsApp) contra el margen.
+  4. Vigilar costos variables (tokens IA, conversaciones **WhatsApp API Oficial**)
+     contra el margen. WhatsApp con clientes siempre por API Oficial (D4); soluciones
+     no oficiales solo en pruebas internas.
 - **DoD:** sistema operando sin incidentes abiertos + al menos una mejora registrada
   en el mes + costos dentro de margen.
 
@@ -265,7 +269,8 @@ Instanciarlos es parte de los 90 días (Operating System §7.1).
   3. **Plan de rescate (rojo):** contacto directo en 48 h → escuchar primero →
      re-demostrar ROI con sus números → resolver el dolor concreto → **ofrecer bajar
      de plan antes que perder la cuenta** → registrar razón de churn si igual se va.
-  4. Pre-renovación (mes 10–11): reunión de balance del año + plan del próximo.
+  4. Pre-fin del mínimo (mes 5): reunión de balance del semestre + plan de continuidad
+     hacia el mes 6 (fin de la permanencia mínima); balance anual para cuentas de larga vida.
 - **DoD:** toda cuenta con color asignado; rojos con plan de rescate activo < 48 h;
   razón de churn registrada si aplica (taxonomía RevOps §5.1).
 
@@ -324,8 +329,8 @@ Instanciarlos es parte de los 90 días (Operating System §7.1).
 - **Disparador:** fin de mes calendario.
 - **Dueño:** RevOps. **Fuente:** RevOps §2.2, §3. **Atiende D6 (cobro por país).**
 - **Pasos:**
-  1. **Facturar** todas las cuentas en Operate (recurrente desde go-live, D1), por el
-     rail del país (Chile/CLP primero, D6). Emitir boleta/factura según corresponda.
+  1. **Facturar** todas las cuentas en Operate (recurrente **desde el día 1**, D1), por
+     el rail del país (Chile/CLP primero, D6). Emitir boleta/factura según corresponda.
   2. Conciliar cobros; marcar atrasos (entra al health score, SOP-11).
   3. Consolidar **MRR neto** = nuevo + expansión − contracción − churn.
   4. Calcular **churn lógico y NRR** del mes.

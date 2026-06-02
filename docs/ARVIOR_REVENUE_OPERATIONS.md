@@ -67,7 +67,7 @@ Tres principios:
 
 | Métrica | Fórmula | Objetivo arranque |
 |---|---|---|
-| **CAC** | (Costo de ventas + marketing del período) / cuentas ganadas | < USD 1.500; idealmente neto ≤ 0 vía Build |
+| **CAC** | (Costo de ventas + marketing del período) / cuentas ganadas. **Se mide por escalón** | **Entrada < USD 800** (solo referido/inbound) · **Profesional/Premium < USD 1.500**. En todos, el margen del Build cubre el CAC (neto ≤ 0) |
 | **Margen del Build** | (Precio Build − costo de entrega) / precio Build | ~70% |
 | **Margen del recurrente** | (MRR − costo de operación) / MRR | 75–85% |
 | **LTV** | (MRR × margen recurrente × vida media) + margen del Build | — |
@@ -153,7 +153,7 @@ Tres vistas. La regla: **el negocio (recurrente) se lee antes que la adquisició
  Rojos con rescate activo:    ___ / ___
  ROI demostrado este mes:     ___ / ___ cuentas
  Cuentas que subieron de plan (6m): __%
- Renovaciones próximas (mes 10-11):  ___
+ Cuentas llegando a fin del mínimo (mes 5-6): ___
 ```
 
 ### 3.4 Las 12 métricas mínimas del fundador
@@ -225,8 +225,11 @@ Coherente con [`ARVIOR_BUSINESS_MODEL.md`](ARVIOR_BUSINESS_MODEL.md) §7:
 | **Escala** | — | USD 10M+ | ¿NRR > 120%, rentable o listo para acelerar? |
 
 > En la etapa actual (Validación), las dos preguntas que todo el tablero existe para
-> responder son: **(1) ¿el churn se mantiene < 3%?** y **(2) ¿el Build cubre el CAC?**
-> Todo lo demás es secundario hasta confirmar esas dos.
+> responder son: **(1) ¿el churn se mantiene < 3%?** y **(2) ¿el Build cubre el CAC
+> por escalón?** (Entrada < USD 800 vía referido/inbound; Profesional/Premium < USD
+> 1.500). Por diseño de precios la respuesta a (2) es sí; el tablero lo **vigila** para
+> que no se rompa al meter ads en Entrada. Todo lo demás es secundario hasta confirmar
+> esas dos.
 
 ---
 
