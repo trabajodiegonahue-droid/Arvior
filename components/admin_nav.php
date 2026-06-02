@@ -31,6 +31,11 @@ $activeLeads = $view === '' || $view === 'leads';
         <span>Leads</span>
     </a>
 
+    <a class="admin-sidebar__link<?= $is('accounts') || $is('account_edit') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=accounts">
+        <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/><path d="M8 11v6"/><path d="M16 11v6"/></svg>
+        <span>Cuentas</span>
+    </a>
+
     <a class="admin-sidebar__link<?= $is('pages') || $is('page') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=pages">
         <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>
         <span>Páginas</span>

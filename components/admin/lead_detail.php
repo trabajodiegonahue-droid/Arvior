@@ -1,11 +1,20 @@
 <?php
-/** Requiere: $lead, $notes, $LEAD_STATUSES */
+/** Requiere: $lead, $notes (timeline de lead_activities), $LEAD_STATUSES */
+// Etiqueta legible por tipo de actividad.
+$activityLabel = function (array $n): string {
+    switch ($n['type'] ?? 'note') {
+        case 'created':       return 'Lead capturado';
+        case 'status_change': return 'Estado: ' . ($n['from_status'] ?? '?') . ' → ' . ($n['to_status'] ?? '?');
+        case 'note':          return 'Nota';
+        default:              return (string) ($n['type'] ?? 'Actividad');
+    }
+};
 ?>
 <header class="admin-header">
     <div>
         <div style="margin-bottom:.3rem;"><a href="/admin/" class="text-muted" style="font-size:.88rem;">← Volver a leads</a></div>
         <h1><?= htmlspecialchars($lead['name']) ?> <span class="badge badge--<?= htmlspecialchars($lead['status']) ?>" style="font-size:.7rem;vertical-align:middle;"><?= htmlspecialchars($lead['status']) ?></span></h1>
-        <div class="admin-header__sub">Lead #<?= (int) $lead['id'] ?> · <?= htmlspecialchars($lead['created_at']) ?></div>
+        <div class="admin-header__sub">Lead #<?= (int) $lead['id'] ?> · <?= htmlspecialchars($lead['created_at']) ?><?php if (!empty($lead['account_name'])): ?> · Cuenta: <strong><?= htmlspecialchars($lead['account_name']) ?></strong><?php endif; ?></div>
     </div>
     <div class="admin-header__actions">
         <a class="btn btn--secondary" href="mailto:<?= htmlspecialchars($lead['email']) ?>">Responder por email</a>
@@ -38,7 +47,7 @@
 </section>
 
 <section class="admin-section">
-    <h2>Notas</h2>
+    <h2>Actividad</h2>
     <?php if (!empty($lead['notes'])): ?>
         <div class="alert" style="margin-bottom:1rem;">
             <strong>Notas legacy:</strong>
@@ -47,20 +56,19 @@
     <?php endif; ?>
 
     <?php if (empty($notes)): ?>
-        <?php if (empty($lead['notes'])): ?>
-            <p class="text-muted" style="margin:0 0 1rem;">Todavía no hay notas.</p>
-        <?php endif; ?>
+        <p class="text-muted" style="margin:0 0 1rem;">Todavía no hay actividad.</p>
     <?php else: ?>
         <ul class="notes-list">
             <?php foreach ($notes as $n): ?>
                 <li>
                     <div class="note__meta">
-                        <span><?= htmlspecialchars($n['created_at']) ?></span>
-                        <?php if ($n['author_email']): ?>
+                        <span class="badge badge--<?= $n['type'] === 'note' ? 'qualified' : ($n['type'] === 'created' ? 'new' : 'contacted') ?>" style="font-size:.62rem;"><?= htmlspecialchars($activityLabel($n)) ?></span>
+                        <span class="dot"></span><span><?= htmlspecialchars($n['created_at']) ?></span>
+                        <?php if (!empty($n['author_email'])): ?>
                             <span class="dot"></span><span><?= htmlspecialchars($n['author_email']) ?></span>
                         <?php endif; ?>
                     </div>
-                    <div><?= nl2br(htmlspecialchars($n['body'])) ?></div>
+                    <?php if (!empty($n['body'])): ?><div><?= nl2br(htmlspecialchars($n['body'])) ?></div><?php endif; ?>
                 </li>
             <?php endforeach; ?>
         </ul>

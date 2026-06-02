@@ -1,13 +1,17 @@
 <?php
-/** Requiere: $stats, $leads, $search, $statusFilter, $page, $totalPages, $totalLeads, $LEAD_STATUSES, $paginationUrl */
+/** Requiere: $stats, $leads, $search, $statusFilter, $accountFilter, $accounts, $accountsMap, $page, $totalPages, $totalLeads, $LEAD_STATUSES, $paginationUrl */
+$accountFilter = $accountFilter ?? 0;
+$accounts      = $accounts ?? [];
+$accountsMap   = $accountsMap ?? [];
+$activeAccountName = $accountFilter > 0 ? ($accountsMap[$accountFilter] ?? ('#' . $accountFilter)) : '';
 ?>
 <header class="admin-header">
     <div>
-        <h1>Leads</h1>
-        <div class="admin-header__sub">Contactos recibidos desde el sitio.</div>
+        <h1>Leads<?php if ($activeAccountName !== ''): ?> · <span class="text-muted"><?= htmlspecialchars($activeAccountName) ?></span><?php endif; ?></h1>
+        <div class="admin-header__sub">Contactos recibidos<?= $activeAccountName !== '' ? ' para esta cuenta.' : ' (todas las cuentas).' ?></div>
     </div>
     <div class="admin-header__actions">
-        <a class="btn btn--secondary" href="/admin/?action=export_csv&amp;<?= http_build_query(['search' => $search, 'status_filter' => $statusFilter]) ?>">
+        <a class="btn btn--secondary" href="/admin/?action=export_csv&amp;<?= http_build_query(array_filter(['account' => $accountFilter ?: '', 'search' => $search, 'status_filter' => $statusFilter])) ?>">
             Exportar CSV
         </a>
     </div>
@@ -21,6 +25,17 @@
 </div>
 
 <form method="get" class="filters">
+    <?php if (!empty($accounts)): ?>
+    <div class="filters__group">
+        <label for="account">Cuenta</label>
+        <select id="account" name="account">
+            <option value="">Todas</option>
+            <?php foreach ($accounts as $acc): ?>
+                <option value="<?= (int) $acc['id'] ?>" <?= $accountFilter === (int) $acc['id'] ? 'selected' : '' ?>><?= htmlspecialchars($acc['name']) ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <?php endif; ?>
     <div class="filters__group">
         <label for="search">Buscar</label>
         <input type="search" id="search" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Nombre, email o teléfono">
@@ -36,7 +51,7 @@
     </div>
     <div class="filters__group filters__group--actions">
         <button type="submit" class="btn">Filtrar</button>
-        <?php if ($search !== '' || $statusFilter !== ''): ?>
+        <?php if ($search !== '' || $statusFilter !== '' || $accountFilter > 0): ?>
             <a href="/admin/" class="btn btn--ghost">Limpiar</a>
         <?php endif; ?>
     </div>
@@ -53,6 +68,7 @@
             <tr>
                 <th style="width:60px;">ID</th>
                 <th>Fecha</th>
+                <?php if ($activeAccountName === ''): ?><th>Cuenta</th><?php endif; ?>
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Source</th>
@@ -65,6 +81,9 @@
                 <tr>
                     <td class="text-muted text-tabular">#<?= (int) $l['id'] ?></td>
                     <td class="text-muted text-tabular"><?= htmlspecialchars($l['created_at']) ?></td>
+                    <?php if ($activeAccountName === ''): ?>
+                        <td class="text-muted"><?= htmlspecialchars($accountsMap[(int) ($l['account_id'] ?? 0)] ?? '—') ?></td>
+                    <?php endif; ?>
                     <td><strong><?= htmlspecialchars($l['name']) ?></strong></td>
                     <td><?= htmlspecialchars($l['email']) ?></td>
                     <td class="text-muted"><?= htmlspecialchars($l['source'] ?? 'website') ?></td>

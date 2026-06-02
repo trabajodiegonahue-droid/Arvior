@@ -49,51 +49,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
     }
 
     csrfCheck();
-    $name    = trim($_POST['name']    ?? '');
-    $email   = trim($_POST['email']   ?? '');
-    $phone   = trim($_POST['phone']   ?? '');
-    $message = trim($_POST['message'] ?? '');
-    $source  = trim($_POST['source']  ?? 'website');
+    $name  = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
 
     if (!$name || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Nombre y email válido son requeridos.';
     } else {
-        // Duplicate check: mismo email en los últimos 5 minutos → fake success.
-        $dupe = getDB()->prepare(
-            'SELECT COUNT(*) FROM leads
-             WHERE email = ? AND created_at > DATE_SUB(NOW(), INTERVAL 5 MINUTE)'
-        );
-        $dupe->execute([$email]);
+        // El sitio propio de ARVIOR escribe en la cuenta interna. La creación
+        // (validación + dedup por cuenta + insert + actividad) está centralizada
+        // en leadCreate(); intake.php usa la misma para las cuentas de clientes.
+        $accountId = accountInternalId();
 
-        if ((int) $dupe->fetchColumn() > 0) {
-            redirect('/?sent=1');
+        if ($accountId === null) {
+            // Esquema todavía sin migrar (R1): no romper el form público.
+            error_log('index.php submit_lead: cuenta interna no disponible (¿migraciones sin correr?).');
+            redirect('/gracias');
         }
 
-        $db = getDB();
-        $stmt = $db->prepare(
-            'INSERT INTO leads (name, email, phone, message, source, status, ip_address, user_agent)
-             VALUES (?, ?, ?, ?, ?, "new", ?, ?)'
-        );
-        $stmt->execute([
-            $name, $email, $phone, $message, $source,
-            clientIp(),
-            substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 500),
-        ]);
-
-        $lead = [
-            'id'      => (int) $db->lastInsertId(),
+        $result = leadCreate([
             'name'    => $name,
             'email'   => $email,
-            'phone'   => $phone,
-            'message' => $message,
-            'source'  => $source,
-        ];
+            'phone'   => $_POST['phone']   ?? '',
+            'message' => $_POST['message'] ?? '',
+            'source'  => $_POST['source']  ?? 'website',
+        ], $accountId);
 
-        // Notificaciones: no deben romper el flujo si fallan.
-        try { notifyLeadCreated($lead); }   catch (Throwable $e) { error_log('notifyLead: ' . $e->getMessage()); }
-        try { sendLeadAutoReply($lead); }   catch (Throwable $e) { error_log('autoReply: ' . $e->getMessage()); }
-
-        redirect('/gracias');
+        if (empty($result['ok'])) {
+            $error = $result['error'] ?? 'No se pudo enviar el formulario.';
+        } else {
+            // Dedup silencioso o alta real: en ambos casos, éxito de cara al usuario.
+            if (empty($result['duplicate']) && !empty($result['lead'])) {
+                $lead = $result['lead'];
+                // Notificaciones: no deben romper el flujo si fallan.
+                try { notifyLeadCreated($lead); } catch (Throwable $e) { error_log('notifyLead: ' . $e->getMessage()); }
+                try { sendLeadAutoReply($lead); } catch (Throwable $e) { error_log('autoReply: ' . $e->getMessage()); }
+            }
+            redirect('/gracias');
+        }
     }
 }
 

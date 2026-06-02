@@ -15,6 +15,8 @@ require __DIR__ . '/mail.php';
 require __DIR__ . '/migrate.php';
 require __DIR__ . '/media_library.php';
 require __DIR__ . '/business.php';
+require __DIR__ . '/accounts.php';
+require __DIR__ . '/leads.php';
 require __DIR__ . '/layout.php';
 
 // Errores: log a archivo, nunca mostrar en producción.
