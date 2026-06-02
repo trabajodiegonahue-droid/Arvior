@@ -267,11 +267,14 @@ más. Eso alimenta un **flywheel**: cada cliente mejora el sistema → el sistem
 mejora a cada cliente nuevo → ARVIOR rinde más que cualquiera que empiece de cero.
 Es el foso que la estética nunca dará.
 
-### 6.4 Foso 4 — Foco vertical + reputación
+### 6.4 Foso 4 — Foco por problema + reputación
 
-Dominar un vertical (ej. clínicas) crea **lenguaje, casos y referidos** que un
-generalista no puede igualar. La marca premium (Brand System) aquí sí aporta: es el
-*envoltorio* del foso, no el foso.
+ARVIOR no se ancla a un vertical: se ancla a un **problema replicable** (captar,
+calificar, seguir, convertir) que se repite en muchos rubros. Dominar ese problema
+crea **lenguaje, casos y referidos** que un generalista no puede igualar, sin
+encerrar a ARVIOR en una sola industria (ver
+[`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md) §1). La marca premium (Brand
+System) aquí sí aporta: es el *envoltorio* del foso, no el foso.
 
 ### 6.5 Resumen del foso económico
 
@@ -296,7 +299,7 @@ hay que responder antes de avanzar.
 ### Año 1 — *Validar el wedge y nacer el recurrente*
 - **Producto:** Revenue System estandarizado sobre el repo actual; primeros módulos de automatización + IA en producción.
 - **Negocio:** 10–25 cuentas recurrentes. **ARR USD 60–180K.** Build financia el CAC.
-- **Foco:** elegir **un vertical** y volverse el mejor en él. Reemplazar portfolio placeholder por 3–5 casos reales con métricas.
+- **Foco:** dominar **un problema replicable** (el Revenue System) en un conjunto de rubros con el mismo dolor — no un solo vertical (ver [`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md)). Reemplazar portfolio placeholder por 3–5 casos reales con métricas.
 - **Pregunta a responder:** ¿el cliente paga mensual y se queda? (churn < 3%).
 
 ### Año 3 — *Plataforma interna y dominio de vertical*
@@ -352,6 +355,7 @@ si ARVIOR es una empresa de tecnología o una agencia con buen diseño.
 
 ## 10. Documentos relacionados
 
+- [`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md) — la oferta inicial concreta: beachhead por problema, tres escenarios de Build y planes de Operate.
 - [`ARVIOR_MASTERPLAN.md`](ARVIOR_MASTERPLAN.md) — identidad, líneas, expansión (§8 Horizontes).
 - [`ARVIOR_BRAND_SYSTEM.md`](ARVIOR_BRAND_SYSTEM.md) — el envoltorio premium del foso.
 - [`ARVIOR_HOMEPAGE_ARCHITECTURE.md`](ARVIOR_HOMEPAGE_ARCHITECTURE.md) — la home como motor de adquisición (Build/CAC).

@@ -337,6 +337,8 @@ estable por `git pull`, documentación de marca y arquitectura (este conjunto).
 
 ## 11. Documentos relacionados
 
+- [`ARVIOR_BUSINESS_MODEL.md`](ARVIOR_BUSINESS_MODEL.md) — modelo económico, unit economics, fosos.
+- [`ARVIOR_REVENUE_SYSTEM.md`](ARVIOR_REVENUE_SYSTEM.md) — oferta inicial: beachhead por problema, Build (3 escenarios) y Operate.
 - [`ARVIOR_BRAND_SYSTEM.md`](ARVIOR_BRAND_SYSTEM.md) — identidad visual, tokens, arquetipo aplicado, voz, componentes.
 - [`ARVIOR_HOMEPAGE_ARCHITECTURE.md`](ARVIOR_HOMEPAGE_ARCHITECTURE.md) — anatomía del home.
 - [`DEPLOY.md`](../DEPLOY.md) — flujo de despliegue al hosting.
