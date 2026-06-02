@@ -78,6 +78,24 @@
     --transition:        150ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow:   250ms cubic-bezier(0.4, 0, 0.2, 1);
     --ease-out-quart:    cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* --------------------------------------------------------
+       ARVIOR — Brand tokens (marca premium, tema dark).
+       Definidos a nivel global para poder referenciarlos, pero
+       el tema oscuro SOLO se activa bajo .site-body (ver site.css).
+       El admin y el login NO usan estos tokens.
+       -------------------------------------------------------- */
+    --arvior-bg:         #050505;
+    --arvior-surface:    #0B0B0F;
+    --arvior-surface-2:  #111118;
+    --arvior-text:       #F5F5F5;
+    --arvior-muted:      #8B8B93;
+    --arvior-border:     rgba(255, 255, 255, 0.10);
+    --arvior-border-2:   rgba(255, 255, 255, 0.06);
+    --arvior-accent:     #8B5CF6;
+    --arvior-accent-2:   #7C3AED;
+    --arvior-glow:       #A855F7;
+    --arvior-glow-2:     #3B82F6;
 }
 
 @media (prefers-reduced-motion: reduce) {

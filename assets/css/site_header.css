@@ -1,23 +1,31 @@
 /* ============ Site header (público) ============ */
 
 :root {
-    --sh-bg: #ffffff;
-    --sh-fg: #0f172a;
-    --sh-muted: #64748b;
-    --sh-border: #e5e7eb;
-    --sh-accent: #25d366;
-    --sh-accent-hover: #1ebe57;
-    --sh-topbar-bg: #0f172a;
-    --sh-topbar-fg: #cbd5e1;
+    /* ARVIOR — header dark premium (este archivo solo lo carga el front) */
+    --sh-bg: rgba(5, 5, 5, 0.72);
+    --sh-bg-solid: #0B0B0F;
+    --sh-fg: #F5F5F5;
+    --sh-muted: #8B8B93;
+    --sh-border: rgba(255, 255, 255, 0.10);
+    --sh-accent: #A855F7;
+    --sh-accent-hover: #8B5CF6;
+    --sh-wa: #25d366;
+    --sh-wa-hover: #1ebe57;
+    --sh-topbar-bg: #0B0B0F;
+    --sh-topbar-fg: #8B8B93;
     --sh-topbar-fg-hover: #ffffff;
 }
 
 .site-header {
     background: var(--sh-bg);
+    -webkit-backdrop-filter: saturate(150%) blur(14px);
+    backdrop-filter: saturate(150%) blur(14px);
     border-bottom: 1px solid var(--sh-border);
     position: sticky;
     top: 0;
     z-index: 80;
+    padding: 0;        /* anula el padding legacy de layout.css */
+    margin-bottom: 0;  /* el hero va a ras del header */
 }
 
 /* ---- Topbar ---- */
@@ -25,6 +33,7 @@
     background: var(--sh-topbar-bg);
     color: var(--sh-topbar-fg);
     font-size: .82rem;
+    border-bottom: 1px solid var(--sh-border);
 }
 .site-topbar__inner {
     max-width: 1200px;
@@ -69,8 +78,11 @@
     align-items: center;
     color: var(--sh-fg);
     text-decoration: none;
+    font-family: "Space Grotesk", system-ui, sans-serif;
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     flex-shrink: 0;
 }
 .site-navbar__brand img { display: block; max-height: 44px; width: auto; }
@@ -97,7 +109,7 @@
     display: inline-flex;
     align-items: center;
     gap: .4rem;
-    background: var(--sh-accent);
+    background: var(--sh-wa);
     color: #fff;
     text-decoration: none;
     padding: .55rem .95rem;
@@ -106,7 +118,7 @@
     font-size: .9rem;
     transition: background .15s;
 }
-.site-navbar__cta:hover { background: var(--sh-accent-hover); }
+.site-navbar__cta:hover { background: var(--sh-wa-hover); color: #fff; }
 
 .site-navbar__burger {
     display: none;
@@ -146,13 +158,13 @@
     right: 0;
     height: 100dvh;
     width: min(86vw, 340px);
-    background: var(--sh-bg);
+    background: var(--sh-bg-solid);
     z-index: 100;
     transform: translateX(100%);
     transition: transform .28s ease;
     display: flex;
     flex-direction: column;
-    box-shadow: -10px 0 30px rgba(0,0,0,.15);
+    box-shadow: -10px 0 30px rgba(0,0,0,.5);
 }
 .site-drawer.is-open { transform: translateX(0); }
 .site-drawer__head {
@@ -191,8 +203,8 @@
     font-weight: 500;
     border-radius: 8px;
 }
-.site-drawer__menu a:hover { background: #f1f5f9; }
-.site-drawer__menu a.is-active { color: var(--sh-accent); background: #ecfdf5; }
+.site-drawer__menu a:hover { background: rgba(255, 255, 255, 0.05); }
+.site-drawer__menu a.is-active { color: #fff; background: rgba(139, 92, 246, 0.15); }
 
 .site-drawer__contact {
     display: flex;
@@ -208,14 +220,14 @@
     font-size: .92rem;
 }
 .site-drawer__cta {
-    background: var(--sh-accent);
+    background: var(--sh-wa);
     color: #fff !important;
     text-align: center;
     padding: .7rem 1rem;
     border-radius: 999px;
     font-weight: 600;
 }
-.site-drawer__cta:hover { background: var(--sh-accent-hover); }
+.site-drawer__cta:hover { background: var(--sh-wa-hover); }
 
 .site-drawer__socials {
     display: flex;
@@ -243,9 +255,12 @@
 
 /* ============ Site footer ============ */
 .site-footer {
-    background: #0f172a;
-    color: #cbd5e1;
-    margin-top: 3rem;
+    background:
+        radial-gradient(700px circle at 15% 0%, rgba(139, 92, 246, 0.10), transparent 55%),
+        #0B0B0F;
+    color: #8B8B93;
+    margin-top: 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
 .site-footer__inner {
     max-width: 1200px;
@@ -264,11 +279,11 @@
 }
 .site-footer__col p { margin: 0 0 .8rem; font-size: .9rem; line-height: 1.55; }
 .site-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; }
-.site-footer__col a { color: #cbd5e1; text-decoration: none; }
+.site-footer__col a { color: #8B8B93; text-decoration: none; transition: color .15s; }
 .site-footer__col a:hover { color: #fff; }
 .site-footer__socials { display: flex; flex-wrap: wrap; gap: .8rem; font-size: .85rem; }
 .site-footer__bottom {
-    border-top: 1px solid #1e293b;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     padding: 1rem 1.2rem;
     display: flex;
     justify-content: space-between;
@@ -277,9 +292,9 @@
     font-size: .82rem;
     max-width: 1200px;
     margin: 0 auto;
-    color: #94a3b8;
+    color: #6a6a72;
 }
-.site-footer__legal a { color: #cbd5e1; text-decoration: none; }
+.site-footer__legal a { color: #8B8B93; text-decoration: none; }
 .site-footer__legal a:hover { color: #fff; }
 
 /* ============ WhatsApp floating button ============ */
