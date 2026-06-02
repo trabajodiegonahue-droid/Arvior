@@ -1,0 +1,192 @@
+/*
+ * base.css
+ * ------------------------------------------------------------
+ * Fundaciones globales: design tokens, reset, tipografía.
+ * Cargar ANTES que layout, components y admin.
+ *
+ * Estilo: monocromo refinado. Inspirado en Linear/Vercel/Stripe.
+ * Cambiar --color-accent para sumar marca; el resto se adapta.
+ * ------------------------------------------------------------
+ */
+
+:root {
+    /* Texto — escala neutra cálida */
+    --color-text:           #0f0f10;
+    --color-text-strong:    #000000;
+    --color-text-muted:     #6b6b73;
+    --color-text-subtle:    #a3a3ab;
+
+    /* Fondos */
+    --color-bg:             #ffffff;
+    --color-bg-alt:         #fafafa;
+    --color-bg-hover:       #f5f5f5;
+    --color-bg-app:         #f7f7f8;
+
+    /* Bordes */
+    --color-border:         #ececef;
+    --color-border-strong:  #d8d8de;
+
+    /* Marca / acento (placeholder: monocromo) */
+    --color-primary:        #0f0f10;
+    --color-primary-hover:  #000000;
+    --color-primary-text:   #ffffff;
+    --color-accent:         #0f0f10;       /* aliasable */
+    --color-accent-soft:    #f5f5f5;
+
+    /* Estados */
+    --color-success:        #15803d;
+    --color-success-soft:   #f0fdf4;
+    --color-warn:           #b45309;
+    --color-warn-soft:      #fffbeb;
+    --color-danger:         #b91c1c;
+    --color-danger-soft:    #fef2f2;
+
+    /* Tipografía */
+    --font-family:        "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    --font-family-mono:   ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    --font-size-base:     15px;
+    --line-height-base:   1.6;
+    --font-feature:       "cv11", "ss01", "ss03";
+    --font-numeric:       tabular-nums;
+
+    /* Espaciado */
+    --space-xs:  0.25rem;
+    --space-sm:  0.5rem;
+    --space-md:  1rem;
+    --space-lg:  1.5rem;
+    --space-xl:  2.5rem;
+    --space-2xl: 4rem;
+
+    /* Sizing */
+    --container-max: 1040px;
+    --radius-sm:     6px;
+    --radius:        8px;
+    --radius-lg:     12px;
+    --radius-xl:     16px;
+
+    /* Elevación */
+    --shadow-xs: 0 1px 0 rgba(15,15,16,0.02);
+    --shadow-sm: 0 1px 2px rgba(15,15,16,0.04), 0 1px 1px rgba(15,15,16,0.02);
+    --shadow-md: 0 4px 12px -2px rgba(15,15,16,0.06), 0 2px 4px -2px rgba(15,15,16,0.04);
+    --shadow-lg: 0 12px 32px -8px rgba(15,15,16,0.1),  0 4px 12px -4px rgba(15,15,16,0.06);
+
+    /* Focus ring (accesible y elegante) */
+    --ring:        0 0 0 3px rgba(15,15,16,0.08);
+    --ring-strong: 0 0 0 3px rgba(15,15,16,0.16);
+
+    /* Motion */
+    --transition:        150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow:   250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out-quart:    cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==========================================================
+   Reset
+   ========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    font-feature-settings: var(--font-feature);
+    color: var(--color-text);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+img, video, svg { max-width: 100%; height: auto; }
+
+::selection {
+    background: var(--color-text);
+    color: var(--color-primary-text);
+}
+
+/* ==========================================================
+   Tipografía
+   ========================================================== */
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    margin: 0 0 var(--space-md);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+}
+
+h1 { font-size: 1.875rem; letter-spacing: -0.025em; font-weight: 600; }
+h2 { font-size: 1.375rem; letter-spacing: -0.02em; }
+h3 { font-size: 1.05rem; letter-spacing: -0.01em; }
+h4 { font-size: 0.95rem; }
+
+p { margin: 0 0 var(--space-md); }
+
+a {
+    color: var(--color-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: var(--color-border-strong);
+    text-underline-offset: 0.22em;
+    transition: color var(--transition), text-decoration-color var(--transition);
+}
+a:hover {
+    color: var(--color-text);
+    text-decoration-color: var(--color-text);
+}
+
+small {
+    font-size: 0.85em;
+    color: var(--color-text-muted);
+}
+
+code {
+    font-family: var(--font-family-mono);
+    font-size: 0.88em;
+    background: var(--color-bg-hover);
+    padding: 0.12em 0.4em;
+    border-radius: 4px;
+    color: var(--color-text);
+}
+
+pre {
+    font-family: var(--font-family-mono);
+    font-size: 0.88rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    overflow-x: auto;
+    margin: 0 0 var(--space-md);
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: var(--space-lg) 0;
+}
+
+/* ==========================================================
+   Utilities
+   ========================================================== */
+.text-muted    { color: var(--color-text-muted); }
+.text-subtle   { color: var(--color-text-subtle); }
+.text-tabular  { font-variant-numeric: tabular-nums; }
+.visually-hidden {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}

@@ -1,0 +1,621 @@
+/*
+ * auth.css
+ * ------------------------------------------------------------
+ * Login + instalador. Mismo lenguaje visual que el panel admin:
+ * monocromo, espaciado generoso, tipografía Inter, sombras sutiles.
+ * ------------------------------------------------------------
+ */
+
+.auth-body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg) var(--space-md);
+    background:
+        radial-gradient(1200px 600px at 12% -8%, rgba(15,15,16,0.04), transparent 60%),
+        radial-gradient(900px 500px at 110% 110%, rgba(15,15,16,0.035), transparent 60%),
+        linear-gradient(180deg, #fafafa 0%, #f3f3f4 100%);
+    color: var(--color-text);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow:
+        0 1px 0 rgba(15,15,16,0.02),
+        0 24px 64px -20px rgba(15,15,16,0.18),
+        0 8px 24px -12px rgba(15,15,16,0.08);
+    padding: 2.5rem;
+    animation: auth-fade-in 320ms var(--ease-out-quart);
+}
+
+.auth-card--wide { max-width: 600px; }
+
+@keyframes auth-fade-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.99); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    letter-spacing: -0.005em;
+}
+
+.auth-brand__logo {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius);
+    background: var(--color-text);
+    color: var(--color-primary-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.95rem;
+    flex: 0 0 auto;
+}
+
+.auth-card h1 {
+    font-size: 1.625rem;
+    margin: 0 0 0.4rem;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.auth-card .auth-subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin: 0 0 1.75rem;
+    line-height: 1.55;
+}
+
+/* ==========================================================
+   Inputs (login + installer)
+   ========================================================== */
+.auth-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.1rem;
+    min-width: 0;
+}
+
+.auth-field:last-child { margin-bottom: 0; }
+
+.auth-field label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0;
+}
+
+.auth-field input[type="text"],
+.auth-field input[type="email"],
+.auth-field input[type="password"] {
+    width: 100%;
+    height: 46px;
+    padding: 0 0.95rem;
+    font-size: 0.92rem;
+    font-family: inherit;
+    color: var(--color-text);
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius);
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+    margin: 0;
+    box-shadow: var(--shadow-xs);
+}
+
+.auth-field input::placeholder { color: var(--color-text-subtle); }
+.auth-field input:hover {
+    border-color: var(--color-text-subtle);
+    background: var(--color-bg);
+}
+.auth-field input:focus {
+    outline: none;
+    background: var(--color-bg);
+    border-color: var(--color-text);
+    box-shadow: var(--ring);
+}
+
+.auth-field__hint {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+.auth-field__control {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+}
+
+.auth-field__control input { flex: 1 1 auto; min-width: 0; }
+
+/* Variante con ícono de prefijo */
+.auth-field__control--icon input { padding-left: 2.65rem; }
+.auth-field__control--icon.auth-field--password input,
+.auth-field--password .auth-field__control--icon input { padding-right: 3rem; }
+
+/* sin --icon, password sigue funcionando con padding solo a la derecha */
+.auth-field--password .auth-field__control input { padding-right: 3rem; }
+
+.auth-field__icon {
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: var(--color-text-subtle);
+    pointer-events: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--transition);
+    z-index: 1;
+}
+
+.auth-field__icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Cuando el input está enfocado o tiene valor, el ícono se vuelve más oscuro */
+.auth-field__control--icon:focus-within .auth-field__icon { color: var(--color-text); }
+
+.auth-field__toggle {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-text-subtle);
+    border-radius: var(--radius-sm);
+    line-height: 1;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background var(--transition), color var(--transition);
+    z-index: 2;
+}
+.auth-field__toggle:hover { color: var(--color-text); background: var(--color-bg-hover); }
+.auth-field__toggle:focus-visible {
+    outline: none;
+    box-shadow: var(--ring);
+}
+.auth-field__toggle svg { width: 17px; height: 17px; display: block; }
+
+/* ==========================================================
+   Submit full-width
+   ========================================================== */
+.auth-submit {
+    width: 100%;
+    height: 48px;
+    padding: 0 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 1rem;
+    border-radius: var(--radius);
+    letter-spacing: -0.005em;
+}
+
+.auth-footer {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+.auth-footer a { color: var(--color-text-muted); }
+
+/* ==========================================================
+   Alerts
+   ========================================================== */
+.auth-alert {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius);
+    font-size: 0.88rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+    color: var(--color-text);
+}
+
+.auth-alert::before {
+    content: '';
+    width: 4px;
+    align-self: stretch;
+    background: var(--color-text-subtle);
+    border-radius: 2px;
+    flex: 0 0 auto;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+.auth-alert--error {
+    background: var(--color-danger-soft);
+    border-color: #fecaca;
+    color: #7f1d1d;
+}
+.auth-alert--error::before { background: var(--color-danger); }
+
+.auth-alert--success {
+    background: var(--color-success-soft);
+    border-color: #bbf7d0;
+    color: #14532d;
+}
+.auth-alert--success::before { background: var(--color-success); }
+
+.auth-alert--info {
+    background: var(--color-bg-alt);
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+.auth-alert--info::before { background: var(--color-text-subtle); }
+
+/* ==========================================================
+   INSTALLER — stepper, secciones, preflight, done
+   ========================================================== */
+
+/* Header del installer */
+.install-header {
+    text-align: center;
+    margin-bottom: 2.25rem;
+}
+
+.install-header__logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--color-text);
+    color: var(--color-primary-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.1rem;
+    box-shadow: 0 8px 20px -8px rgba(15,15,16,0.4);
+}
+
+.install-header h1 {
+    font-size: 1.75rem;
+    margin: 0 0 0.45rem;
+    letter-spacing: -0.03em;
+}
+
+.install-header__subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Stepper */
+.auth-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 2rem;
+    padding: 1rem 1.2rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    flex-wrap: nowrap;
+}
+
+.auth-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    flex: 0 0 auto;
+    transition: color var(--transition);
+}
+
+.auth-step__dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: var(--color-bg);
+    color: var(--color-text-muted);
+    flex: 0 0 auto;
+    line-height: 1;
+    transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.auth-step--active {
+    color: var(--color-text);
+    font-weight: 600;
+}
+
+.auth-step--active .auth-step__dot {
+    background: var(--color-text);
+    color: var(--color-primary-text);
+    border-color: var(--color-text);
+}
+
+.auth-step__sep {
+    flex: 1;
+    height: 1px;
+    background: var(--color-border-strong);
+    margin: 0 1rem;
+    min-width: 1rem;
+}
+
+/* Sección del form (reemplaza al fieldset) */
+.install-section {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem 1.4rem;
+    margin: 0 0 1rem;
+    box-shadow: var(--shadow-xs);
+}
+
+.install-section__head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.install-section__num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border-strong);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    flex: 0 0 auto;
+    line-height: 1;
+}
+
+.install-section__title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+}
+
+.install-section__sub {
+    margin: 0;
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin-left: auto;
+}
+
+.auth-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem 1rem;
+    align-items: start;
+}
+
+/* Pre-flight checks: card limpio con lista de requirements */
+.preflight {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem 1.5rem;
+    margin: 0 0 1.5rem;
+    box-shadow: var(--shadow-xs);
+}
+
+.preflight__head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.preflight__title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+}
+
+.preflight__status {
+    margin-left: auto;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.65rem;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+}
+
+.preflight__status--ok { color: var(--color-success); background: var(--color-success-soft); border-color: #bbf7d0; }
+.preflight__status--bad { color: var(--color-danger); background: var(--color-danger-soft); border-color: #fecaca; }
+
+.preflight__status .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+.preflight__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.pf-item {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 0.85rem;
+    align-items: flex-start;
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed var(--color-border);
+}
+.pf-item:last-child { border-bottom: 0; }
+
+.pf-item__icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    margin-top: 1px;
+}
+
+.pf-item__icon svg {
+    width: 13px;
+    height: 13px;
+    stroke-width: 2.5;
+}
+
+.pf-item--ok .pf-item__icon { background: var(--color-success-soft); color: var(--color-success); }
+.pf-item--bad .pf-item__icon { background: var(--color-danger-soft); color: var(--color-danger); }
+
+.pf-item__label { font-size: 0.88rem; font-weight: 500; color: var(--color-text); }
+.pf-item__detail { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 0.2rem; line-height: 1.4; }
+.pf-item__badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+    align-self: center;
+}
+.pf-item--ok  .pf-item__badge { background: var(--color-success-soft); color: var(--color-success); }
+.pf-item--bad .pf-item__badge { background: var(--color-danger-soft); color: var(--color-danger); }
+
+.pf-item__detail code {
+    font-size: 0.78rem;
+    background: var(--color-bg-alt);
+    padding: 0.05rem 0.35rem;
+    border-radius: 3px;
+}
+
+/* Form disabled overlay cuando faltan requirements */
+.install-form--disabled {
+    opacity: 0.55;
+    pointer-events: none;
+    filter: saturate(0.4);
+    transition: opacity var(--transition);
+}
+
+/* ==========================================================
+   Pantalla "done" del instalador
+   ========================================================== */
+.auth-done {
+    text-align: center;
+    padding: 1rem 0 0.5rem;
+}
+
+.auth-done__icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--color-success-soft);
+    color: var(--color-success);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border: 1px solid #bbf7d0;
+    box-shadow: 0 0 0 6px rgba(34,197,94,0.08);
+    position: relative;
+}
+
+.auth-done__icon svg { width: 32px; height: 32px; stroke-width: 2.5; }
+
+.auth-done h1 {
+    font-size: 1.625rem;
+    letter-spacing: -0.025em;
+    margin: 0 0 0.5rem;
+}
+
+.auth-done__sub {
+    color: var(--color-text-muted);
+    margin: 0 0 1.5rem;
+    font-size: 0.92rem;
+}
+
+.auth-done__actions {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.auth-done__actions .btn {
+    height: 44px;
+    padding: 0 1.4rem;
+    border-radius: var(--radius);
+}
+
+/* ==========================================================
+   Responsive
+   ========================================================== */
+@media (max-width: 600px) {
+    .auth-card { padding: 1.75rem 1.25rem; border-radius: var(--radius-lg); }
+    .auth-card--wide { max-width: 100%; }
+    .auth-grid-2 { grid-template-columns: 1fr; gap: 0; }
+    .install-section { padding: 1.1rem 1.15rem 1.25rem; }
+    .install-section__head { flex-wrap: wrap; }
+    .install-section__sub { margin-left: 0; flex-basis: 100%; }
+    .auth-steps { padding: 0.85rem 1rem; }
+    .auth-step__sep { margin: 0 0.5rem; }
+    .auth-step span:not(.auth-step__dot) { display: none; }
+    .install-header h1 { font-size: 1.45rem; }
+    .preflight { padding: 1.15rem 1.2rem; }
+}

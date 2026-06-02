@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /Users/jnahuelfil/dev/php-starter-v2/ && echo \"---\" && ls /Users/jnahuelfil/dev/ | head -30)",
+      "Bash(find /Users/diegonahue/.claude/projects/ -name \"MEMORY.md\" 2>/dev/null | xargs grep -l \"cimol\" 2>/dev/null; find /Users/diegonahue/Downloads/ -maxdepth 2 -name \"*.md\" 2>/dev/null | xargs grep -li \"cimol\" 2>/dev/null)"
+    ]
+  }
+}
