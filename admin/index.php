@@ -124,6 +124,39 @@ if ($user) {
         redirect('/admin/?id=' . $id);
     }
 
+    // ─── Tareas (automatización operativa · Fase 3) ───
+    // `return_to` decide a dónde volver: al detalle del lead o a la vista de tareas.
+    if (in_array($action, ['task_create', 'task_complete', 'task_cancel', 'task_reopen'], true)) {
+        csrfCheck();
+        $returnTo  = (string) ($_POST['return_to'] ?? '');
+        $leadIdPost = (int) ($_POST['lead_id'] ?? 0);
+        // Destino de redirect: al lead si vino de su detalle, si no a /tareas.
+        $back = $returnTo === 'lead' && $leadIdPost > 0
+            ? '/admin/?id=' . $leadIdPost
+            : '/admin/?view=tasks';
+
+        if ($action === 'task_create') {
+            $res = taskCreate([
+                'title'       => (string) ($_POST['title'] ?? ''),
+                'description' => (string) ($_POST['description'] ?? ''),
+                'account_id'  => (int) ($_POST['account_id'] ?? 0),
+                'lead_id'     => $leadIdPost,
+                'due_at'      => (string) ($_POST['due_at'] ?? ''),
+            ], (int) $user['id']);
+            flashSet($res['ok'] ? 'task_success' : 'task_error',
+                $res['ok'] ? 'Tarea creada.' : ($res['error'] ?? 'No se pudo crear la tarea.'));
+        } else {
+            $tid = (int) ($_POST['id'] ?? 0);
+            $res = $action === 'task_complete' ? taskComplete($tid, (int) $user['id'])
+                 : ($action === 'task_cancel' ? taskCancel($tid, (int) $user['id'])
+                 : taskReopen($tid, (int) $user['id']));
+            $msg = ['task_complete' => 'Tarea completada.', 'task_cancel' => 'Tarea cancelada.', 'task_reopen' => 'Tarea reabierta.'][$action] ?? 'Tarea actualizada.';
+            flashSet($res['ok'] ? 'task_success' : 'task_error',
+                $res['ok'] ? $msg : ($res['error'] ?? 'No se pudo actualizar la tarea.'));
+        }
+        redirect($back);
+    }
+
     // ─── Cuentas (multi-cuenta · Fase 1) ───
     if ($action === 'account_create') {
         csrfCheck();
@@ -605,6 +638,9 @@ if ($user) {
 $lead     = null;
 $notes    = [];
 $leads    = [];
+$leadTasks  = [];
+$taskStats  = ['overdue' => 0, 'today' => 0, 'upcoming' => 0, 'pending' => 0, 'completed' => 0];
+$leadsStale = 0;
 $leadId   = isset($_GET['id']) && $_GET['id'] !== 'new' ? (int) $_GET['id'] : 0;
 $stats    = [
     'total' => 0, 'today' => 0, 'this_week' => 0, 'new' => 0,
@@ -675,6 +711,24 @@ if ($user) {
         $aid = (int) ($_GET['id'] ?? 0);
         $accountRec = $aid > 0 ? accountGet($aid) : null;
         if (!$accountRec) redirect('/admin/?view=accounts');
+    } elseif ($view === 'tasks') {
+        // Vista de tareas: cuatro buckets (hoy, vencidas, próximas, completadas)
+        // respetando el filtro de cuenta, más el formulario de creación.
+        $accounts      = accountsAll();
+        $taskStatusF   = (string) ($_GET['task_status'] ?? '');
+        $taskBucket    = (string) ($_GET['bucket'] ?? '');
+        $taskSearch    = trim($_GET['search'] ?? '');
+        $taskCountsAll = taskCounts($accountFilter);
+        $commonF = ['account_id' => $accountFilter, 'search' => $taskSearch];
+        // Si hay filtro explícito de estado/bucket, una sola lista; si no, los 4 buckets.
+        if ($taskStatusF !== '' || $taskBucket !== '') {
+            $tasksFiltered = tasksList($commonF + ['status' => $taskStatusF, 'bucket' => $taskBucket]);
+        } else {
+            $tasksOverdue   = tasksList($commonF + ['bucket' => 'overdue']);
+            $tasksToday     = tasksList($commonF + ['bucket' => 'today']);
+            $tasksUpcoming  = tasksList($commonF + ['bucket' => 'upcoming']);
+            $tasksCompleted = tasksList($commonF + ['status' => 'completed', 'limit' => 50]);
+        }
     } elseif ($leadId > 0) {
         $stmt = $db->prepare('SELECT * FROM leads WHERE id = ?');
         $stmt->execute([$leadId]);
@@ -690,8 +744,10 @@ if ($user) {
                 : '';
             // Timeline de actividad (notas + cambios de estado + próxima acción).
             $notes = listLeadActivities($leadId);
+            // Tareas asociadas al lead (Fase 3).
+            $leadTasks = tasksForLead($leadId);
         }
-    } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business'], true)) {
+    } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business', 'tasks'], true)) {
         // Cuentas para el selector de filtro y el badge de cuenta en la lista.
         $accounts = accountsAll();
         foreach ($accounts as $acc) $accountsMap[(int) $acc['id']] = $acc['name'];
@@ -732,6 +788,11 @@ if ($user) {
         );
         $naTodayStmt->execute([$todayPhp]);
         $stats['na_today'] = (int) $naTodayStmt->fetchColumn();
+
+        // Alertas operativas (Fase 3): conteos de tareas + leads sin actividad,
+        // respetando el filtro de cuenta. Defensivo si el módulo no migró aún.
+        $taskStats   = taskCounts($accountFilter);
+        $leadsStale  = leadsWithoutRecentActivityCount($accountFilter);
 
         $where  = [];
         $params = [];
@@ -846,6 +907,8 @@ if ($faviconPath && @file_exists($faviconAbs)):
             require __DIR__ . '/../components/admin/accounts_list.php';
         } elseif ($view === 'account_edit') {
             require __DIR__ . '/../components/admin/account_edit.php';
+        } elseif ($view === 'tasks') {
+            require __DIR__ . '/../components/admin/tasks.php';
         } elseif ($lead) {
             require __DIR__ . '/../components/admin/lead_detail.php';
         } else {

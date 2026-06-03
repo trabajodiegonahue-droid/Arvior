@@ -510,6 +510,12 @@ a.stat:hover { transform: translateY(-1px); }
 .badge--closed    { background: var(--color-bg-alt); color: var(--color-text-muted); border-color: var(--color-border); }
 .badge--discarded { background: var(--color-danger-soft); color: var(--color-danger); border-color: #fecaca; }
 
+/* Tareas (Fase 3). */
+.badge--pending   { background: var(--color-warn-soft); color: var(--color-warn); border-color: #fde68a; }
+.badge--completed { background: var(--color-success-soft); color: var(--color-success); border-color: #bbf7d0; }
+.badge--cancelled { background: var(--color-bg-alt); color: var(--color-text-muted); border-color: var(--color-border); }
+.badge--overdue   { background: var(--color-danger-soft); color: var(--color-danger); border-color: #fecaca; }
+
 /* ==========================================================
    Lead detail / sections
    ========================================================== */
