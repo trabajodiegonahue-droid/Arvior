@@ -271,8 +271,10 @@ if ($user) {
             $params[] = $statusFilter;
         }
         if ($pendingFilter) {
-            $where[] = "l.next_action_at IS NOT NULL AND l.next_action_at <= NOW()
+            // TZ-consistente con el dashboard: next_action_at se guarda en APP_TIMEZONE.
+            $where[] = "l.next_action_at IS NOT NULL AND l.next_action_at <= ?
                         AND l.status NOT IN ('won','lost','closed','discarded')";
+            $params[] = date('Y-m-d H:i:s');
         }
         $whereSql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
@@ -710,16 +712,26 @@ if ($user) {
         }
 
         // Próximas acciones: vencidas (<= ahora) y de hoy, sin contar leads cerrados.
-        $stats['na_overdue'] = (int) $db->query(
+        // next_action_at se guarda con la zona horaria de la app (APP_TIMEZONE);
+        // se compara contra el "ahora" de PHP — NO contra NOW()/CURDATE() de MySQL,
+        // cuya @@session.time_zone puede diferir (Hostinger suele estar en UTC) y
+        // descuadraría el conteo. created_at sigue usando NOW() de MySQL aparte.
+        $nowPhp   = date('Y-m-d H:i:s');
+        $todayPhp = date('Y-m-d');
+        $naOverdueStmt = $db->prepare(
             "SELECT COUNT(*) FROM leads
-              WHERE next_action_at IS NOT NULL AND next_action_at <= NOW()
+              WHERE next_action_at IS NOT NULL AND next_action_at <= ?
                 AND status NOT IN ('won','lost','closed','discarded')$accScope"
-        )->fetchColumn();
-        $stats['na_today'] = (int) $db->query(
+        );
+        $naOverdueStmt->execute([$nowPhp]);
+        $stats['na_overdue'] = (int) $naOverdueStmt->fetchColumn();
+        $naTodayStmt = $db->prepare(
             "SELECT COUNT(*) FROM leads
-              WHERE next_action_at IS NOT NULL AND DATE(next_action_at) = CURDATE()
+              WHERE next_action_at IS NOT NULL AND DATE(next_action_at) = ?
                 AND status NOT IN ('won','lost','closed','discarded')$accScope"
-        )->fetchColumn();
+        );
+        $naTodayStmt->execute([$todayPhp]);
+        $stats['na_today'] = (int) $naTodayStmt->fetchColumn();
 
         $where  = [];
         $params = [];
@@ -737,8 +749,10 @@ if ($user) {
             $params[] = $statusFilter;
         }
         if ($pendingFilter) {
-            $where[] = "l.next_action_at IS NOT NULL AND l.next_action_at <= NOW()
+            // Mismo criterio TZ-consistente que las stats: comparar contra $nowPhp.
+            $where[] = "l.next_action_at IS NOT NULL AND l.next_action_at <= ?
                         AND l.status NOT IN ('won','lost','closed','discarded')";
+            $params[] = $nowPhp;
         }
         $whereSql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
