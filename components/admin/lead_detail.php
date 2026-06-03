@@ -1,25 +1,57 @@
 <?php
 /** Requiere: $lead, $notes (timeline de lead_activities), $LEAD_STATUSES */
+$flashOk  = flashGet('lead_success');
+$flashErr = flashGet('lead_error');
+
 // Etiqueta legible por tipo de actividad.
 $activityLabel = function (array $n): string {
     switch ($n['type'] ?? 'note') {
-        case 'created':       return 'Lead capturado';
-        case 'status_change': return 'Estado: ' . ($n['from_status'] ?? '?') . ' → ' . ($n['to_status'] ?? '?');
-        case 'note':          return 'Nota';
-        default:              return (string) ($n['type'] ?? 'Actividad');
+        case 'created':              return 'Lead capturado';
+        case 'status_change':        return 'Estado: ' . leadStatusLabel((string) ($n['from_status'] ?? '?')) . ' → ' . leadStatusLabel((string) ($n['to_status'] ?? '?'));
+        case 'note':                 return 'Nota';
+        case 'next_action':          return 'Próxima acción';
+        case 'next_action_cleared':  return 'Próxima acción eliminada';
+        default:                     return (string) ($n['type'] ?? 'Actividad');
     }
 };
+// Clase de badge por tipo de actividad (reusa colores del pipeline).
+$activityBadge = function (string $type): string {
+    return [
+        'created'             => 'new',
+        'note'                => 'meeting_scheduled',
+        'next_action'         => 'proposal_sent',
+        'next_action_cleared' => 'lost',
+        'status_change'       => 'contacted',
+    ][$type] ?? 'contacted';
+};
+
+// Estado actual + lista para el select (incluye el actual si fuese legacy).
+$curStatus    = (string) $lead['status'];
+$statusChoices = $LEAD_STATUSES;
+if (!in_array($curStatus, $statusChoices, true)) {
+    array_unshift($statusChoices, $curStatus);
+}
+
+// next_action_at en formato datetime-local ('Y-m-d\TH:i') para el input.
+$naAtRaw   = $lead['next_action_at'] ?? null;
+$naAtLocal = ($naAtRaw && strtotime($naAtRaw) !== false) ? date('Y-m-d\TH:i', strtotime($naAtRaw)) : '';
+$naNote    = (string) ($lead['next_action_note'] ?? '');
+$naOverdue = $naAtRaw && strtotime($naAtRaw) !== false && strtotime($naAtRaw) <= time()
+             && !in_array($curStatus, ['won','lost','closed','discarded'], true);
 ?>
 <header class="admin-header">
     <div>
         <div style="margin-bottom:.3rem;"><a href="/admin/" class="text-muted" style="font-size:.88rem;">← Volver a leads</a></div>
-        <h1><?= htmlspecialchars($lead['name']) ?> <span class="badge badge--<?= htmlspecialchars($lead['status']) ?>" style="font-size:.7rem;vertical-align:middle;"><?= htmlspecialchars($lead['status']) ?></span></h1>
+        <h1><?= htmlspecialchars($lead['name']) ?> <span class="badge badge--<?= htmlspecialchars($curStatus) ?>" style="font-size:.7rem;vertical-align:middle;"><?= htmlspecialchars(leadStatusLabel($curStatus)) ?></span></h1>
         <div class="admin-header__sub">Lead #<?= (int) $lead['id'] ?> · <?= htmlspecialchars($lead['created_at']) ?><?php if (!empty($lead['account_name'])): ?> · Cuenta: <strong><?= htmlspecialchars($lead['account_name']) ?></strong><?php endif; ?></div>
     </div>
     <div class="admin-header__actions">
         <a class="btn btn--secondary" href="mailto:<?= htmlspecialchars($lead['email']) ?>">Responder por email</a>
     </div>
 </header>
+
+<?php if ($flashOk): ?><p class="alert alert--success"><?= htmlspecialchars($flashOk) ?></p><?php endif; ?>
+<?php if ($flashErr): ?><p class="alert alert--error"><?= htmlspecialchars($flashErr) ?></p><?php endif; ?>
 
 <div class="lead-detail">
     <dl>
@@ -38,12 +70,43 @@ $activityLabel = function (array $n): string {
         <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
         <input type="hidden" name="id" value="<?= (int) $lead['id'] ?>">
         <select name="status">
-            <?php foreach ($LEAD_STATUSES as $s): ?>
-                <option value="<?= $s ?>" <?= $lead['status'] === $s ? 'selected' : '' ?>><?= $s ?></option>
+            <?php foreach ($statusChoices as $s): ?>
+                <option value="<?= htmlspecialchars($s) ?>" <?= $curStatus === $s ? 'selected' : '' ?>><?= htmlspecialchars(leadStatusLabel($s)) ?></option>
             <?php endforeach; ?>
         </select>
-        <button type="submit" class="btn">Guardar</button>
+        <button type="submit" class="btn">Guardar estado</button>
     </form>
+</section>
+
+<section class="admin-section">
+    <h2>Próxima acción <?php if ($naOverdue): ?><span class="badge badge--lost" style="font-size:.62rem;">Vencida</span><?php endif; ?></h2>
+    <?php if ($naAtLocal !== '' || $naNote !== ''): ?>
+        <p class="text-muted" style="margin:0 0 .8rem;font-size:.9rem;">
+            Programada:
+            <strong<?= $naOverdue ? ' style="color:var(--color-danger);"' : '' ?>><?= $naAtRaw ? htmlspecialchars(date('Y-m-d H:i', strtotime($naAtRaw))) : 'sin fecha' ?></strong>
+            <?php if ($naNote !== ''): ?> · <?= htmlspecialchars($naNote) ?><?php endif; ?>
+        </p>
+    <?php else: ?>
+        <p class="text-muted" style="margin:0 0 .8rem;font-size:.9rem;">No hay una próxima acción programada.</p>
+    <?php endif; ?>
+    <form method="post" class="inline-form" style="margin:0;flex-wrap:wrap;gap:.6rem;align-items:flex-end;">
+        <input type="hidden" name="action" value="update_next_action">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+        <input type="hidden" name="id" value="<?= (int) $lead['id'] ?>">
+        <label style="font-size:.82rem;">Fecha y hora<br><input type="datetime-local" name="next_action_at" value="<?= htmlspecialchars($naAtLocal) ?>"></label>
+        <label style="font-size:.82rem;flex:1 1 240px;">Nota<br><input type="text" name="next_action_note" value="<?= htmlspecialchars($naNote) ?>" placeholder="Ej: llamar para confirmar reunión" maxlength="500" style="width:100%;"></label>
+        <button type="submit" class="btn">Guardar próxima acción</button>
+    </form>
+    <?php if ($naAtLocal !== '' || $naNote !== ''): ?>
+        <form method="post" style="margin:.6rem 0 0;">
+            <input type="hidden" name="action" value="update_next_action">
+            <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+            <input type="hidden" name="id" value="<?= (int) $lead['id'] ?>">
+            <input type="hidden" name="next_action_at" value="">
+            <input type="hidden" name="next_action_note" value="">
+            <button type="submit" class="btn btn--ghost">Limpiar próxima acción</button>
+        </form>
+    <?php endif; ?>
 </section>
 
 <section class="admin-section">
@@ -62,7 +125,7 @@ $activityLabel = function (array $n): string {
             <?php foreach ($notes as $n): ?>
                 <li>
                     <div class="note__meta">
-                        <span class="badge badge--<?= $n['type'] === 'note' ? 'qualified' : ($n['type'] === 'created' ? 'new' : 'contacted') ?>" style="font-size:.62rem;"><?= htmlspecialchars($activityLabel($n)) ?></span>
+                        <span class="badge badge--<?= $activityBadge((string) ($n['type'] ?? 'note')) ?>" style="font-size:.62rem;"><?= htmlspecialchars($activityLabel($n)) ?></span>
                         <span class="dot"></span><span><?= htmlspecialchars($n['created_at']) ?></span>
                         <?php if (!empty($n['author_email'])): ?>
                             <span class="dot"></span><span><?= htmlspecialchars($n['author_email']) ?></span>

@@ -1,27 +1,61 @@
 <?php
-/** Requiere: $stats, $leads, $search, $statusFilter, $accountFilter, $accounts, $accountsMap, $page, $totalPages, $totalLeads, $LEAD_STATUSES, $paginationUrl */
+/** Requiere: $stats, $leads, $search, $statusFilter, $accountFilter, $pendingFilter, $accounts, $accountsMap, $page, $totalPages, $totalLeads, $LEAD_STATUSES, $paginationUrl */
 $accountFilter = $accountFilter ?? 0;
+$pendingFilter = $pendingFilter ?? false;
 $accounts      = $accounts ?? [];
 $accountsMap   = $accountsMap ?? [];
 $activeAccountName = $accountFilter > 0 ? ($accountsMap[$accountFilter] ?? ('#' . $accountFilter)) : '';
+$flashOk  = flashGet('lead_success');
+$flashErr = flashGet('lead_error');
+
+// URL base de filtros (para los accesos rápidos del pipeline).
+$filterUrl = function (array $extra = []) use ($accountFilter, $search): string {
+    $params = array_filter(array_merge([
+        'account' => $accountFilter ?: '', 'search' => $search,
+    ], $extra), fn($v) => $v !== '' && $v !== null);
+    return '/admin/?' . http_build_query($params);
+};
+
+// Formatea un datetime de próxima acción con marca de vencido.
+$fmtNextAction = function (?string $at, ?string $note): string {
+    if (empty($at) && empty($note)) return '<span class="text-muted">—</span>';
+    $overdue = !empty($at) && strtotime($at) !== false && strtotime($at) <= time();
+    $out = '';
+    if (!empty($at)) {
+        $cls = $overdue ? ' style="color:var(--color-danger);font-weight:600;"' : '';
+        $out .= '<span' . $cls . '>' . htmlspecialchars(date('Y-m-d H:i', strtotime($at))) . '</span>';
+    }
+    if (!empty($note)) {
+        $out .= ($out ? '<br>' : '') . '<span class="text-muted" style="font-size:.82rem;">' . htmlspecialchars($note) . '</span>';
+    }
+    return $out;
+};
 ?>
 <header class="admin-header">
     <div>
         <h1>Leads<?php if ($activeAccountName !== ''): ?> · <span class="text-muted"><?= htmlspecialchars($activeAccountName) ?></span><?php endif; ?></h1>
-        <div class="admin-header__sub">Contactos recibidos<?= $activeAccountName !== '' ? ' para esta cuenta.' : ' (todas las cuentas).' ?></div>
+        <div class="admin-header__sub">Pipeline CRM<?= $activeAccountName !== '' ? ' de esta cuenta.' : ' (todas las cuentas).' ?></div>
     </div>
     <div class="admin-header__actions">
-        <a class="btn btn--secondary" href="/admin/?action=export_csv&amp;<?= http_build_query(array_filter(['account' => $accountFilter ?: '', 'search' => $search, 'status_filter' => $statusFilter])) ?>">
+        <a class="btn btn--secondary" href="/admin/?action=export_csv&amp;<?= http_build_query(array_filter(['account' => $accountFilter ?: '', 'search' => $search, 'status_filter' => $statusFilter, 'pending' => $pendingFilter ? '1' : ''])) ?>">
             Exportar CSV
         </a>
     </div>
 </header>
 
+<?php if ($flashOk): ?><p class="alert alert--success"><?= htmlspecialchars($flashOk) ?></p><?php endif; ?>
+<?php if ($flashErr): ?><p class="alert alert--error"><?= htmlspecialchars($flashErr) ?></p><?php endif; ?>
+
 <div class="stats">
-    <div class="stat"><div class="stat__label">Total</div><div class="stat__value"><?= $stats['total'] ?></div></div>
-    <div class="stat"><div class="stat__label">Hoy</div><div class="stat__value"><?= $stats['today'] ?></div></div>
-    <div class="stat"><div class="stat__label">Últimos 7 días</div><div class="stat__value"><?= $stats['this_week'] ?></div></div>
-    <div class="stat"><div class="stat__label">Sin atender</div><div class="stat__value"><?= $stats['new'] ?></div></div>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl()) ?>"><div class="stat__label">Total</div><div class="stat__value"><?= $stats['total'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['status_filter' => 'new'])) ?>"><div class="stat__label">Nuevos</div><div class="stat__value"><?= $stats['new'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['status_filter' => 'contacted'])) ?>"><div class="stat__label">Contactados</div><div class="stat__value"><?= $stats['contacted'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['status_filter' => 'meeting_scheduled'])) ?>"><div class="stat__label">Reuniones</div><div class="stat__value"><?= $stats['meeting_scheduled'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['status_filter' => 'proposal_sent'])) ?>"><div class="stat__label">Propuestas</div><div class="stat__value"><?= $stats['proposal_sent'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['status_filter' => 'won'])) ?>"><div class="stat__label">Ganados</div><div class="stat__value"><?= $stats['won'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['status_filter' => 'lost'])) ?>"><div class="stat__label">Perdidos</div><div class="stat__value"><?= $stats['lost'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['pending' => '1'])) ?>"><div class="stat__label">Acciones vencidas</div><div class="stat__value" style="<?= $stats['na_overdue'] > 0 ? 'color:var(--color-danger);' : '' ?>"><?= $stats['na_overdue'] ?></div></a>
+    <div class="stat"><div class="stat__label">Acciones de hoy</div><div class="stat__value"><?= $stats['na_today'] ?></div></div>
 </div>
 
 <form method="get" class="filters">
@@ -45,13 +79,14 @@ $activeAccountName = $accountFilter > 0 ? ($accountsMap[$accountFilter] ?? ('#' 
         <select id="status_filter" name="status_filter">
             <option value="">Todos</option>
             <?php foreach ($LEAD_STATUSES as $s): ?>
-                <option value="<?= $s ?>" <?= $statusFilter === $s ? 'selected' : '' ?>><?= $s ?></option>
+                <option value="<?= $s ?>" <?= $statusFilter === $s ? 'selected' : '' ?>><?= htmlspecialchars(leadStatusLabel($s)) ?></option>
             <?php endforeach; ?>
         </select>
     </div>
     <div class="filters__group filters__group--actions">
+        <label class="filters__check"><input type="checkbox" name="pending" value="1" <?= $pendingFilter ? 'checked' : '' ?>> Solo pendientes</label>
         <button type="submit" class="btn">Filtrar</button>
-        <?php if ($search !== '' || $statusFilter !== '' || $accountFilter > 0): ?>
+        <?php if ($search !== '' || $statusFilter !== '' || $accountFilter > 0 || $pendingFilter): ?>
             <a href="/admin/" class="btn btn--ghost">Limpiar</a>
         <?php endif; ?>
     </div>
@@ -59,21 +94,22 @@ $activeAccountName = $accountFilter > 0 ? ($accountsMap[$accountFilter] ?? ('#' 
 
 <?php if (empty($leads)): ?>
     <div class="empty">
-        <h3>No hay leads todavía</h3>
+        <h3>No hay leads<?= ($search !== '' || $statusFilter !== '' || $pendingFilter) ? ' con esos filtros' : ' todavía' ?></h3>
         <p>Cuando alguien complete el formulario del sitio, va a aparecer acá.</p>
     </div>
 <?php else: ?>
     <table class="table">
         <thead>
             <tr>
-                <th style="width:60px;">ID</th>
+                <th style="width:54px;">ID</th>
                 <th>Fecha</th>
                 <?php if ($activeAccountName === ''): ?><th>Cuenta</th><?php endif; ?>
                 <th>Nombre</th>
                 <th>Email</th>
-                <th>Source</th>
+                <th>Teléfono</th>
                 <th>Estado</th>
-                <th style="width:60px;"></th>
+                <th>Próxima acción</th>
+                <th style="width:54px;"></th>
             </tr>
         </thead>
         <tbody>
@@ -86,8 +122,9 @@ $activeAccountName = $accountFilter > 0 ? ($accountsMap[$accountFilter] ?? ('#' 
                     <?php endif; ?>
                     <td><strong><?= htmlspecialchars($l['name']) ?></strong></td>
                     <td><?= htmlspecialchars($l['email']) ?></td>
-                    <td class="text-muted"><?= htmlspecialchars($l['source'] ?? 'website') ?></td>
-                    <td><span class="badge badge--<?= htmlspecialchars($l['status']) ?>"><?= htmlspecialchars($l['status']) ?></span></td>
+                    <td class="text-muted"><?= htmlspecialchars($l['phone'] ?? '') ?: '—' ?></td>
+                    <td><span class="badge badge--<?= htmlspecialchars($l['status']) ?>"><?= htmlspecialchars(leadStatusLabel($l['status'])) ?></span></td>
+                    <td><?= $fmtNextAction($l['next_action_at'] ?? null, $l['next_action_note'] ?? null) ?></td>
                     <td><a href="/admin/?id=<?= (int) $l['id'] ?>">Ver →</a></td>
                 </tr>
             <?php endforeach; ?>

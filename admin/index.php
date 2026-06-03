@@ -2,7 +2,10 @@
 
 require __DIR__ . '/../lib/bootstrap.php';
 
-$LEAD_STATUSES    = ['new', 'contacted', 'qualified', 'closed', 'discarded'];
+// Estados del pipeline CRM (Fase 2) para selects y filtros. La validación de
+// input usa leadStatusIsValid() (acepta también legacy, para no romper filtros
+// sobre leads históricos).
+$LEAD_STATUSES    = LEAD_PIPELINE_STATUSES;
 $SETTING_KEYS     = [
     'site_name', 'timezone',
     'logo_image', 'favicon_image',
@@ -80,23 +83,26 @@ if ($user) {
     if ($action === 'update_lead_status') {
         csrfCheck();
         $id     = (int) ($_POST['id'] ?? 0);
-        $status = in_array($_POST['status'] ?? '', $LEAD_STATUSES, true) ? $_POST['status'] : 'new';
-        $db = getDB();
-        // Leer estado y cuenta previos para registrar el cambio en el timeline.
-        $cur = $db->prepare('SELECT account_id, status FROM leads WHERE id = ?');
-        $cur->execute([$id]);
-        $before = $cur->fetch() ?: null;
-        if ($before) {
-            $stmt = $db->prepare('UPDATE leads SET status = ? WHERE id = ?');
-            $stmt->execute([$status, $id]);
-            if ($before['status'] !== $status) {
-                leadLogActivity($id, isset($before['account_id']) ? (int) $before['account_id'] : null, 'status_change', [
-                    'user_id'     => $user['id'],
-                    'from_status' => $before['status'],
-                    'to_status'   => $status,
-                ]);
-            }
-        }
+        $status = (string) ($_POST['status'] ?? '');
+        // Lógica centralizada: valida, actualiza y registra status_change.
+        $res = updateLeadStatus($id, $status, (int) $user['id']);
+        flashSet($res['ok'] ? 'lead_success' : 'lead_error',
+            $res['ok'] ? 'Estado actualizado.' : ($res['error'] ?? 'No se pudo actualizar el estado.'));
+        redirect('/admin/?id=' . $id);
+    }
+
+    if ($action === 'update_next_action') {
+        csrfCheck();
+        $id   = (int) ($_POST['id'] ?? 0);
+        // Registrar/editar/limpiar la próxima acción. Vacío + vacío = limpiar.
+        $res  = updateLeadNextAction(
+            $id,
+            (string) ($_POST['next_action_at'] ?? ''),
+            (string) ($_POST['next_action_note'] ?? ''),
+            (int) $user['id']
+        );
+        flashSet($res['ok'] ? 'lead_success' : 'lead_error',
+            $res['ok'] ? 'Próxima acción actualizada.' : ($res['error'] ?? 'No se pudo guardar la próxima acción.'));
         redirect('/admin/?id=' . $id);
     }
 
@@ -110,7 +116,7 @@ if ($user) {
             $cur->execute([$id]);
             $accId = $cur->fetchColumn();
             // Las notas viven en el timeline de actividad (type='note').
-            leadLogActivity($id, $accId !== false ? (int) $accId : null, 'note', [
+            addLeadActivity($id, $accId !== false ? (int) $accId : null, 'note', [
                 'user_id' => $user['id'],
                 'body'    => $body,
             ]);
@@ -245,29 +251,37 @@ if ($user) {
     }
 
     if ($action === 'export_csv') {
-        $search       = trim($_GET['search'] ?? '');
-        $statusFilter = $_GET['status_filter'] ?? '';
+        $search        = trim($_GET['search'] ?? '');
+        $statusFilter  = $_GET['status_filter'] ?? '';
         $accountFilter = (int) ($_GET['account'] ?? 0);
+        $pendingFilter = !empty($_GET['pending']);
         $where  = [];
         $params = [];
         if ($accountFilter > 0) {
-            $where[] = 'account_id = ?';
+            $where[] = 'l.account_id = ?';
             $params[] = $accountFilter;
         }
         if ($search !== '') {
-            $where[] = '(name LIKE ? OR email LIKE ? OR phone LIKE ?)';
+            $where[] = '(l.name LIKE ? OR l.email LIKE ? OR l.phone LIKE ?)';
             $like = '%' . $search . '%';
             array_push($params, $like, $like, $like);
         }
-        if (in_array($statusFilter, $LEAD_STATUSES, true)) {
-            $where[] = 'status = ?';
+        if (leadStatusIsValid((string) $statusFilter)) {
+            $where[] = 'l.status = ?';
             $params[] = $statusFilter;
+        }
+        if ($pendingFilter) {
+            $where[] = "l.next_action_at IS NOT NULL AND l.next_action_at <= NOW()
+                        AND l.status NOT IN ('won','lost','closed','discarded')";
         }
         $whereSql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
         $stmt = getDB()->prepare(
-            "SELECT id, name, email, phone, message, source, status, ip_address, created_at
-             FROM leads $whereSql ORDER BY created_at DESC"
+            "SELECT l.id, a.name AS account_name, l.name, l.email, l.phone, l.message,
+                    l.source, l.status, l.next_action_at, l.next_action_note,
+                    l.ip_address, l.created_at
+               FROM leads l LEFT JOIN accounts a ON a.id = l.account_id
+             $whereSql ORDER BY l.created_at DESC"
         );
         $stmt->execute($params);
 
@@ -275,9 +289,22 @@ if ($user) {
         header('Content-Disposition: attachment; filename="leads-' . date('Ymd-His') . '.csv"');
         $out = fopen('php://output', 'w');
         fwrite($out, "\xEF\xBB\xBF"); // BOM UTF-8 para Excel
-        fputcsv($out, ['id', 'nombre', 'email', 'telefono', 'mensaje', 'source', 'estado', 'ip', 'fecha']);
+        fputcsv($out, ['id', 'cuenta', 'nombre', 'email', 'telefono', 'mensaje', 'source', 'estado', 'proxima_accion', 'proxima_accion_nota', 'ip', 'fecha_creacion']);
         while ($row = $stmt->fetch()) {
-            fputcsv($out, $row);
+            fputcsv($out, [
+                $row['id'],
+                $row['account_name'] ?? '',
+                $row['name'],
+                $row['email'],
+                $row['phone'],
+                $row['message'],
+                $row['source'],
+                leadStatusLabel((string) $row['status']),
+                $row['next_action_at'] ?? '',
+                $row['next_action_note'] ?? '',
+                $row['ip_address'],
+                $row['created_at'],
+            ]);
         }
         fclose($out);
         exit;
@@ -577,10 +604,16 @@ $lead     = null;
 $notes    = [];
 $leads    = [];
 $leadId   = isset($_GET['id']) && $_GET['id'] !== 'new' ? (int) $_GET['id'] : 0;
-$stats    = ['total' => 0, 'today' => 0, 'this_week' => 0, 'new' => 0];
+$stats    = [
+    'total' => 0, 'today' => 0, 'this_week' => 0, 'new' => 0,
+    'contacted' => 0, 'meeting_scheduled' => 0, 'proposal_sent' => 0,
+    'negotiation' => 0, 'won' => 0, 'lost' => 0,
+    'na_overdue' => 0, 'na_today' => 0,
+];
 $search       = trim($_GET['search'] ?? '');
 $statusFilter = $_GET['status_filter'] ?? '';
 $accountFilter = (int) ($_GET['account'] ?? 0); // 0 = todas las cuentas
+$pendingFilter = !empty($_GET['pending']);      // solo leads con próxima acción vencida
 $accounts     = [];
 $accountRec   = null;
 $accountsMap  = []; // id => nombre, para mostrar la cuenta en listas
@@ -653,53 +686,75 @@ if ($user) {
             $lead['account_name'] = $lead['account_id']
                 ? (string) ($db->query('SELECT name FROM accounts WHERE id = ' . (int) $lead['account_id'])->fetchColumn() ?: '')
                 : '';
-            // Timeline de actividad (notas + cambios de estado + creación).
-            $stmt = $db->prepare(
-                'SELECT a.type, a.from_status, a.to_status, a.body, a.created_at, u.email AS author_email
-                 FROM lead_activities a LEFT JOIN users u ON u.id = a.user_id
-                 WHERE a.lead_id = ? ORDER BY a.created_at DESC, a.id DESC'
-            );
-            $stmt->execute([$leadId]);
-            $notes = $stmt->fetchAll();
+            // Timeline de actividad (notas + cambios de estado + próxima acción).
+            $notes = listLeadActivities($leadId);
         }
     } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business'], true)) {
         // Cuentas para el selector de filtro y el badge de cuenta en la lista.
         $accounts = accountsAll();
         foreach ($accounts as $acc) $accountsMap[(int) $acc['id']] = $acc['name'];
         // Scope de cuenta para las stats: '' (todas) o ' AND account_id = N'.
+        // $accountFilter es un entero ya casteado: interpolación segura.
         $accScope = $accountFilter > 0 ? ' AND account_id = ' . $accountFilter : '';
         $accWhere = $accountFilter > 0 ? ' WHERE account_id = ' . $accountFilter : '';
         $stats['total']     = (int) $db->query("SELECT COUNT(*) FROM leads$accWhere")->fetchColumn();
         $stats['today']     = (int) $db->query("SELECT COUNT(*) FROM leads WHERE DATE(created_at) = CURDATE()$accScope")->fetchColumn();
         $stats['this_week'] = (int) $db->query("SELECT COUNT(*) FROM leads WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)$accScope")->fetchColumn();
-        $stats['new']       = (int) $db->query("SELECT COUNT(*) FROM leads WHERE status = 'new'$accScope")->fetchColumn();
+
+        // Conteo por estado del pipeline (una sola pasada), respetando la cuenta.
+        $byStatus = [];
+        $rs = $db->query("SELECT status, COUNT(*) AS c FROM leads WHERE 1=1$accScope GROUP BY status");
+        foreach ($rs as $row) $byStatus[$row['status']] = (int) $row['c'];
+        foreach (['new','contacted','meeting_scheduled','proposal_sent','negotiation','won','lost'] as $st) {
+            $stats[$st] = $byStatus[$st] ?? 0;
+        }
+
+        // Próximas acciones: vencidas (<= ahora) y de hoy, sin contar leads cerrados.
+        $stats['na_overdue'] = (int) $db->query(
+            "SELECT COUNT(*) FROM leads
+              WHERE next_action_at IS NOT NULL AND next_action_at <= NOW()
+                AND status NOT IN ('won','lost','closed','discarded')$accScope"
+        )->fetchColumn();
+        $stats['na_today'] = (int) $db->query(
+            "SELECT COUNT(*) FROM leads
+              WHERE next_action_at IS NOT NULL AND DATE(next_action_at) = CURDATE()
+                AND status NOT IN ('won','lost','closed','discarded')$accScope"
+        )->fetchColumn();
 
         $where  = [];
         $params = [];
         if ($accountFilter > 0) {
-            $where[] = 'account_id = ?';
+            $where[] = 'l.account_id = ?';
             $params[] = $accountFilter;
         }
         if ($search !== '') {
-            $where[] = '(name LIKE ? OR email LIKE ? OR phone LIKE ?)';
+            $where[] = '(l.name LIKE ? OR l.email LIKE ? OR l.phone LIKE ?)';
             $like = '%' . $search . '%';
             array_push($params, $like, $like, $like);
         }
-        if (in_array($statusFilter, $LEAD_STATUSES, true)) {
-            $where[] = 'status = ?';
+        if (leadStatusIsValid((string) $statusFilter)) {
+            $where[] = 'l.status = ?';
             $params[] = $statusFilter;
+        }
+        if ($pendingFilter) {
+            $where[] = "l.next_action_at IS NOT NULL AND l.next_action_at <= NOW()
+                        AND l.status NOT IN ('won','lost','closed','discarded')";
         }
         $whereSql = $where ? 'WHERE ' . implode(' AND ', $where) : '';
 
-        $cnt = $db->prepare("SELECT COUNT(*) FROM leads $whereSql");
+        $cnt = $db->prepare("SELECT COUNT(*) FROM leads l $whereSql");
         $cnt->execute($params);
         $totalLeads = (int) $cnt->fetchColumn();
         $totalPages = max(1, (int) ceil($totalLeads / $perPage));
         $page       = min($page, $totalPages);
         $offset     = ($page - 1) * $perPage;
 
-        $sql = "SELECT id, account_id, name, email, source, status, created_at
-                FROM leads $whereSql ORDER BY created_at DESC LIMIT ? OFFSET ?";
+        // Último movimiento = actividad más reciente del lead (subconsulta liviana).
+        $sql = "SELECT l.id, l.account_id, l.name, l.email, l.phone, l.source, l.status,
+                       l.next_action_at, l.next_action_note, l.created_at,
+                       (SELECT MAX(la.created_at) FROM lead_activities la WHERE la.lead_id = l.id) AS last_activity_at
+                  FROM leads l $whereSql
+                 ORDER BY l.created_at DESC LIMIT ? OFFSET ?";
         $stmt = $db->prepare($sql);
         $i = 1;
         foreach ($params as $p) $stmt->bindValue($i++, $p, PDO::PARAM_STR);
@@ -710,9 +765,10 @@ if ($user) {
     }
 }
 
-$paginationUrl = function (int $p) use ($search, $statusFilter, $accountFilter): string {
+$paginationUrl = function (int $p) use ($search, $statusFilter, $accountFilter, $pendingFilter): string {
     $params = array_filter([
-        'account' => $accountFilter ?: '', 'search' => $search, 'status_filter' => $statusFilter, 'page' => $p,
+        'account' => $accountFilter ?: '', 'search' => $search, 'status_filter' => $statusFilter,
+        'pending' => $pendingFilter ? '1' : '', 'page' => $p,
     ], fn($v) => $v !== '' && $v !== null);
     return '/admin/?' . http_build_query($params);
 };
