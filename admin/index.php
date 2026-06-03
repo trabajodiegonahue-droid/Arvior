@@ -81,8 +81,22 @@ if ($user) {
         csrfCheck();
         $id     = (int) ($_POST['id'] ?? 0);
         $status = in_array($_POST['status'] ?? '', $LEAD_STATUSES, true) ? $_POST['status'] : 'new';
-        $stmt = getDB()->prepare('UPDATE leads SET status = ? WHERE id = ?');
-        $stmt->execute([$status, $id]);
+        $db = getDB();
+        // Leer estado y cuenta previos para registrar el cambio en el timeline.
+        $cur = $db->prepare('SELECT account_id, status FROM leads WHERE id = ?');
+        $cur->execute([$id]);
+        $before = $cur->fetch() ?: null;
+        if ($before) {
+            $stmt = $db->prepare('UPDATE leads SET status = ? WHERE id = ?');
+            $stmt->execute([$status, $id]);
+            if ($before['status'] !== $status) {
+                leadLogActivity($id, isset($before['account_id']) ? (int) $before['account_id'] : null, 'status_change', [
+                    'user_id'     => $user['id'],
+                    'from_status' => $before['status'],
+                    'to_status'   => $status,
+                ]);
+            }
+        }
         redirect('/admin/?id=' . $id);
     }
 
@@ -91,12 +105,57 @@ if ($user) {
         $id   = (int) ($_POST['id'] ?? 0);
         $body = trim($_POST['note'] ?? '');
         if ($body !== '' && $id > 0) {
-            $stmt = getDB()->prepare(
-                'INSERT INTO lead_notes (lead_id, user_id, body) VALUES (?, ?, ?)'
-            );
-            $stmt->execute([$id, $user['id'], $body]);
+            $db = getDB();
+            $cur = $db->prepare('SELECT account_id FROM leads WHERE id = ?');
+            $cur->execute([$id]);
+            $accId = $cur->fetchColumn();
+            // Las notas viven en el timeline de actividad (type='note').
+            leadLogActivity($id, $accId !== false ? (int) $accId : null, 'note', [
+                'user_id' => $user['id'],
+                'body'    => $body,
+            ]);
         }
         redirect('/admin/?id=' . $id);
+    }
+
+    // ─── Cuentas (multi-cuenta · Fase 1) ───
+    if ($action === 'account_create') {
+        csrfCheck();
+        $res = accountCreate((string) ($_POST['name'] ?? ''), (string) ($_POST['plan'] ?? ''));
+        if ($res['ok']) {
+            flashSet('account_success', 'Cuenta creada. Copiá su token público para la landing del cliente.');
+            redirect('/admin/?view=account_edit&id=' . (int) $res['id']);
+        }
+        flashSet('account_error', $res['error'] ?? 'No se pudo crear la cuenta.');
+        redirect('/admin/?view=accounts');
+    }
+
+    if ($action === 'account_update') {
+        csrfCheck();
+        $aid = (int) ($_POST['id'] ?? 0);
+        $res = accountUpdate($aid, (string) ($_POST['name'] ?? ''), (string) ($_POST['plan'] ?? ''));
+        flashSet($res['ok'] ? 'account_success' : 'account_error', $res['ok'] ? 'Cuenta actualizada.' : ($res['error'] ?? 'Error.'));
+        redirect('/admin/?view=account_edit&id=' . $aid);
+    }
+
+    if ($action === 'account_set_status') {
+        csrfCheck();
+        $aid    = (int) ($_POST['id'] ?? 0);
+        $status = (string) ($_POST['status'] ?? '');
+        if (accountSetStatus($aid, $status)) {
+            flashSet('account_success', 'Estado de la cuenta actualizado.');
+        } else {
+            flashSet('account_error', 'Estado inválido.');
+        }
+        redirect('/admin/?view=account_edit&id=' . $aid);
+    }
+
+    if ($action === 'account_regenerate_token') {
+        csrfCheck();
+        $aid = (int) ($_POST['id'] ?? 0);
+        $tok = accountRegenerateToken($aid);
+        flashSet($tok ? 'account_success' : 'account_error', $tok ? 'Token regenerado. La landing anterior dejará de funcionar hasta actualizar el token.' : 'No se pudo regenerar.');
+        redirect('/admin/?view=account_edit&id=' . $aid);
     }
 
     if ($action === 'delete_lead') {
@@ -188,8 +247,13 @@ if ($user) {
     if ($action === 'export_csv') {
         $search       = trim($_GET['search'] ?? '');
         $statusFilter = $_GET['status_filter'] ?? '';
+        $accountFilter = (int) ($_GET['account'] ?? 0);
         $where  = [];
         $params = [];
+        if ($accountFilter > 0) {
+            $where[] = 'account_id = ?';
+            $params[] = $accountFilter;
+        }
         if ($search !== '') {
             $where[] = '(name LIKE ? OR email LIKE ? OR phone LIKE ?)';
             $like = '%' . $search . '%';
@@ -516,6 +580,10 @@ $leadId   = isset($_GET['id']) && $_GET['id'] !== 'new' ? (int) $_GET['id'] : 0;
 $stats    = ['total' => 0, 'today' => 0, 'this_week' => 0, 'new' => 0];
 $search       = trim($_GET['search'] ?? '');
 $statusFilter = $_GET['status_filter'] ?? '';
+$accountFilter = (int) ($_GET['account'] ?? 0); // 0 = todas las cuentas
+$accounts     = [];
+$accountRec   = null;
+$accountsMap  = []; // id => nombre, para mostrar la cuenta en listas
 $page         = max(1, (int) ($_GET['page'] ?? 1));
 $perPage      = 25;
 $totalLeads   = 0;
@@ -566,27 +634,52 @@ if ($user) {
         $uid = (int) ($_GET['id'] ?? 0);
         $userRec = $uid > 0 ? userGet($uid) : null;
         if (!$userRec) redirect('/admin/?view=users');
+    } elseif ($view === 'accounts') {
+        $accounts = accountsAll();
+    } elseif ($view === 'account_edit') {
+        $aid = (int) ($_GET['id'] ?? 0);
+        $accountRec = $aid > 0 ? accountGet($aid) : null;
+        if (!$accountRec) redirect('/admin/?view=accounts');
     } elseif ($leadId > 0) {
         $stmt = $db->prepare('SELECT * FROM leads WHERE id = ?');
         $stmt->execute([$leadId]);
         $lead = $stmt->fetch() ?: null;
+        // Aislamiento por cuenta: si hay un filtro de cuenta activo y el lead
+        // pertenece a otra cuenta, no se muestra (DoD #4).
+        if ($lead && $accountFilter > 0 && (int) ($lead['account_id'] ?? 0) !== $accountFilter) {
+            redirect('/admin/?account=' . $accountFilter);
+        }
         if ($lead) {
+            $lead['account_name'] = $lead['account_id']
+                ? (string) ($db->query('SELECT name FROM accounts WHERE id = ' . (int) $lead['account_id'])->fetchColumn() ?: '')
+                : '';
+            // Timeline de actividad (notas + cambios de estado + creación).
             $stmt = $db->prepare(
-                'SELECT n.body, n.created_at, u.email AS author_email
-                 FROM lead_notes n LEFT JOIN users u ON u.id = n.user_id
-                 WHERE n.lead_id = ? ORDER BY n.created_at DESC'
+                'SELECT a.type, a.from_status, a.to_status, a.body, a.created_at, u.email AS author_email
+                 FROM lead_activities a LEFT JOIN users u ON u.id = a.user_id
+                 WHERE a.lead_id = ? ORDER BY a.created_at DESC, a.id DESC'
             );
             $stmt->execute([$leadId]);
             $notes = $stmt->fetchAll();
         }
-    } elseif (!in_array($view, ['account', 'media', 'users', 'user', 'mailing', 'business'], true)) {
-        $stats['total']     = (int) $db->query('SELECT COUNT(*) FROM leads')->fetchColumn();
-        $stats['today']     = (int) $db->query('SELECT COUNT(*) FROM leads WHERE DATE(created_at) = CURDATE()')->fetchColumn();
-        $stats['this_week'] = (int) $db->query('SELECT COUNT(*) FROM leads WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)')->fetchColumn();
-        $stats['new']       = (int) $db->query("SELECT COUNT(*) FROM leads WHERE status = 'new'")->fetchColumn();
+    } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business'], true)) {
+        // Cuentas para el selector de filtro y el badge de cuenta en la lista.
+        $accounts = accountsAll();
+        foreach ($accounts as $acc) $accountsMap[(int) $acc['id']] = $acc['name'];
+        // Scope de cuenta para las stats: '' (todas) o ' AND account_id = N'.
+        $accScope = $accountFilter > 0 ? ' AND account_id = ' . $accountFilter : '';
+        $accWhere = $accountFilter > 0 ? ' WHERE account_id = ' . $accountFilter : '';
+        $stats['total']     = (int) $db->query("SELECT COUNT(*) FROM leads$accWhere")->fetchColumn();
+        $stats['today']     = (int) $db->query("SELECT COUNT(*) FROM leads WHERE DATE(created_at) = CURDATE()$accScope")->fetchColumn();
+        $stats['this_week'] = (int) $db->query("SELECT COUNT(*) FROM leads WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)$accScope")->fetchColumn();
+        $stats['new']       = (int) $db->query("SELECT COUNT(*) FROM leads WHERE status = 'new'$accScope")->fetchColumn();
 
         $where  = [];
         $params = [];
+        if ($accountFilter > 0) {
+            $where[] = 'account_id = ?';
+            $params[] = $accountFilter;
+        }
         if ($search !== '') {
             $where[] = '(name LIKE ? OR email LIKE ? OR phone LIKE ?)';
             $like = '%' . $search . '%';
@@ -605,7 +698,7 @@ if ($user) {
         $page       = min($page, $totalPages);
         $offset     = ($page - 1) * $perPage;
 
-        $sql = "SELECT id, name, email, source, status, created_at
+        $sql = "SELECT id, account_id, name, email, source, status, created_at
                 FROM leads $whereSql ORDER BY created_at DESC LIMIT ? OFFSET ?";
         $stmt = $db->prepare($sql);
         $i = 1;
@@ -617,9 +710,9 @@ if ($user) {
     }
 }
 
-$paginationUrl = function (int $p) use ($search, $statusFilter): string {
+$paginationUrl = function (int $p) use ($search, $statusFilter, $accountFilter): string {
     $params = array_filter([
-        'search' => $search, 'status_filter' => $statusFilter, 'page' => $p,
+        'account' => $accountFilter ?: '', 'search' => $search, 'status_filter' => $statusFilter, 'page' => $p,
     ], fn($v) => $v !== '' && $v !== null);
     return '/admin/?' . http_build_query($params);
 };
@@ -679,6 +772,10 @@ if ($faviconPath && @file_exists($faviconAbs)):
             require __DIR__ . '/../components/admin/users_list.php';
         } elseif ($view === 'user') {
             require __DIR__ . '/../components/admin/user_edit.php';
+        } elseif ($view === 'accounts') {
+            require __DIR__ . '/../components/admin/accounts_list.php';
+        } elseif ($view === 'account_edit') {
+            require __DIR__ . '/../components/admin/account_edit.php';
         } elseif ($lead) {
             require __DIR__ . '/../components/admin/lead_detail.php';
         } else {

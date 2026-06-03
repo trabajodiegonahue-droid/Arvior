@@ -49,51 +49,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'submi
     }
 
     csrfCheck();
-    $name    = trim($_POST['name']    ?? '');
-    $email   = trim($_POST['email']   ?? '');
-    $phone   = trim($_POST['phone']   ?? '');
-    $message = trim($_POST['message'] ?? '');
-    $source  = trim($_POST['source']  ?? 'website');
+    $name  = trim($_POST['name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
 
     if (!$name || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Nombre y email válido son requeridos.';
     } else {
-        // Duplicate check: mismo email en los últimos 5 minutos → fake success.
-        $dupe = getDB()->prepare(
-            'SELECT COUNT(*) FROM leads
-             WHERE email = ? AND created_at > DATE_SUB(NOW(), INTERVAL 5 MINUTE)'
-        );
-        $dupe->execute([$email]);
+        // El sitio propio de ARVIOR escribe en la cuenta interna. La creación
+        // (validación + dedup por cuenta + insert + actividad) está centralizada
+        // en leadCreate(); intake.php usa la misma para las cuentas de clientes.
+        //
+        // Ventana de migración (R1): si el código de Fase 1 ya está desplegado
+        // pero las migraciones aún no corrieron desde /admin/, el esquema
+        // multi-cuenta no existe. NO redirigimos a /gracias (sería simular un
+        // guardado que no ocurrió): mostramos un error controlado y visible.
+        // Mejor un fallo honesto que una pérdida silenciosa.
+        $accountId = (leadsSchemaReady()) ? accountInternalId() : null;
 
-        if ((int) $dupe->fetchColumn() > 0) {
-            redirect('/?sent=1');
+        if ($accountId === null) {
+            error_log('index.php submit_lead: esquema multi-cuenta no disponible (¿migraciones sin correr desde /admin/?).');
+            $error = 'No pudimos procesar tu mensaje en este momento. Probá de nuevo en unos minutos o escribinos por otro medio.';
+        } else {
+            $result = leadCreate([
+                'name'    => $name,
+                'email'   => $email,
+                'phone'   => $_POST['phone']   ?? '',
+                'message' => $_POST['message'] ?? '',
+                'source'  => $_POST['source']  ?? 'website',
+            ], $accountId);
+
+            if (empty($result['ok'])) {
+                $error = $result['error'] ?? 'No se pudo enviar el formulario.';
+            } else {
+                // Dedup silencioso o alta real: en ambos casos, éxito de cara al usuario.
+                if (empty($result['duplicate']) && !empty($result['lead'])) {
+                    $lead = $result['lead'];
+                    // Notificaciones: no deben romper el flujo si fallan.
+                    try { notifyLeadCreated($lead); } catch (Throwable $e) { error_log('notifyLead: ' . $e->getMessage()); }
+                    try { sendLeadAutoReply($lead); } catch (Throwable $e) { error_log('autoReply: ' . $e->getMessage()); }
+                }
+                redirect('/gracias');
+            }
         }
-
-        $db = getDB();
-        $stmt = $db->prepare(
-            'INSERT INTO leads (name, email, phone, message, source, status, ip_address, user_agent)
-             VALUES (?, ?, ?, ?, ?, "new", ?, ?)'
-        );
-        $stmt->execute([
-            $name, $email, $phone, $message, $source,
-            clientIp(),
-            substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 500),
-        ]);
-
-        $lead = [
-            'id'      => (int) $db->lastInsertId(),
-            'name'    => $name,
-            'email'   => $email,
-            'phone'   => $phone,
-            'message' => $message,
-            'source'  => $source,
-        ];
-
-        // Notificaciones: no deben romper el flujo si fallan.
-        try { notifyLeadCreated($lead); }   catch (Throwable $e) { error_log('notifyLead: ' . $e->getMessage()); }
-        try { sendLeadAutoReply($lead); }   catch (Throwable $e) { error_log('autoReply: ' . $e->getMessage()); }
-
-        redirect('/gracias');
     }
 }
 
