@@ -106,11 +106,18 @@ function updateLeadStatus(int $leadId, string $status, ?int $userId = null): arr
     $upd = $db->prepare('UPDATE leads SET status = ? WHERE id = ?');
     $upd->execute([$status, $leadId]);
 
-    addLeadActivity($leadId, isset($before['account_id']) ? (int) $before['account_id'] : null, 'status_change', [
+    $accId = isset($before['account_id']) ? (int) $before['account_id'] : null;
+    addLeadActivity($leadId, $accId, 'status_change', [
         'user_id'     => $userId,
         'from_status' => $before['status'],
         'to_status'   => $status,
     ]);
+
+    // Automatización interna (Fase 3): al pasar a "propuesta enviada", crear
+    // una tarea de seguimiento. Defensiva: se salta si no está el módulo.
+    if ($status === 'proposal_sent' && function_exists('autoTaskOnProposalSent')) {
+        autoTaskOnProposalSent($leadId, $accId, $userId);
+    }
     return ['ok' => true];
 }
 
@@ -285,6 +292,12 @@ function leadCreate(array $input, int $accountId, array $opts = []): array {
     leadLogActivity($leadId, $accountId, 'created', [
         'body' => 'Lead capturado (' . $source . ').',
     ]);
+
+    // Automatización interna (Fase 3): tarea automática "Contactar lead".
+    // Defensiva: si el módulo de tareas no está disponible, se salta en silencio.
+    if (function_exists('autoTaskOnLeadCreated')) {
+        autoTaskOnLeadCreated($leadId, $accountId, $name);
+    }
 
     return ['ok' => true, 'id' => $leadId, 'lead' => $lead];
 }

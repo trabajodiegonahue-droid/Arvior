@@ -1,7 +1,10 @@
 <?php
-/** Requiere: $lead, $notes (timeline de lead_activities), $LEAD_STATUSES */
+/** Requiere: $lead, $notes (timeline de lead_activities), $LEAD_STATUSES, $leadTasks */
 $flashOk  = flashGet('lead_success');
 $flashErr = flashGet('lead_error');
+$taskOk   = flashGet('task_success');
+$taskErr  = flashGet('task_error');
+$leadTasks = $leadTasks ?? [];
 
 // Etiqueta legible por tipo de actividad.
 $activityLabel = function (array $n): string {
@@ -11,6 +14,10 @@ $activityLabel = function (array $n): string {
         case 'note':                 return 'Nota';
         case 'next_action':          return 'Próxima acción';
         case 'next_action_cleared':  return 'Próxima acción eliminada';
+        case 'task_created':         return 'Tarea creada';
+        case 'task_completed':       return 'Tarea completada';
+        case 'task_cancelled':       return 'Tarea cancelada';
+        case 'task_reopened':        return 'Tarea reabierta';
         default:                     return (string) ($n['type'] ?? 'Actividad');
     }
 };
@@ -22,6 +29,10 @@ $activityBadge = function (string $type): string {
         'next_action'         => 'proposal_sent',
         'next_action_cleared' => 'lost',
         'status_change'       => 'contacted',
+        'task_created'        => 'new',
+        'task_completed'      => 'completed',
+        'task_cancelled'      => 'cancelled',
+        'task_reopened'       => 'pending',
     ][$type] ?? 'contacted';
 };
 
@@ -107,6 +118,77 @@ $naOverdue = $naAtRaw && strtotime($naAtRaw) !== false && strtotime($naAtRaw) <=
             <button type="submit" class="btn btn--ghost">Limpiar próxima acción</button>
         </form>
     <?php endif; ?>
+</section>
+
+<section class="admin-section">
+    <h2>Tareas</h2>
+    <?php if ($taskOk): ?><p class="alert alert--success"><?= htmlspecialchars($taskOk) ?></p><?php endif; ?>
+    <?php if ($taskErr): ?><p class="alert alert--error"><?= htmlspecialchars($taskErr) ?></p><?php endif; ?>
+
+    <?php if (empty($leadTasks)): ?>
+        <p class="text-muted" style="margin:0 0 1rem;">Este lead no tiene tareas.</p>
+    <?php else: ?>
+        <table class="table" style="margin-bottom:1rem;">
+            <thead><tr><th>Tarea</th><th>Vence</th><th>Estado</th><th style="width:200px;"></th></tr></thead>
+            <tbody>
+            <?php foreach ($leadTasks as $t):
+                $tStatus = (string) ($t['status'] ?? 'pending');
+                $dueRaw  = $t['due_at'] ?? null;
+                $overdue = $tStatus === 'pending' && $dueRaw && strtotime((string) $dueRaw) !== false && strtotime((string) $dueRaw) < time();
+                $badge   = $overdue ? 'overdue' : $tStatus;
+                $badgeTx = $overdue ? 'Vencida' : taskStatusLabel($tStatus);
+            ?>
+                <tr>
+                    <td><strong><?= htmlspecialchars((string) $t['title']) ?></strong>
+                        <?php if (!empty($t['description'])): ?><br><span class="text-muted" style="font-size:.82rem;"><?= nl2br(htmlspecialchars((string) $t['description'])) ?></span><?php endif; ?>
+                    </td>
+                    <td class="text-tabular"<?= $overdue ? ' style="color:var(--color-danger);font-weight:600;"' : '' ?>><?= $dueRaw ? htmlspecialchars(date('Y-m-d H:i', strtotime((string) $dueRaw))) : '—' ?></td>
+                    <td><span class="badge badge--<?= htmlspecialchars($badge) ?>"><?= htmlspecialchars($badgeTx) ?></span></td>
+                    <td>
+                        <?php if ($tStatus === 'pending'): ?>
+                            <form method="post" class="inline-form" style="display:inline;margin:0 .25rem 0 0;">
+                                <input type="hidden" name="action" value="task_complete">
+                                <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+                                <input type="hidden" name="id" value="<?= (int) $t['id'] ?>">
+                                <input type="hidden" name="lead_id" value="<?= (int) $lead['id'] ?>">
+                                <input type="hidden" name="return_to" value="lead">
+                                <button type="submit" class="btn" style="padding:.3rem .7rem;font-size:.8rem;">Completar</button>
+                            </form>
+                            <form method="post" class="inline-form" style="display:inline;margin:0;">
+                                <input type="hidden" name="action" value="task_cancel">
+                                <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+                                <input type="hidden" name="id" value="<?= (int) $t['id'] ?>">
+                                <input type="hidden" name="lead_id" value="<?= (int) $lead['id'] ?>">
+                                <input type="hidden" name="return_to" value="lead">
+                                <button type="submit" class="btn btn--ghost" style="padding:.3rem .7rem;font-size:.8rem;">Cancelar</button>
+                            </form>
+                        <?php else: ?>
+                            <form method="post" class="inline-form" style="display:inline;margin:0;">
+                                <input type="hidden" name="action" value="task_reopen">
+                                <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+                                <input type="hidden" name="id" value="<?= (int) $t['id'] ?>">
+                                <input type="hidden" name="lead_id" value="<?= (int) $lead['id'] ?>">
+                                <input type="hidden" name="return_to" value="lead">
+                                <button type="submit" class="btn btn--ghost" style="padding:.3rem .7rem;font-size:.8rem;">Reabrir</button>
+                            </form>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+
+    <form method="post" class="inline-form" style="margin:0;flex-wrap:wrap;gap:.6rem;align-items:flex-end;">
+        <input type="hidden" name="action" value="task_create">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+        <input type="hidden" name="lead_id" value="<?= (int) $lead['id'] ?>">
+        <input type="hidden" name="return_to" value="lead">
+        <label style="font-size:.82rem;flex:1 1 240px;">Título<br><input type="text" name="title" required maxlength="200" placeholder="Ej: Enviar propuesta" style="width:100%;"></label>
+        <label style="font-size:.82rem;">Vence<br><input type="datetime-local" name="due_at"></label>
+        <label style="font-size:.82rem;flex:1 1 100%;">Descripción (opcional)<br><input type="text" name="description" maxlength="1000" style="width:100%;"></label>
+        <button type="submit" class="btn">Crear tarea</button>
+    </form>
 </section>
 
 <section class="admin-section">

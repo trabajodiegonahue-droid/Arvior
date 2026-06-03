@@ -1,6 +1,8 @@
 <?php
-/** Requiere: $stats, $leads, $search, $statusFilter, $accountFilter, $pendingFilter, $accounts, $accountsMap, $page, $totalPages, $totalLeads, $LEAD_STATUSES, $paginationUrl */
+/** Requiere: $stats, $leads, $search, $statusFilter, $accountFilter, $pendingFilter, $accounts, $accountsMap, $page, $totalPages, $totalLeads, $LEAD_STATUSES, $paginationUrl, $taskStats, $leadsStale */
 $accountFilter = $accountFilter ?? 0;
+$taskStats  = $taskStats  ?? ['overdue' => 0, 'today' => 0, 'pending' => 0, 'completed' => 0];
+$leadsStale = $leadsStale ?? 0;
 $pendingFilter = $pendingFilter ?? false;
 $accounts      = $accounts ?? [];
 $accountsMap   = $accountsMap ?? [];
@@ -56,6 +58,22 @@ $fmtNextAction = function (?string $at, ?string $note): string {
     <a class="stat" href="<?= htmlspecialchars($filterUrl(['status_filter' => 'lost'])) ?>"><div class="stat__label">Perdidos</div><div class="stat__value"><?= $stats['lost'] ?></div></a>
     <a class="stat" href="<?= htmlspecialchars($filterUrl(['pending' => '1'])) ?>"><div class="stat__label">Acciones vencidas</div><div class="stat__value" style="<?= $stats['na_overdue'] > 0 ? 'color:var(--color-danger);' : '' ?>"><?= $stats['na_overdue'] ?></div></a>
     <div class="stat"><div class="stat__label">Acciones de hoy</div><div class="stat__value"><?= $stats['na_today'] ?></div></div>
+</div>
+
+<?php
+// Enlaces a la vista de tareas conservando el filtro de cuenta.
+$tasksLink = function (array $extra = []) use ($accountFilter): string {
+    $params = array_filter(array_merge(['view' => 'tasks', 'account' => $accountFilter ?: ''], $extra), fn($v) => $v !== '' && $v !== null);
+    return '/admin/?' . http_build_query($params);
+};
+?>
+<h2 class="admin-section__title" style="margin:1.6rem 0 .6rem;font-size:1rem;">Operación del día</h2>
+<div class="stats">
+    <a class="stat" href="<?= htmlspecialchars($tasksLink(['bucket' => 'overdue'])) ?>"><div class="stat__label">Tareas vencidas</div><div class="stat__value" style="<?= $taskStats['overdue'] > 0 ? 'color:var(--color-danger);' : '' ?>"><?= (int) $taskStats['overdue'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($tasksLink(['bucket' => 'today'])) ?>"><div class="stat__label">Tareas de hoy</div><div class="stat__value"><?= (int) $taskStats['today'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($tasksLink(['task_status' => 'pending'])) ?>"><div class="stat__label">Tareas pendientes</div><div class="stat__value"><?= (int) $taskStats['pending'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($tasksLink(['task_status' => 'completed'])) ?>"><div class="stat__label">Tareas completadas</div><div class="stat__value"><?= (int) $taskStats['completed'] ?></div></a>
+    <a class="stat" href="<?= htmlspecialchars($filterUrl(['pending' => '1'])) ?>"><div class="stat__label">Leads sin actividad (<?= LEAD_STALE_DAYS ?>d)</div><div class="stat__value" style="<?= $leadsStale > 0 ? 'color:var(--color-warn);' : '' ?>"><?= (int) $leadsStale ?></div></a>
 </div>
 
 <form method="get" class="filters">
