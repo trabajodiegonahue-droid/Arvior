@@ -106,6 +106,21 @@ if ($user) {
         redirect('/admin/?id=' . $id);
     }
 
+    if ($action === 'update_lead_value') {
+        csrfCheck();
+        $id  = (int) ($_POST['id'] ?? 0);
+        // Valor monetario del deal + motivo de pérdida (Fase 4).
+        $res = updateLeadValue(
+            $id,
+            (string) ($_POST['value_amount'] ?? ''),
+            (string) ($_POST['lost_reason'] ?? ''),
+            (int) $user['id']
+        );
+        flashSet($res['ok'] ? 'lead_success' : 'lead_error',
+            $res['ok'] ? 'Valor del deal actualizado.' : ($res['error'] ?? 'No se pudo guardar el valor.'));
+        redirect('/admin/?id=' . $id);
+    }
+
     if ($action === 'add_note') {
         csrfCheck();
         $id   = (int) ($_POST['id'] ?? 0);
@@ -324,9 +339,9 @@ if ($user) {
         header('Content-Disposition: attachment; filename="leads-' . date('Ymd-His') . '.csv"');
         $out = fopen('php://output', 'w');
         fwrite($out, "\xEF\xBB\xBF"); // BOM UTF-8 para Excel
-        fputcsv($out, ['id', 'cuenta', 'nombre', 'email', 'telefono', 'mensaje', 'source', 'estado', 'proxima_accion', 'proxima_accion_nota', 'ip', 'fecha_creacion']);
+        csvPutRow($out, ['id', 'cuenta', 'nombre', 'email', 'telefono', 'mensaje', 'source', 'estado', 'proxima_accion', 'proxima_accion_nota', 'ip', 'fecha_creacion']);
         while ($row = $stmt->fetch()) {
-            fputcsv($out, [
+            csvPutRow($out, [
                 $row['id'],
                 $row['account_name'] ?? '',
                 $row['name'],
@@ -341,6 +356,41 @@ if ($user) {
                 $row['created_at'],
             ]);
         }
+        fclose($out);
+        exit;
+    }
+
+    if ($action === 'export_reports_csv') {
+        $accId = (int) ($_GET['account'] ?? 0);
+        $rng   = reportResolveRange($_GET['range'] ?? '', $_GET['from'] ?? '', $_GET['to'] ?? '');
+        $cur   = reportCurrency();
+        $kpis  = reportKpis($accId, $rng['from'], $rng['to']);
+        $funnel = reportFunnel($accId, $rng['from'], $rng['to']);
+        $bySrc  = reportBySource($accId, $rng['from'], $rng['to']);
+
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="reporte-' . date('Ymd-His') . '.csv"');
+        $out = fopen('php://output', 'w');
+        fwrite($out, "\xEF\xBB\xBF");
+        csvPutRow($out, ['ARVIOR — Reporte comercial']);
+        csvPutRow($out, ['Rango', $rng['label'], 'Cuenta', $accId > 0 ? (string) ($accountsMap[$accId] ?? ('#' . $accId)) : 'Todas', 'Moneda', $cur]);
+        csvPutRow($out, []);
+        csvPutRow($out, ['KPI', 'Valor']);
+        csvPutRow($out, ['Leads en el período', $kpis['leads_in_period']]);
+        csvPutRow($out, ['Ganados', $kpis['won_count']]);
+        csvPutRow($out, ['Perdidos', $kpis['lost_count']]);
+        csvPutRow($out, ['Win rate (%)', $kpis['win_rate']]);
+        csvPutRow($out, ['Revenue ganado', $kpis['won_revenue']]);
+        csvPutRow($out, ['Ticket promedio', $kpis['avg_deal']]);
+        csvPutRow($out, ['Pipeline (abiertos)', $kpis['pipeline_count']]);
+        csvPutRow($out, ['Pipeline valor', $kpis['pipeline_value']]);
+        csvPutRow($out, ['Forecast ponderado', $kpis['forecast_weighted']]);
+        csvPutRow($out, []);
+        csvPutRow($out, ['Embudo', 'Leads', 'Conversión vs etapa previa (%)']);
+        foreach ($funnel as $st) csvPutRow($out, [leadStatusLabel($st['stage']), $st['count'], $st['conv']]);
+        csvPutRow($out, []);
+        csvPutRow($out, ['Fuente', 'Leads', 'Ganados', 'Revenue ganado', 'Win rate (%)']);
+        foreach ($bySrc as $s) csvPutRow($out, [$s['source'], $s['leads'], $s['won'], $s['won_revenue'], $s['win_rate']]);
         fclose($out);
         exit;
     }
@@ -711,6 +761,17 @@ if ($user) {
         $aid = (int) ($_GET['id'] ?? 0);
         $accountRec = $aid > 0 ? accountGet($aid) : null;
         if (!$accountRec) redirect('/admin/?view=accounts');
+    } elseif ($view === 'reports') {
+        // Reportes comerciales (Fase 4): KPIs, embudo, revenue, forecast, fuente
+        // y tendencia, filtrables por rango de fecha y cuenta.
+        $accounts        = accountsAll();
+        foreach ($accounts as $acc) $accountsMap[(int) $acc['id']] = $acc['name'];
+        $reportRange     = reportResolveRange($_GET['range'] ?? '', $_GET['from'] ?? '', $_GET['to'] ?? '');
+        $reportCur       = reportCurrency();
+        $reportKpis      = reportKpis($accountFilter, $reportRange['from'], $reportRange['to']);
+        $reportFunnel    = reportFunnel($accountFilter, $reportRange['from'], $reportRange['to']);
+        $reportBySource  = reportBySource($accountFilter, $reportRange['from'], $reportRange['to']);
+        $reportTrend     = reportMonthlyTrend($accountFilter, 6);
     } elseif ($view === 'tasks') {
         // Vista de tareas: cuatro buckets (hoy, vencidas, próximas, completadas)
         // respetando el filtro de cuenta, más el formulario de creación.
@@ -747,7 +808,7 @@ if ($user) {
             // Tareas asociadas al lead (Fase 3).
             $leadTasks = tasksForLead($leadId);
         }
-    } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business', 'tasks'], true)) {
+    } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business', 'tasks', 'reports'], true)) {
         // Cuentas para el selector de filtro y el badge de cuenta en la lista.
         $accounts = accountsAll();
         foreach ($accounts as $acc) $accountsMap[(int) $acc['id']] = $acc['name'];
@@ -909,6 +970,8 @@ if ($faviconPath && @file_exists($faviconAbs)):
             require __DIR__ . '/../components/admin/account_edit.php';
         } elseif ($view === 'tasks') {
             require __DIR__ . '/../components/admin/tasks.php';
+        } elseif ($view === 'reports') {
+            require __DIR__ . '/../components/admin/reports.php';
         } elseif ($lead) {
             require __DIR__ . '/../components/admin/lead_detail.php';
         } else {

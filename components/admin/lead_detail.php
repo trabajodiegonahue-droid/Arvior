@@ -5,6 +5,10 @@ $flashErr = flashGet('lead_error');
 $taskOk   = flashGet('task_success');
 $taskErr  = flashGet('task_error');
 $leadTasks = $leadTasks ?? [];
+$reportCurrency = (string) getSetting('report_currency', 'CLP');
+$leadValue      = isset($lead['value_amount']) && $lead['value_amount'] !== null ? (float) $lead['value_amount'] : null;
+$leadValueFmt   = $leadValue !== null ? number_format($leadValue, 0, ',', '.') : '';
+$leadLostReason = (string) ($lead['lost_reason'] ?? '');
 
 // Etiqueta legible por tipo de actividad.
 $activityLabel = function (array $n): string {
@@ -18,6 +22,7 @@ $activityLabel = function (array $n): string {
         case 'task_completed':       return 'Tarea completada';
         case 'task_cancelled':       return 'Tarea cancelada';
         case 'task_reopened':        return 'Tarea reabierta';
+        case 'value_update':         return 'Valor del deal';
         default:                     return (string) ($n['type'] ?? 'Actividad');
     }
 };
@@ -33,6 +38,7 @@ $activityBadge = function (string $type): string {
         'task_completed'      => 'completed',
         'task_cancelled'      => 'cancelled',
         'task_reopened'       => 'pending',
+        'value_update'        => 'won',
     ][$type] ?? 'contacted';
 };
 
@@ -118,6 +124,24 @@ $naOverdue = $naAtRaw && strtotime($naAtRaw) !== false && strtotime($naAtRaw) <=
             <button type="submit" class="btn btn--ghost">Limpiar próxima acción</button>
         </form>
     <?php endif; ?>
+</section>
+
+<section class="admin-section">
+    <h2>Valor y cierre</h2>
+    <p class="text-muted" style="margin:0 0 .8rem;font-size:.9rem;">
+        Valor del deal en <strong><?= htmlspecialchars($reportCurrency) ?></strong><?php
+        if (!empty($lead['won_at'])): ?> · <span style="color:var(--color-success);font-weight:600;">Ganado <?= htmlspecialchars(date('Y-m-d', strtotime((string) $lead['won_at']))) ?></span><?php
+        elseif (!empty($lead['lost_at'])): ?> · <span style="color:var(--color-danger);font-weight:600;">Perdido <?= htmlspecialchars(date('Y-m-d', strtotime((string) $lead['lost_at']))) ?></span><?php
+        endif; ?>
+    </p>
+    <form method="post" class="inline-form" style="margin:0;flex-wrap:wrap;gap:.6rem;align-items:flex-end;">
+        <input type="hidden" name="action" value="update_lead_value">
+        <input type="hidden" name="csrf" value="<?= csrfToken() ?>">
+        <input type="hidden" name="id" value="<?= (int) $lead['id'] ?>">
+        <label style="font-size:.82rem;">Valor (<?= htmlspecialchars($reportCurrency) ?>)<br><input type="text" name="value_amount" value="<?= htmlspecialchars($leadValueFmt) ?>" placeholder="Ej: 1.500.000" inputmode="numeric"></label>
+        <label style="font-size:.82rem;flex:1 1 280px;">Motivo de pérdida (si aplica)<br><input type="text" name="lost_reason" value="<?= htmlspecialchars($leadLostReason) ?>" placeholder="Ej: precio, timing, competencia" maxlength="160" style="width:100%;"></label>
+        <button type="submit" class="btn">Guardar valor</button>
+    </form>
 </section>
 
 <section class="admin-section">

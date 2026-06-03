@@ -27,6 +27,16 @@ function redirect(string $url): void {
 }
 
 /**
+ * Escribe una fila CSV pasando el parámetro $escape explícito. PHP 8.4+ emite un
+ * deprecation si se omite (su valor por defecto cambiará en el futuro); fijarlo
+ * al histórico '\\' preserva exactamente el mismo output y mantiene el log limpio
+ * en todas las versiones 8.x (Hostinger/cPanel). Punto único para los exports CSV.
+ */
+function csvPutRow($handle, array $fields): void {
+    fputcsv($handle, $fields, ',', '"', '\\');
+}
+
+/**
  * Sanitiza un SVG con allowlist usando DOMDocument.
  * Elimina: <script>, <foreignObject>, <iframe>, <use href=javascript:>,
  * todos los handlers on*, atributos href/xlink:href con javascript:/data:.
