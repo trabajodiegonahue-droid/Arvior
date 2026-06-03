@@ -103,8 +103,18 @@ function updateLeadStatus(int $leadId, string $status, ?int $userId = null): arr
 
     if ($before['status'] === $status) return ['ok' => true, 'unchanged' => true];
 
-    $upd = $db->prepare('UPDATE leads SET status = ? WHERE id = ?');
-    $upd->execute([$status, $leadId]);
+    // Marca de cierre (Fase 4): won_at/lost_at se setean al entrar al estado
+    // terminal y se limpian al salir, para que revenue y ciclo de venta sean
+    // coherentes. Defensivo ante esquema viejo (sin las columnas): fallback.
+    $wonAt  = $status === 'won'  ? date('Y-m-d H:i:s') : null;
+    $lostAt = $status === 'lost' ? date('Y-m-d H:i:s') : null;
+    try {
+        $upd = $db->prepare('UPDATE leads SET status = ?, won_at = ?, lost_at = ? WHERE id = ?');
+        $upd->execute([$status, $wonAt, $lostAt, $leadId]);
+    } catch (Throwable $e) {
+        $upd = $db->prepare('UPDATE leads SET status = ? WHERE id = ?');
+        $upd->execute([$status, $leadId]);
+    }
 
     $accId = isset($before['account_id']) ? (int) $before['account_id'] : null;
     addLeadActivity($leadId, $accId, 'status_change', [
@@ -167,6 +177,59 @@ function updateLeadNextAction(int $leadId, ?string $at, ?string $note, ?int $use
             'meta'    => ['at' => $dt, 'note' => $noteVal],
         ]);
     }
+    return ['ok' => true];
+}
+
+/**
+ * Normaliza un monto escrito por el operador a un número.
+ * Acepta "1.500.000", "$ 1.500.000 CLP", "1500000". Como la moneda inicial es
+ * CLP (sin decimales en la práctica), se conservan solo los dígitos. Devuelve
+ * null si está vacío, o false si no hay dígitos válidos / excede el rango.
+ * @return float|null|false
+ */
+function leadParseAmount(?string $raw) {
+    $raw = trim((string) $raw);
+    if ($raw === '') return null;
+    $digits = preg_replace('/\D/', '', $raw);
+    if ($digits === '' || $digits === null) return false;
+    $amount = (float) $digits;
+    if ($amount > 9999999999.99) return false; // tope de DECIMAL(12,2)
+    return $amount;
+}
+
+/**
+ * Guarda el valor monetario del deal y el motivo de pérdida (Fase 4) y deja
+ * rastro en el timeline. El monto se interpreta en la moneda global de reportes.
+ *
+ * @return array{ok:bool, error?:string}
+ */
+function updateLeadValue(int $leadId, ?string $amountRaw, ?string $lostReason, ?int $userId = null): array {
+    if ($leadId <= 0) return ['ok' => false, 'error' => 'Lead inválido.'];
+
+    $db  = getDB();
+    $cur = $db->prepare('SELECT account_id FROM leads WHERE id = ?');
+    $cur->execute([$leadId]);
+    $accRaw = $cur->fetchColumn();
+    if ($accRaw === false) return ['ok' => false, 'error' => 'Lead no encontrado.'];
+    $accId = $accRaw !== null ? (int) $accRaw : null;
+
+    $amount = leadParseAmount($amountRaw);
+    if ($amount === false) return ['ok' => false, 'error' => 'Monto inválido.'];
+
+    $reason    = trim((string) $lostReason);
+    $reasonVal = $reason !== '' ? mb_substr($reason, 0, 160) : null;
+
+    $upd = $db->prepare('UPDATE leads SET value_amount = ?, lost_reason = ? WHERE id = ?');
+    $upd->execute([$amount, $reasonVal, $leadId]);
+
+    $body = 'Valor del deal '
+        . ($amount !== null ? 'actualizado a ' . number_format($amount, 0, ',', '.') : 'eliminado')
+        . ($reasonVal ? ' · Motivo de pérdida: ' . $reasonVal : '') . '.';
+    addLeadActivity($leadId, $accId, 'value_update', [
+        'user_id' => $userId,
+        'body'    => $body,
+        'meta'    => ['amount' => $amount, 'lost_reason' => $reasonVal],
+    ]);
     return ['ok' => true];
 }
 

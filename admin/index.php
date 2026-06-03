@@ -106,6 +106,21 @@ if ($user) {
         redirect('/admin/?id=' . $id);
     }
 
+    if ($action === 'update_lead_value') {
+        csrfCheck();
+        $id  = (int) ($_POST['id'] ?? 0);
+        // Valor monetario del deal + motivo de pérdida (Fase 4).
+        $res = updateLeadValue(
+            $id,
+            (string) ($_POST['value_amount'] ?? ''),
+            (string) ($_POST['lost_reason'] ?? ''),
+            (int) $user['id']
+        );
+        flashSet($res['ok'] ? 'lead_success' : 'lead_error',
+            $res['ok'] ? 'Valor del deal actualizado.' : ($res['error'] ?? 'No se pudo guardar el valor.'));
+        redirect('/admin/?id=' . $id);
+    }
+
     if ($action === 'add_note') {
         csrfCheck();
         $id   = (int) ($_POST['id'] ?? 0);
@@ -341,6 +356,41 @@ if ($user) {
                 $row['created_at'],
             ]);
         }
+        fclose($out);
+        exit;
+    }
+
+    if ($action === 'export_reports_csv') {
+        $accId = (int) ($_GET['account'] ?? 0);
+        $rng   = reportResolveRange($_GET['range'] ?? '', $_GET['from'] ?? '', $_GET['to'] ?? '');
+        $cur   = reportCurrency();
+        $kpis  = reportKpis($accId, $rng['from'], $rng['to']);
+        $funnel = reportFunnel($accId, $rng['from'], $rng['to']);
+        $bySrc  = reportBySource($accId, $rng['from'], $rng['to']);
+
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="reporte-' . date('Ymd-His') . '.csv"');
+        $out = fopen('php://output', 'w');
+        fwrite($out, "\xEF\xBB\xBF");
+        fputcsv($out, ['ARVIOR — Reporte comercial']);
+        fputcsv($out, ['Rango', $rng['label'], 'Cuenta', $accId > 0 ? (string) ($accountsMap[$accId] ?? ('#' . $accId)) : 'Todas', 'Moneda', $cur]);
+        fputcsv($out, []);
+        fputcsv($out, ['KPI', 'Valor']);
+        fputcsv($out, ['Leads en el período', $kpis['leads_in_period']]);
+        fputcsv($out, ['Ganados', $kpis['won_count']]);
+        fputcsv($out, ['Perdidos', $kpis['lost_count']]);
+        fputcsv($out, ['Win rate (%)', $kpis['win_rate']]);
+        fputcsv($out, ['Revenue ganado', $kpis['won_revenue']]);
+        fputcsv($out, ['Ticket promedio', $kpis['avg_deal']]);
+        fputcsv($out, ['Pipeline (abiertos)', $kpis['pipeline_count']]);
+        fputcsv($out, ['Pipeline valor', $kpis['pipeline_value']]);
+        fputcsv($out, ['Forecast ponderado', $kpis['forecast_weighted']]);
+        fputcsv($out, []);
+        fputcsv($out, ['Embudo', 'Leads', 'Conversión vs etapa previa (%)']);
+        foreach ($funnel as $st) fputcsv($out, [leadStatusLabel($st['stage']), $st['count'], $st['conv']]);
+        fputcsv($out, []);
+        fputcsv($out, ['Fuente', 'Leads', 'Ganados', 'Revenue ganado', 'Win rate (%)']);
+        foreach ($bySrc as $s) fputcsv($out, [$s['source'], $s['leads'], $s['won'], $s['won_revenue'], $s['win_rate']]);
         fclose($out);
         exit;
     }
@@ -711,6 +761,17 @@ if ($user) {
         $aid = (int) ($_GET['id'] ?? 0);
         $accountRec = $aid > 0 ? accountGet($aid) : null;
         if (!$accountRec) redirect('/admin/?view=accounts');
+    } elseif ($view === 'reports') {
+        // Reportes comerciales (Fase 4): KPIs, embudo, revenue, forecast, fuente
+        // y tendencia, filtrables por rango de fecha y cuenta.
+        $accounts        = accountsAll();
+        foreach ($accounts as $acc) $accountsMap[(int) $acc['id']] = $acc['name'];
+        $reportRange     = reportResolveRange($_GET['range'] ?? '', $_GET['from'] ?? '', $_GET['to'] ?? '');
+        $reportCur       = reportCurrency();
+        $reportKpis      = reportKpis($accountFilter, $reportRange['from'], $reportRange['to']);
+        $reportFunnel    = reportFunnel($accountFilter, $reportRange['from'], $reportRange['to']);
+        $reportBySource  = reportBySource($accountFilter, $reportRange['from'], $reportRange['to']);
+        $reportTrend     = reportMonthlyTrend($accountFilter, 6);
     } elseif ($view === 'tasks') {
         // Vista de tareas: cuatro buckets (hoy, vencidas, próximas, completadas)
         // respetando el filtro de cuenta, más el formulario de creación.
@@ -747,7 +808,7 @@ if ($user) {
             // Tareas asociadas al lead (Fase 3).
             $leadTasks = tasksForLead($leadId);
         }
-    } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business', 'tasks'], true)) {
+    } elseif (!in_array($view, ['account', 'accounts', 'account_edit', 'media', 'users', 'user', 'mailing', 'business', 'tasks', 'reports'], true)) {
         // Cuentas para el selector de filtro y el badge de cuenta en la lista.
         $accounts = accountsAll();
         foreach ($accounts as $acc) $accountsMap[(int) $acc['id']] = $acc['name'];
@@ -909,6 +970,8 @@ if ($faviconPath && @file_exists($faviconAbs)):
             require __DIR__ . '/../components/admin/account_edit.php';
         } elseif ($view === 'tasks') {
             require __DIR__ . '/../components/admin/tasks.php';
+        } elseif ($view === 'reports') {
+            require __DIR__ . '/../components/admin/reports.php';
         } elseif ($lead) {
             require __DIR__ . '/../components/admin/lead_detail.php';
         } else {
