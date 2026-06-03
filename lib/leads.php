@@ -13,6 +13,156 @@
  * se encolará la `outbox` y se disparará n8n. Hoy solo registra 'created'.
  */
 
+// ───────────────────────── Pipeline CRM (Fase 2) ─────────────────────────
+//
+// Estados operativos del embudo, en orden de avance. La lista la consumen el
+// dashboard, la lista de leads, el detalle, el filtro y el export, para que
+// todos hablen del mismo conjunto canónico.
+const LEAD_PIPELINE_STATUSES = [
+    'new', 'contacted', 'meeting_scheduled', 'proposal_sent', 'negotiation', 'won', 'lost',
+];
+
+// Estados legacy de Fase 1: ya no se ofrecen para clasificar, pero siguen
+// siendo válidos para no romper leads históricos que aún los tengan.
+const LEAD_LEGACY_STATUSES = ['qualified', 'closed', 'discarded'];
+
+// Estados terminales: el lead salió del pipeline activo (no cuentan como
+// "pendientes" para próximas acciones).
+const LEAD_CLOSED_STATUSES = ['won', 'lost', 'closed', 'discarded'];
+
+/** Etiqueta legible (es) para un estado del lead. */
+function leadStatusLabel(string $status): string {
+    static $map = [
+        'new'               => 'Nuevo',
+        'contacted'         => 'Contactado',
+        'meeting_scheduled' => 'Reunión agendada',
+        'proposal_sent'     => 'Propuesta enviada',
+        'negotiation'       => 'Negociación',
+        'won'               => 'Ganado',
+        'lost'              => 'Perdido',
+        // Legacy.
+        'qualified'         => 'Calificado',
+        'closed'            => 'Cerrado',
+        'discarded'         => 'Descartado',
+    ];
+    return $map[$status] ?? $status;
+}
+
+/** ¿Es un estado válido (pipeline o legacy)? Para validar input del operador. */
+function leadStatusIsValid(string $status): bool {
+    return in_array($status, LEAD_PIPELINE_STATUSES, true)
+        || in_array($status, LEAD_LEGACY_STATUSES, true);
+}
+
+/**
+ * API centralizada de actividad: alias estable sobre leadLogActivity().
+ * Existe para que los controladores usen un nombre único (Fase 2) sin duplicar
+ * la lógica de inserción/serialización, que sigue viviendo en leadLogActivity().
+ */
+function addLeadActivity(int $leadId, ?int $accountId, string $type, array $opts = []): void {
+    leadLogActivity($leadId, $accountId, $type, $opts);
+}
+
+/**
+ * Timeline de actividad de un lead (más reciente primero), con el email del
+ * autor resuelto. Punto único de lectura para el detalle del lead.
+ */
+function listLeadActivities(int $leadId): array {
+    if ($leadId <= 0) return [];
+    try {
+        $stmt = getDB()->prepare(
+            'SELECT a.type, a.from_status, a.to_status, a.body, a.created_at, u.email AS author_email
+               FROM lead_activities a
+               LEFT JOIN users u ON u.id = a.user_id
+              WHERE a.lead_id = ?
+              ORDER BY a.created_at DESC, a.id DESC'
+        );
+        $stmt->execute([$leadId]);
+        return $stmt->fetchAll();
+    } catch (Throwable $e) {
+        error_log('listLeadActivities: ' . $e->getMessage());
+        return [];
+    }
+}
+
+/**
+ * Cambia el estado de un lead y registra la actividad 'status_change'.
+ * No re-loguea si el estado no cambia. Mantiene el account_id del lead.
+ *
+ * @return array{ok:bool, unchanged?:bool, error?:string}
+ */
+function updateLeadStatus(int $leadId, string $status, ?int $userId = null): array {
+    if ($leadId <= 0)               return ['ok' => false, 'error' => 'Lead inválido.'];
+    if (!leadStatusIsValid($status)) return ['ok' => false, 'error' => 'Estado inválido.'];
+
+    $db  = getDB();
+    $cur = $db->prepare('SELECT account_id, status FROM leads WHERE id = ?');
+    $cur->execute([$leadId]);
+    $before = $cur->fetch();
+    if (!$before) return ['ok' => false, 'error' => 'Lead no encontrado.'];
+
+    if ($before['status'] === $status) return ['ok' => true, 'unchanged' => true];
+
+    $upd = $db->prepare('UPDATE leads SET status = ? WHERE id = ?');
+    $upd->execute([$status, $leadId]);
+
+    addLeadActivity($leadId, isset($before['account_id']) ? (int) $before['account_id'] : null, 'status_change', [
+        'user_id'     => $userId,
+        'from_status' => $before['status'],
+        'to_status'   => $status,
+    ]);
+    return ['ok' => true];
+}
+
+/**
+ * Registra / edita / limpia la próxima acción del lead (next_action_at + note)
+ * y deja rastro en el timeline. `$at` acepta el formato de datetime-local
+ * ('YYYY-MM-DDTHH:MM') o vacío; ambos vacíos = limpiar.
+ *
+ * @return array{ok:bool, error?:string}
+ */
+function updateLeadNextAction(int $leadId, ?string $at, ?string $note, ?int $userId = null): array {
+    if ($leadId <= 0) return ['ok' => false, 'error' => 'Lead inválido.'];
+
+    $db  = getDB();
+    $cur = $db->prepare('SELECT account_id FROM leads WHERE id = ?');
+    $cur->execute([$leadId]);
+    $accRaw = $cur->fetchColumn();
+    if ($accRaw === false) return ['ok' => false, 'error' => 'Lead no encontrado.'];
+    $accId = $accRaw !== null ? (int) $accRaw : null;
+
+    $at   = trim((string) $at);
+    $note = trim((string) $note);
+
+    $dt = null;
+    if ($at !== '') {
+        $ts = strtotime($at);
+        if ($ts === false) return ['ok' => false, 'error' => 'Fecha de próxima acción inválida.'];
+        $dt = date('Y-m-d H:i:s', $ts);
+    }
+    $noteVal = $note !== '' ? mb_substr($note, 0, 500) : null;
+
+    $upd = $db->prepare('UPDATE leads SET next_action_at = ?, next_action_note = ? WHERE id = ?');
+    $upd->execute([$dt, $noteVal, $leadId]);
+
+    if ($dt === null && $noteVal === null) {
+        addLeadActivity($leadId, $accId, 'next_action_cleared', [
+            'user_id' => $userId,
+            'body'    => 'Próxima acción eliminada.',
+        ]);
+    } else {
+        $body = 'Próxima acción'
+            . ($dt ? ' para ' . $dt : '')
+            . ($noteVal ? ': ' . $noteVal : '') . '.';
+        addLeadActivity($leadId, $accId, 'next_action', [
+            'user_id' => $userId,
+            'body'    => $body,
+            'meta'    => ['at' => $dt, 'note' => $noteVal],
+        ]);
+    }
+    return ['ok' => true];
+}
+
 /**
  * ¿El esquema multi-cuenta está disponible? (columna leads.account_id presente).
  * Lo usa intake.php para responder un error controlado en vez de fatal si las
