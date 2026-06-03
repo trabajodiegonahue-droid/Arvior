@@ -339,9 +339,9 @@ if ($user) {
         header('Content-Disposition: attachment; filename="leads-' . date('Ymd-His') . '.csv"');
         $out = fopen('php://output', 'w');
         fwrite($out, "\xEF\xBB\xBF"); // BOM UTF-8 para Excel
-        fputcsv($out, ['id', 'cuenta', 'nombre', 'email', 'telefono', 'mensaje', 'source', 'estado', 'proxima_accion', 'proxima_accion_nota', 'ip', 'fecha_creacion']);
+        csvPutRow($out, ['id', 'cuenta', 'nombre', 'email', 'telefono', 'mensaje', 'source', 'estado', 'proxima_accion', 'proxima_accion_nota', 'ip', 'fecha_creacion']);
         while ($row = $stmt->fetch()) {
-            fputcsv($out, [
+            csvPutRow($out, [
                 $row['id'],
                 $row['account_name'] ?? '',
                 $row['name'],
@@ -372,25 +372,25 @@ if ($user) {
         header('Content-Disposition: attachment; filename="reporte-' . date('Ymd-His') . '.csv"');
         $out = fopen('php://output', 'w');
         fwrite($out, "\xEF\xBB\xBF");
-        fputcsv($out, ['ARVIOR — Reporte comercial']);
-        fputcsv($out, ['Rango', $rng['label'], 'Cuenta', $accId > 0 ? (string) ($accountsMap[$accId] ?? ('#' . $accId)) : 'Todas', 'Moneda', $cur]);
-        fputcsv($out, []);
-        fputcsv($out, ['KPI', 'Valor']);
-        fputcsv($out, ['Leads en el período', $kpis['leads_in_period']]);
-        fputcsv($out, ['Ganados', $kpis['won_count']]);
-        fputcsv($out, ['Perdidos', $kpis['lost_count']]);
-        fputcsv($out, ['Win rate (%)', $kpis['win_rate']]);
-        fputcsv($out, ['Revenue ganado', $kpis['won_revenue']]);
-        fputcsv($out, ['Ticket promedio', $kpis['avg_deal']]);
-        fputcsv($out, ['Pipeline (abiertos)', $kpis['pipeline_count']]);
-        fputcsv($out, ['Pipeline valor', $kpis['pipeline_value']]);
-        fputcsv($out, ['Forecast ponderado', $kpis['forecast_weighted']]);
-        fputcsv($out, []);
-        fputcsv($out, ['Embudo', 'Leads', 'Conversión vs etapa previa (%)']);
-        foreach ($funnel as $st) fputcsv($out, [leadStatusLabel($st['stage']), $st['count'], $st['conv']]);
-        fputcsv($out, []);
-        fputcsv($out, ['Fuente', 'Leads', 'Ganados', 'Revenue ganado', 'Win rate (%)']);
-        foreach ($bySrc as $s) fputcsv($out, [$s['source'], $s['leads'], $s['won'], $s['won_revenue'], $s['win_rate']]);
+        csvPutRow($out, ['ARVIOR — Reporte comercial']);
+        csvPutRow($out, ['Rango', $rng['label'], 'Cuenta', $accId > 0 ? (string) ($accountsMap[$accId] ?? ('#' . $accId)) : 'Todas', 'Moneda', $cur]);
+        csvPutRow($out, []);
+        csvPutRow($out, ['KPI', 'Valor']);
+        csvPutRow($out, ['Leads en el período', $kpis['leads_in_period']]);
+        csvPutRow($out, ['Ganados', $kpis['won_count']]);
+        csvPutRow($out, ['Perdidos', $kpis['lost_count']]);
+        csvPutRow($out, ['Win rate (%)', $kpis['win_rate']]);
+        csvPutRow($out, ['Revenue ganado', $kpis['won_revenue']]);
+        csvPutRow($out, ['Ticket promedio', $kpis['avg_deal']]);
+        csvPutRow($out, ['Pipeline (abiertos)', $kpis['pipeline_count']]);
+        csvPutRow($out, ['Pipeline valor', $kpis['pipeline_value']]);
+        csvPutRow($out, ['Forecast ponderado', $kpis['forecast_weighted']]);
+        csvPutRow($out, []);
+        csvPutRow($out, ['Embudo', 'Leads', 'Conversión vs etapa previa (%)']);
+        foreach ($funnel as $st) csvPutRow($out, [leadStatusLabel($st['stage']), $st['count'], $st['conv']]);
+        csvPutRow($out, []);
+        csvPutRow($out, ['Fuente', 'Leads', 'Ganados', 'Revenue ganado', 'Win rate (%)']);
+        foreach ($bySrc as $s) csvPutRow($out, [$s['source'], $s['leads'], $s['won'], $s['won_revenue'], $s['win_rate']]);
         fclose($out);
         exit;
     }
