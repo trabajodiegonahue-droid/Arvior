@@ -523,3 +523,121 @@
     .hero__actions { flex-direction: column; }
     .hero__actions .btn { width: 100%; }
 }
+
+/* ==========================================================
+   Portal Comercial (Fase 6)
+   ========================================================== */
+
+/* CTA "Cotización" en el navbar */
+.site-navbar__cta--quote {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+    border: 1px solid var(--color-primary);
+}
+.site-navbar__cta--quote:hover { background: var(--color-primary-hover); }
+
+/* Encabezado de páginas internas */
+.page-hero {
+    padding: clamp(2.4rem, 6vw, 4.5rem) 0 clamp(1rem, 3vw, 2rem);
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg-alt);
+}
+.page-hero__icon {
+    width: 56px; height: 56px; border-radius: var(--radius-lg);
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    color: var(--arvior-accent-2); margin-bottom: var(--space-md);
+}
+.page-hero__icon svg { width: 28px; height: 28px; }
+.page-hero__title {
+    font-family: "Space Grotesk", var(--font-family);
+    font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.1;
+    margin: 0 0 var(--space-sm); letter-spacing: -0.02em;
+}
+.page-hero__lead { color: var(--color-text-muted); max-width: 60ch; font-size: 1.06rem; }
+
+/* Servicio como card-link */
+.s-card__more { display: inline-block; margin-top: var(--space-sm); font-weight: 600; color: var(--arvior-accent-2); font-size: 0.92rem; }
+.s-card--static { cursor: default; }
+a.s-card { text-decoration: none; color: inherit; }
+
+/* CTA centrado bajo una sección */
+.section__cta { text-align: center; margin-top: clamp(1.6rem, 4vw, 2.6rem); }
+
+/* Proyectos: resultado + grilla grande */
+.proj__result {
+    display: inline-block; margin-top: var(--space-md);
+    font-weight: 600; font-size: 0.86rem; color: var(--color-success);
+    background: var(--color-success-soft); border: 1px solid #bbf7d0;
+    padding: 0.25rem 0.7rem; border-radius: 999px;
+}
+.portfolio--lg { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+/* Detalle de servicio: contenido + formulario */
+.service-detail { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+.service-detail__subtitle { font-size: 1.1rem; margin: 1.4rem 0 0.8rem; }
+.service-detail__form {
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); padding: clamp(1.2rem, 3vw, 1.8rem);
+    box-shadow: var(--shadow-md); position: sticky; top: 90px;
+}
+.service-detail__form h3 { margin: 0 0 0.2rem; font-size: 1.15rem; }
+
+/* Lista de beneficios con check */
+.benefit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.7rem; }
+.benefit-list li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.98rem; }
+.benefit-list__ic { flex: 0 0 auto; color: var(--color-success); display: inline-flex; }
+.benefit-list__ic svg { width: 18px; height: 18px; }
+
+/* Layout de cotización / contacto */
+.quote-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; }
+.quote-layout__form {
+    background: var(--color-bg); border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); padding: clamp(1.3rem, 3vw, 2rem); box-shadow: var(--shadow-md);
+}
+.quote-layout__form .section__title { font-size: 1.3rem; margin-top: 0; }
+
+/* Lista de contacto */
+.contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.contact-list li { display: grid; gap: 0.15rem; }
+.contact-list__lb { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text-subtle); }
+
+/* Timeline del proceso */
+.timeline { max-width: 720px; margin: 0 auto; display: grid; gap: 0; }
+.timeline__item { display: grid; grid-template-columns: 56px 1fr; gap: 1.2rem; padding-bottom: 2rem; position: relative; }
+.timeline__item:not(:last-child)::before { content: ""; position: absolute; left: 27px; top: 56px; bottom: 0; width: 2px; background: var(--color-border); }
+.timeline__num {
+    width: 56px; height: 56px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+    font-family: "Space Grotesk", var(--font-family); font-weight: 600; font-size: 1.1rem;
+    background: var(--color-primary); color: var(--color-primary-text);
+}
+.timeline__body h3 { margin: 0.4rem 0 0.3rem; font-size: 1.15rem; }
+.timeline__body p { margin: 0; color: var(--color-text-muted); }
+
+/* Formulario en grilla de 2 columnas */
+.lead-form--grid { max-width: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--space-md); }
+.lead-form--grid .lead-form__field { margin-bottom: var(--space-md); }
+.lead-form__field--full { grid-column: 1 / -1; }
+.lead-form__hp { display: none !important; }
+.req { color: var(--color-danger); }
+.form-alert { margin-bottom: var(--space-md); }
+
+/* Inputs/selects del portal: aspecto profesional y consistente */
+.lead-form input,
+.lead-form select,
+.lead-form textarea {
+    width: 100%; font: inherit; color: var(--color-text);
+    background: var(--color-bg); border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius); padding: 0.6rem 0.7rem; margin-top: 0.3rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+.lead-form input:focus,
+.lead-form select:focus,
+.lead-form textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: var(--ring); }
+.lead-form textarea { resize: vertical; }
+
+@media (max-width: 760px) {
+    .service-detail, .quote-layout { grid-template-columns: 1fr; }
+    .service-detail__form { position: static; }
+    .lead-form--grid { grid-template-columns: 1fr; }
+}
