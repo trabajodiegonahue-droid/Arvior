@@ -31,8 +31,8 @@
     --color-primary:        var(--arvior-accent);
     --color-primary-hover:  var(--arvior-accent-2);
     --color-primary-text:   #ffffff;
-    --color-accent:         var(--arvior-amber);
-    --color-accent-soft:    var(--arvior-amber-soft);
+    --color-accent:         var(--arvior-violet);
+    --color-accent-soft:    var(--arvior-violet-soft);
 
     --font-display: "Fraunces", Georgia, "Times New Roman", serif;
 
@@ -136,7 +136,7 @@
 .section__eyebrow::before {
     content: "";
     width: 22px; height: 2px; border-radius: 2px;
-    background: var(--arvior-amber);
+    background: var(--arvior-violet);
 }
 .section__head--center .section__eyebrow::before { display: none; }
 
@@ -154,10 +154,10 @@
     margin: 0;
 }
 
-/* Palabra/expresión destacada en titulares: serif en cursiva, color acero */
+/* Palabra/expresión destacada en titulares: serif en cursiva, violeta premium */
 .text-gradient {
     font-style: italic;
-    color: var(--arvior-steel);
+    color: var(--arvior-violet);
     -webkit-text-fill-color: currentColor;
 }
 
@@ -182,6 +182,13 @@
     position: relative;
     padding: clamp(3rem, 7vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem);
     overflow: hidden;
+    isolation: isolate;
+}
+/* Brillo ambiental violeta, muy sutil (tech premium, sin glow de plantilla) */
+.hero::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(640px circle at 88% 12%, rgba(106, 79, 230, 0.08), transparent 62%);
 }
 .hero__inner {
     display: grid;
@@ -204,7 +211,8 @@
 }
 .hero__eyebrow .dot {
     width: 7px; height: 7px; border-radius: 50%;
-    background: var(--arvior-amber);
+    background: var(--arvior-violet);
+    box-shadow: 0 0 0 3px rgba(106, 79, 230, 0.16);
 }
 .hero__title {
     font-size: clamp(2.3rem, 5vw, 3.7rem);
@@ -399,7 +407,7 @@
 .s-card__title { font-size: 1.15rem; margin: 0 0 0.45rem; color: var(--color-text-strong); }
 .s-card__text { color: var(--arvior-text-2); font-size: 0.95rem; line-height: 1.6; margin: 0; }
 .s-card__more { display: inline-block; margin-top: 0.9rem; font-weight: 600; color: var(--arvior-accent); font-size: 0.9rem; }
-.s-card:hover .s-card__more { color: var(--arvior-amber); }
+.s-card:hover .s-card__more { color: var(--arvior-violet); }
 .s-card--static { box-shadow: none; }
 .s-card--static:hover { transform: none; border-color: var(--arvior-border); box-shadow: none; }
 a.s-card { text-decoration: none; color: inherit; display: block; }
@@ -543,14 +551,14 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
     overflow: hidden;
 }
 .cta__title { color: #fff; font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0 auto 0.9rem; max-width: 20ch; line-height: 1.12; }
-.cta__title .text-gradient { color: #f0c987; -webkit-text-fill-color: currentColor; }
+.cta__title .text-gradient { color: var(--arvior-violet-on-dark); -webkit-text-fill-color: currentColor; }
 .cta__sub { color: rgba(255,255,255,0.82); max-width: 52ch; margin: 0 auto 2rem; font-size: 1.08rem; }
 /* Prefijo .site-body + :not duplicado para igualar la especificidad de
    `.site-body .btn:not(.btn--secondary):not(.btn--ghost)` y, por orden, ganarle. */
 .site-body .cta .btn--secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,0.45); }
 .site-body .cta .btn--secondary:hover { background: rgba(255,255,255,0.12); color: #fff; border-color: #fff; }
 .site-body .cta .btn:not(.btn--secondary):not(.btn--ghost) { background: #fff; color: var(--arvior-accent); border-color: #fff; box-shadow: none; }
-.site-body .cta .btn:not(.btn--secondary):not(.btn--ghost):hover { background: var(--arvior-amber-soft); color: var(--arvior-accent-2); border-color: var(--arvior-amber-soft); transform: translateY(-1px); }
+.site-body .cta .btn:not(.btn--secondary):not(.btn--ghost):hover { background: var(--arvior-violet-soft); color: var(--arvior-accent-2); border-color: var(--arvior-violet-soft); transform: translateY(-1px); }
 
 /* ==========================================================
    11. Páginas internas del CMS (<main class="container">)
@@ -608,8 +616,8 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
 .service-meta__lb { font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--arvior-steel); font-weight: 600; }
 .service-meta__val { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; color: var(--color-text-strong); margin-top: 0.2rem; }
 .service-when {
-    border-left: 3px solid var(--arvior-amber);
-    background: var(--arvior-amber-soft);
+    border-left: 3px solid var(--arvior-violet);
+    background: var(--arvior-violet-soft);
     border-radius: 0 10px 10px 0;
     padding: 1rem 1.2rem; margin: 1.6rem 0;
     color: var(--arvior-text); font-size: 0.98rem; line-height: 1.6;

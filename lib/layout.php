@@ -61,6 +61,13 @@ function layoutStart(array $opts = []): void {
     // Cargar el header/footer disponibles desde el caller.
     $GLOBALS['__layout_opts'] = $opts + ['hide_chrome' => $hideChrome];
     $h = htmlspecialchars(...);
+
+    // Cache-busting de assets: agrega ?v=<mtime> a cada CSS para que cada deploy
+    // sirva la versión nueva sin que el navegador (o LiteSpeed) muestre la vieja.
+    $assetUrl = function (string $rel): string {
+        $m = @filemtime(__DIR__ . '/..' . $rel);
+        return $rel . ($m ? '?v=' . $m : '');
+    };
     ?><!doctype html>
 <html lang="es">
 <head>
@@ -92,12 +99,12 @@ function layoutStart(array $opts = []): void {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap">
-<link rel="stylesheet" href="/assets/css/base.css">
-<link rel="stylesheet" href="/assets/css/layout.css">
-<link rel="stylesheet" href="/assets/css/components.css">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="<?= $h($assetUrl('/assets/css/base.css')) ?>">
+<link rel="stylesheet" href="<?= $h($assetUrl('/assets/css/layout.css')) ?>">
+<link rel="stylesheet" href="<?= $h($assetUrl('/assets/css/components.css')) ?>">
+<link rel="stylesheet" href="<?= $h($assetUrl('/assets/css/site.css')) ?>">
 <?php if (!$hideChrome): ?>
-<link rel="stylesheet" href="/assets/css/site_header.css">
+<link rel="stylesheet" href="<?= $h($assetUrl('/assets/css/site_header.css')) ?>">
 <?php endif; ?>
 
 <?php if ($gaId): ?>
