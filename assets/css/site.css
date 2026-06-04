@@ -224,64 +224,129 @@
 .hero__note { color: var(--arvior-muted); font-size: 0.9rem; margin: 0; }
 .hero__note strong { color: var(--arvior-text); font-weight: 600; }
 
-/* Maqueta ilustrativa (no cliente falso) — navegador estilizado */
+/* ----------------------------------------------------------
+   Mini-demo animado del hero (CSS puro, sin video).
+   Tres actos en loop de 12s: diseñamos → publicamos → llegan
+   consultas. Cuenta, en silencio, cómo es trabajar con ARVIOR.
+   Respeta prefers-reduced-motion (estado final estático).
+   ---------------------------------------------------------- */
 .hero__visual { position: relative; }
-.mockup {
+.demo { position: relative; }
+.demo__window {
     border-radius: 16px;
     border: 1px solid var(--arvior-border);
     background: #fff;
     box-shadow: 0 30px 60px -30px rgba(27, 42, 74, 0.28), 0 12px 24px -16px rgba(27, 42, 74, 0.12);
     overflow: hidden;
 }
-.mockup__bar {
+.demo__bar {
     display: flex; align-items: center; gap: 0.4rem;
     padding: 0.7rem 0.9rem;
     border-bottom: 1px solid var(--arvior-border);
     background: var(--arvior-surface-2);
 }
-.mockup__dot { width: 10px; height: 10px; border-radius: 50%; background: #cfc9bd; }
-.mockup__url {
+.demo__dot { width: 10px; height: 10px; border-radius: 50%; background: #cfc9bd; }
+.demo__url {
     margin-left: 0.6rem; flex: 1;
     font-size: 0.72rem; color: var(--arvior-muted);
     background: #fff; border: 1px solid var(--arvior-border);
     border-radius: 6px; padding: 0.25rem 0.6rem;
     font-family: var(--font-family-mono);
 }
-.mockup__body { padding: 1.4rem; display: grid; gap: 0.9rem; }
-.mockup__nav { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
-.mockup__brand { font-family: var(--font-display); font-weight: 600; color: var(--arvior-accent); letter-spacing: 0.12em; font-size: 0.8rem; }
-.mockup__navlinks { margin-left: auto; display: flex; gap: 0.5rem; }
-.mockup__navlinks span { width: 34px; height: 7px; border-radius: 4px; background: var(--arvior-surface-2); }
-.mockup__h { height: 16px; width: 70%; border-radius: 6px; background: #dfe4ee; }
-.mockup__h--sm { height: 11px; width: 50%; background: var(--arvior-surface-2); }
-.mockup__line { height: 9px; border-radius: 5px; background: var(--arvior-surface-2); }
-.mockup__line--w1 { width: 92%; }
-.mockup__line--w2 { width: 80%; }
-.mockup__cta { height: 30px; width: 130px; border-radius: 7px; background: var(--arvior-accent); margin-top: 0.3rem; }
-.mockup__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.4rem; }
-.mockup__card { height: 56px; border-radius: 8px; border: 1px solid var(--arvior-border); background: var(--arvior-surface-2); }
-.mockup__card span { display: block; width: 22px; height: 22px; border-radius: 6px; background: #fff; border: 1px solid var(--arvior-border); margin: 0.5rem 0 0 0.5rem; }
+.demo__progress { height: 3px; background: var(--arvior-surface-2); }
+.demo__progress span { display: block; height: 100%; width: 0; background: var(--arvior-accent); animation: demoProgress 12s linear infinite; }
 
-/* Tarjeta flotante de prueba de "consulta recibida" (refuerza la promesa) */
-.hero__badge-float {
-    position: absolute;
-    left: -0.6rem; bottom: -0.8rem;
-    display: flex; align-items: center; gap: 0.65rem;
-    background: #fff;
-    border: 1px solid var(--arvior-border);
-    border-radius: 12px;
-    padding: 0.7rem 0.9rem;
-    box-shadow: 0 16px 30px -18px rgba(27, 42, 74, 0.4);
-    font-size: 0.82rem;
+.demo__stage { position: relative; height: 252px; }
+.demo__screen {
+    position: absolute; inset: 0;
+    padding: 1.4rem; display: grid; gap: 0.8rem; align-content: start;
+    opacity: 0;
+    animation: demoCycle 12s var(--ease-out-quart) infinite;
 }
-.hero__badge-float .ic {
-    width: 30px; height: 30px; border-radius: 8px;
-    display: grid; place-items: center;
-    color: #1F8A5B; background: #e9f6ef;
+.demo__screen--2 { animation-delay: 4s; }
+.demo__screen--3 { animation-delay: 8s; }
+
+.demo__nav { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem; }
+.demo__brand { font-family: var(--font-display); font-weight: 600; color: var(--arvior-accent); letter-spacing: 0.12em; font-size: 0.8rem; }
+.demo__links { margin-left: auto; display: flex; gap: 0.5rem; }
+.demo__links i { width: 30px; height: 7px; border-radius: 4px; background: var(--arvior-surface-2); }
+
+/* Acto 1 — el sitio se "dibuja" */
+.demo__sk { height: 10px; border-radius: 5px; background: var(--arvior-surface-2); transform-origin: left; }
+.demo__screen--1 .demo__sk { animation: demoDraw 12s var(--ease-out-quart) infinite; }
+.demo__sk--h  { height: 16px; width: 65%; background: #dfe4ee; }
+.demo__sk--w1 { width: 90%; }
+.demo__sk--w2 { width: 75%; }
+.demo__screen--1 .demo__sk--w1 { animation-delay: 0.12s; }
+.demo__screen--1 .demo__sk--w2 { animation-delay: 0.24s; }
+.demo__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.2rem; }
+.demo__grid span { height: 50px; border-radius: 8px; border: 1px solid var(--arvior-border); background: var(--arvior-surface-2); }
+
+/* Acto 2 — sitio publicado, prolijo */
+.demo__title { height: 18px; width: 70%; border-radius: 6px; background: #cfd6e6; }
+.demo__title--dim { opacity: 0.55; }
+.demo__text { height: 9px; width: 88%; border-radius: 5px; background: var(--arvior-surface-2); }
+.demo__text--short { width: 62%; }
+.demo__btn { height: 30px; width: 132px; border-radius: 7px; background: var(--arvior-accent); margin-top: 0.3rem; }
+
+/* Acto 3 — entran las consultas */
+.demo__notif {
+    display: flex; align-items: center; gap: 0.6rem;
+    background: #fff; border: 1px solid var(--arvior-border);
+    border-radius: 10px; padding: 0.55rem 0.7rem;
+    box-shadow: 0 10px 20px -14px rgba(27, 42, 74, 0.35);
+    font-size: 0.84rem; color: var(--arvior-text); font-weight: 600;
+    opacity: 0;
+    animation: demoNotif 12s var(--ease-out-quart) infinite;
 }
-.hero__badge-float .ic svg { width: 17px; height: 17px; }
-.hero__badge-float strong { display: block; color: var(--arvior-text); }
-.hero__badge-float span { color: var(--arvior-muted); }
+.demo__notif:nth-of-type(3) { animation-delay: 0.4s; }
+.demo__notif:nth-of-type(4) { animation-delay: 0.8s; }
+.demo__check { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; color: #1F8A5B; background: #e9f6ef; flex: 0 0 auto; }
+.demo__check svg { width: 15px; height: 15px; }
+
+/* Caption — el paso actual del proceso */
+.demo__caption { position: relative; height: 1.5rem; margin-top: 1rem; text-align: center; }
+.demo__step {
+    position: absolute; left: 0; right: 0;
+    font-weight: 600; color: var(--arvior-accent); font-size: 0.95rem;
+    opacity: 0; animation: demoCaption 12s var(--ease-out-quart) infinite;
+}
+.demo__step--2 { animation-delay: 4s; }
+.demo__step--3 { animation-delay: 8s; }
+
+@keyframes demoCycle {
+    0%, 100% { opacity: 0; transform: translateY(8px); }
+    4%  { opacity: 1; transform: none; }
+    29% { opacity: 1; transform: none; }
+    33% { opacity: 0; transform: translateY(-6px); }
+}
+@keyframes demoCaption {
+    0%, 100% { opacity: 0; transform: translateY(6px); }
+    5%  { opacity: 1; transform: none; }
+    28% { opacity: 1; transform: none; }
+    33% { opacity: 0; }
+}
+@keyframes demoDraw {
+    0%  { transform: scaleX(0); opacity: 0.35; }
+    8%  { transform: scaleX(1); opacity: 1; }
+    29% { transform: scaleX(1); opacity: 1; }
+    33%, 100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes demoNotif {
+    0%, 67% { opacity: 0; transform: translateX(14px); }
+    73% { opacity: 1; transform: none; }
+    91% { opacity: 1; transform: none; }
+    95%, 100% { opacity: 0; transform: none; }
+}
+@keyframes demoProgress { 0% { width: 0; } 100% { width: 100%; } }
+
+@media (prefers-reduced-motion: reduce) {
+    .demo__progress span,
+    .demo__screen, .demo__step, .demo__sk, .demo__notif { animation: none !important; }
+    /* Estado estático: mostramos el acto final (llegan consultas). */
+    .demo__screen--1, .demo__screen--2, .demo__step--1, .demo__step--2 { opacity: 0; }
+    .demo__screen--3, .demo__step--3, .demo__notif { opacity: 1; }
+}
 
 /* ==========================================================
    4. Franja de confianza (reemplaza logos de clientes)
@@ -690,5 +755,4 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
     .process, .portfolio, .benefit-list--cols { grid-template-columns: 1fr; }
     .hero__actions { flex-direction: column; }
     .hero__actions .btn { width: 100%; }
-    .hero__badge-float { position: static; margin-top: 1rem; }
 }

@@ -62,10 +62,10 @@ function portalServices(): array {
             'summary' => 'Un sitio profesional que ordena lo que haces y convierte visitas en consultas reales.',
             'price' => 'Desde $990.000',
             'timeline' => 'Listo en 3 semanas',
-            'problem' => 'Tu empresa se ve menos profesional de lo que es, y las visitas no terminan escribiéndote.',
-            'gain' => 'Un sitio claro y rápido que transmite confianza y deja cada consulta lista para que tu equipo la atienda.',
-            'when' => 'Te conviene si ya tienes clientes pero tu web (o tu Instagram) no representa el nivel de tu empresa.',
-            'description' => 'Diseñamos y construimos sitios corporativos a medida, con foco en claridad, velocidad y confianza. Cada página se piensa como una herramienta comercial: estructura ordenada, mensaje directo y un camino claro hacia el contacto.',
+            'problem' => 'Tu empresa se ve menos profesional de lo que es y las visitas no te escriben.',
+            'gain' => 'Un sitio claro y rápido que genera confianza y deja cada consulta lista para atender.',
+            'when' => 'Si ya tienes clientes pero tu web no representa el nivel de tu empresa.',
+            'description' => 'Sitios corporativos a medida, con foco en claridad, velocidad y confianza. Cada página, una herramienta comercial: estructura ordenada y un camino claro al contacto.',
             'includes' => [
                 'Hasta 6 secciones diseñadas a medida',
                 'Optimizado para celular y carga rápida',
@@ -82,10 +82,10 @@ function portalServices(): array {
             'summary' => 'Página de aterrizaje enfocada en una sola acción, ideal para campañas y lanzamientos.',
             'price' => 'Desde $450.000',
             'timeline' => 'Lista en 1 semana',
-            'problem' => 'Inviertes en publicidad o difusión, pero el tráfico llega a un lugar que no convierte.',
-            'gain' => 'Una página directa, sin distracciones, pensada para que el visitante deje sus datos.',
-            'when' => 'Te conviene si vas a hacer campañas (Instagram, Google, flyers) y necesitas un destino que convierta.',
-            'description' => 'Creamos landing pages de alto rendimiento para campañas y lanzamientos. Una sola propuesta, un solo objetivo y un formulario que te avisa cada vez que alguien se interesa.',
+            'problem' => 'Inviertes en publicidad, pero el tráfico llega a un lugar que no convierte.',
+            'gain' => 'Una página directa, sin distracciones, hecha para que dejen sus datos.',
+            'when' => 'Si vas a hacer campañas (Instagram, Google) y necesitas un destino que convierta.',
+            'description' => 'Landing pages de alto rendimiento para campañas y lanzamientos: una propuesta, un objetivo y un formulario que te avisa cada vez que alguien se interesa.',
             'includes' => [
                 'Una página enfocada en una sola acción',
                 'Mensaje y llamada a la acción claros',
@@ -102,10 +102,10 @@ function portalServices(): array {
             'summary' => 'Ecommerce con catálogo, medios de pago y procesos pensados para vender y crecer.',
             'price' => 'Desde $1.800.000',
             'timeline' => 'Plazo según catálogo',
-            'problem' => 'Quieres vender por internet, pero armar y ordenar una tienda te parece complejo.',
-            'gain' => 'Una tienda lista para recibir pedidos y pagos, fácil de administrar y de hacer crecer.',
-            'when' => 'Te conviene si vendes productos y hoy dependes de mensajes manuales para concretar cada venta.',
-            'description' => 'Implementamos tiendas online con catálogo, carrito, medios de pago y una operación clara. Tu negocio vende en línea con procesos ordenados y una experiencia de compra simple para tus clientes.',
+            'problem' => 'Quieres vender por internet, pero armar la tienda te parece complejo.',
+            'gain' => 'Una tienda lista para recibir pedidos y pagos, fácil de administrar.',
+            'when' => 'Si vendes productos y hoy dependes de mensajes manuales para cada venta.',
+            'description' => 'Tiendas online con catálogo, carrito, medios de pago y una operación clara. Vendes en línea con procesos ordenados y una compra simple para tus clientes.',
             'includes' => [
                 'Catálogo y gestión de productos',
                 'Integración con medios de pago',
@@ -122,10 +122,10 @@ function portalServices(): array {
             'summary' => 'Plan mensual de hosting, soporte y cambios para que tu sitio siempre funcione bien.',
             'price' => 'Desde $35.000 / mes',
             'timeline' => 'Plan mensual continuo',
-            'problem' => 'Lanzaste tu sitio y luego nadie lo cuida: queda lento, desactualizado o caído sin que te enteres.',
+            'problem' => 'Lanzaste tu sitio y nadie lo cuida: queda lento, desactualizado o caído.',
             'gain' => 'Tranquilidad: alguien se hace cargo de que tu sitio esté arriba, seguro y al día.',
-            'when' => 'Te conviene si ya tienes un sitio (con nosotros o no) y no quieres preocuparte de lo técnico.',
-            'description' => 'Nos hacemos cargo de la salud de tu sitio: hosting, respaldos, actualizaciones de seguridad, monitoreo y los cambios del día a día. Tú te enfocas en tu negocio; nosotros en que tu sitio siempre esté disponible.',
+            'when' => 'Si ya tienes un sitio (con nosotros o no) y no quieres preocuparte de lo técnico.',
+            'description' => 'Cuidamos la salud de tu sitio: hosting, respaldos, seguridad, monitoreo y los cambios del día a día. Tú te enfocas en tu negocio; nosotros en que siempre esté disponible.',
             'includes' => [
                 'Hosting y dominio gestionados',
                 'Respaldos y actualizaciones de seguridad',
@@ -213,11 +213,11 @@ function portalMaintenance(): array {
 /** Proceso de trabajo (5 etapas). Transparencia = menos riesgo percibido. */
 function portalProcess(): array {
     return [
-        ['num' => '01', 'icon' => 'compass',   'title' => 'Diagnóstico',          'text' => 'Conversamos para entender tu negocio, a quién le vendes y qué necesitas lograr. Sin tecnicismos.'],
-        ['num' => '02', 'icon' => 'message',    'title' => 'Propuesta clara',      'text' => 'Te enviamos una propuesta con alcance, precio y fecha cerrados. Sabes exactamente qué vas a recibir antes de empezar.'],
-        ['num' => '03', 'icon' => 'layers',     'title' => 'Diseño',               'text' => 'Diseñamos la estructura y el aspecto de tu sitio. Tú lo apruebas antes de que escribamos una sola línea de código.'],
-        ['num' => '04', 'icon' => 'spark',      'title' => 'Desarrollo y entrega', 'text' => 'Construimos, revisamos contigo y publicamos. Te dejamos todo funcionando y te explicamos cómo usarlo.'],
-        ['num' => '05', 'icon' => 'handshake',  'title' => 'Soporte',              'text' => 'Después de entregar seguimos disponibles. Con el plan de mantención, tu sitio queda cuidado mes a mes.'],
+        ['num' => '01', 'icon' => 'compass',   'title' => 'Diagnóstico',          'text' => 'Entendemos tu negocio y qué necesitas lograr. Sin tecnicismos.'],
+        ['num' => '02', 'icon' => 'message',    'title' => 'Propuesta clara',      'text' => 'Alcance, precio y fecha cerrados antes de empezar.'],
+        ['num' => '03', 'icon' => 'layers',     'title' => 'Diseño',               'text' => 'Lo apruebas antes de que escribamos una línea de código.'],
+        ['num' => '04', 'icon' => 'spark',      'title' => 'Desarrollo y entrega', 'text' => 'Construimos, publicamos y te explicamos cómo usarlo.'],
+        ['num' => '05', 'icon' => 'handshake',  'title' => 'Soporte',              'text' => 'Seguimos disponibles. Con el plan de mantención, cuidado mes a mes.'],
     ];
 }
 
@@ -228,10 +228,10 @@ function portalProcess(): array {
  */
 function portalBenefits(): array {
     return [
-        ['icon' => 'target',    'title' => 'Pensado para captar',     'text' => 'No hacemos webs que solo se ven bien: las diseñamos para que tus visitas se conviertan en consultas reales.'],
-        ['icon' => 'clock',     'title' => 'Precio y fecha cerrados', 'text' => 'Sabes cuánto cuesta y cuándo lo recibes antes de partir. Sin sorpresas a mitad de camino.'],
-        ['icon' => 'phone',     'title' => 'Atención directa',        'text' => 'Hablas con quien construye tu sitio, no con un intermediario. Cercanía y respuestas claras.'],
-        ['icon' => 'shield',    'title' => 'Soporte después',         'text' => 'No desaparecemos al entregar. Quedamos disponibles para cuidar y hacer crecer tu sitio.'],
+        ['icon' => 'target',    'title' => 'Pensado para captar',     'text' => 'Diseñamos para que tus visitas se conviertan en consultas.'],
+        ['icon' => 'clock',     'title' => 'Precio y fecha cerrados', 'text' => 'Sabes cuánto y cuándo antes de partir. Sin sorpresas.'],
+        ['icon' => 'phone',     'title' => 'Atención directa',        'text' => 'Hablas con quien construye tu sitio, no con un intermediario.'],
+        ['icon' => 'shield',    'title' => 'Soporte después',         'text' => 'No desaparecemos al entregar. Cuidamos tu sitio.'],
     ];
 }
 
@@ -248,12 +248,12 @@ function portalTrust(): array {
 /** Preguntas frecuentes (resuelven objeciones de venta antes del formulario). */
 function portalFaqs(): array {
     return [
-        ['q' => '¿Cuánto se demora mi proyecto?', 'a' => 'Una landing está lista en alrededor de 1 semana y un sitio corporativo en unas 3 semanas. La fecha exacta queda cerrada en la propuesta, antes de empezar.'],
-        ['q' => '¿Cuánto cuesta?', 'a' => 'Una landing parte desde $450.000, un sitio corporativo desde $990.000 y una tienda online desde $1.800.000. El precio final, cerrado, se confirma según lo que necesites tras un breve diagnóstico.'],
-        ['q' => '¿Qué necesitan de mí para empezar?', 'a' => 'Tus textos, imágenes y logo si los tienes. Si no, te guiamos paso a paso para armarlos: nunca te dejamos solo frente a una página en blanco.'],
-        ['q' => '¿Cómo es el pago?', 'a' => 'Trabajamos con 50% al inicio y 50% contra entrega. Todo queda por escrito antes de partir.'],
-        ['q' => '¿Qué pasa después de entregar el sitio?', 'a' => 'Seguimos disponibles. Puedes sumar el plan de mantención para que tu sitio quede cuidado, actualizado y respaldado mes a mes.'],
-        ['q' => 'Ya tengo un sitio, ¿pueden mejorarlo?', 'a' => 'Sí. Revisamos lo que tienes y te decimos con honestidad si conviene mejorarlo o rehacerlo, y por qué.'],
+        ['q' => '¿Cuánto se demora?', 'a' => 'Una landing en ~1 semana y un sitio corporativo en ~3. La fecha exacta queda cerrada en la propuesta.'],
+        ['q' => '¿Cuánto cuesta?', 'a' => 'Landing desde $450.000, sitio desde $990.000 y tienda desde $1.800.000. El precio final lo confirmamos según tu proyecto.'],
+        ['q' => '¿Qué necesitan de mí?', 'a' => 'Tus textos, imágenes y logo si los tienes. Si no, te guiamos para armarlos.'],
+        ['q' => '¿Cómo es el pago?', 'a' => '50% al inicio y 50% contra entrega. Todo por escrito antes de partir.'],
+        ['q' => '¿Y después de entregar?', 'a' => 'Seguimos disponibles. Puedes sumar el plan de mantención para mantenerlo al día.'],
+        ['q' => 'Ya tengo un sitio, ¿lo mejoran?', 'a' => 'Sí. Lo revisamos y te decimos con honestidad si conviene mejorarlo o rehacerlo.'],
     ];
 }
 
