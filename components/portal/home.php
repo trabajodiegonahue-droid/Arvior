@@ -2,7 +2,9 @@
 /** Home del portal comercial. Render desde index.php (scope: $error, $sent). */
 layoutStart([
     'current_slug' => '',
-    'title'        => '',
+    // Título SEO descriptivo para la home (la portada es la que más posiciona):
+    // keyword-led + marca. El resto de las páginas ya traen su propio título.
+    'title'        => 'Desarrollo web, software y marketing digital',
     'description'  => 'ARVIOR — Desarrollo web, software, automatización, marketing digital e IA. Construimos sistemas que generan oportunidades comerciales para tu negocio.',
 ]);
 ?>
