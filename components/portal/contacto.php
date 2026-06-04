@@ -19,7 +19,7 @@ $waLink     = whatsappLink((string) getSetting('business_whatsapp', ''), (string
     <div class="container">
         <span class="section__eyebrow">Contacto</span>
         <h1 class="page-hero__title">Hablemos de tu proyecto.</h1>
-        <p class="page-hero__lead">Escríbenos por el medio que prefieras. Respondemos rápido y hablas directo con quien construye tu sitio.</p>
+        <p class="page-hero__lead">Escríbenos por donde prefieras. Respondemos rápido.</p>
     </div>
 </section>
 

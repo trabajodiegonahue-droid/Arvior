@@ -11,7 +11,7 @@ layoutStart([
     <div class="container">
         <span class="section__eyebrow">Cotización</span>
         <h1 class="page-hero__title">Cuéntanos tu proyecto.</h1>
-        <p class="page-hero__lead">Completa el formulario y te enviamos una propuesta clara, con alcance, precio y fecha cerrados. Te respondemos en menos de 24 horas hábiles, sin compromiso.</p>
+        <p class="page-hero__lead">Completa el formulario y te enviamos una propuesta con alcance, precio y fecha. En menos de 24 h, sin compromiso.</p>
     </div>
 </section>
 

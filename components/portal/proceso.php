@@ -10,7 +10,7 @@ layoutStart([
     <div class="container">
         <span class="section__eyebrow">Proceso de trabajo</span>
         <h1 class="page-hero__title">De la idea al resultado, sin sorpresas.</h1>
-        <p class="page-hero__lead">Un método claro en cinco etapas. En cada una sabes qué estamos haciendo, qué necesitamos de ti y qué viene después. Así se trabaja con un socio ordenado.</p>
+        <p class="page-hero__lead">Cinco etapas. En cada una sabes qué hacemos y qué sigue.</p>
     </div>
 </section>
 

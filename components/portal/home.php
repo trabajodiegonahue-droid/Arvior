@@ -17,7 +17,7 @@ $maint = portalMaintenance();
             <div class="hero__copy">
                 <span class="hero__eyebrow"><span class="dot"></span> Estudio de desarrollo web</span>
                 <h1 class="hero__title">Tu sitio web debería <span class="text-gradient">traerte clientes</span>.</h1>
-                <p class="hero__sub">Sitios que hacen ver profesional a tu empresa y la llenan de consultas. Precio y fecha cerrados.</p>
+                <p class="hero__sub">Sitios web que te hacen ver profesional y te traen consultas.</p>
                 <div class="hero__actions">
                     <a href="/cotizacion" class="btn">Solicitar cotización</a>
                     <a href="/servicios" class="btn btn--secondary">Ver servicios</a>
@@ -91,9 +91,8 @@ $maint = portalMaintenance();
         <div class="split">
             <div class="split__copy">
                 <span class="section__eyebrow">El problema</span>
-                <h2 class="section__title">La mayoría de las webs se ven bien. Pocas <span class="text-gradient">hacen vender</span>.</h2>
-                <p class="section__lead">Una web bonita que nadie usa para escribirte es un gasto. El problema no es el diseño: es que no guía al visitante a contactarte.</p>
-                <p style="color:var(--arvior-text-2);line-height:1.7;margin-top:1.1rem;">Nosotros partimos al revés: primero definimos qué quieres que pase —que te escriban— y recién después diseñamos.</p>
+                <h2 class="section__title">Se ven bien. Pocas <span class="text-gradient">hacen vender</span>.</h2>
+                <p class="section__lead">Una web que nadie usa para escribirte es un gasto. La nuestra está hecha para que te contacten.</p>
             </div>
             <div class="split__media reveal">
                 <div class="compare">
@@ -124,8 +123,7 @@ $maint = portalMaintenance();
     <div class="container">
         <div class="section__head reveal">
             <span class="section__eyebrow">Qué hacemos</span>
-            <h2 class="section__title">Desarrollo web, enfocado en lo que tu empresa necesita.</h2>
-            <p class="section__lead">Hacemos bien lo que sabemos hacer. Elige por dónde partir.</p>
+            <h2 class="section__title">Cuatro servicios, hechos bien.</h2>
         </div>
         <div class="card-grid reveal">
             <?php foreach (portalFeaturedServices(4) as $s): ?>
@@ -152,8 +150,7 @@ $maint = portalMaintenance();
     <div class="container">
         <div class="section__head section__head--center reveal">
             <span class="section__eyebrow">Por qué ARVIOR</span>
-            <h2 class="section__title">Un socio que se hace cargo, no solo un proveedor.</h2>
-            <p class="section__lead">Hablas directo con quien construye tu sitio: claridad, cumplimiento y respuesta cuando lo necesitas.</p>
+            <h2 class="section__title">Un socio que se hace cargo.</h2>
         </div>
         <div class="card-grid reveal">
             <?php foreach (portalBenefits() as $b): ?>
@@ -173,7 +170,6 @@ $maint = portalMaintenance();
         <div class="section__head reveal">
             <span class="section__eyebrow">Cómo trabajamos</span>
             <h2 class="section__title">Un camino claro, sin sorpresas.</h2>
-            <p class="section__lead">Sabes en todo momento qué hacemos y qué sigue.</p>
         </div>
         <div class="process reveal">
             <?php foreach (portalProcess() as $step): ?>
@@ -196,8 +192,7 @@ $maint = portalMaintenance();
     <div class="container">
         <div class="section__head section__head--center reveal">
             <span class="section__eyebrow">Planes</span>
-            <h2 class="section__title">Precios claros desde el primer día.</h2>
-            <p class="section__lead">Valores referenciales. El precio final, cerrado, lo confirmamos según tu proyecto.</p>
+            <h2 class="section__title">Precios claros desde el día uno.</h2>
         </div>
         <div class="plans reveal">
             <?php foreach ($pkgs as $p): ?>
@@ -224,7 +219,7 @@ $maint = portalMaintenance();
             <span><?= portalIcon('shield') ?></span>
             <b><?= htmlspecialchars($maint['title']) ?>:</b> <?= htmlspecialchars($maint['price']) ?> — <?= htmlspecialchars($maint['text']) ?>
         </p>
-        <p class="plans-disclaimer reveal">Precios en pesos chilenos (CLP). Pago 50% al inicio y 50% contra entrega.</p>
+        <p class="plans-disclaimer reveal">Precios en CLP. Pago 50% al inicio y 50% contra entrega. El valor final se cierra según tu proyecto.</p>
     </div>
 </section>
 
@@ -233,7 +228,7 @@ $maint = portalMaintenance();
     <div class="container">
         <div class="section__head section__head--center reveal">
             <span class="section__eyebrow">Preguntas frecuentes</span>
-            <h2 class="section__title">Lo que suelen preguntarnos antes de empezar.</h2>
+            <h2 class="section__title">Antes de empezar.</h2>
         </div>
         <div class="faq reveal">
             <?php foreach (portalFaqs() as $f): ?>
