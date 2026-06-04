@@ -34,16 +34,26 @@ $maint = portalMaintenance();
                         </div>
                         <div class="demo__progress"><span></span></div>
                         <div class="demo__stage">
-                            <!-- Acto 1: diseñamos -->
+                            <!-- Acto 1: entendemos tu negocio (checklist) -->
                             <div class="demo__screen demo__screen--1">
+                                <div class="demo__nav"><span class="demo__brand">DIAGNÓSTICO</span><span class="demo__links"><i></i><i></i></span></div>
+                                <div class="demo__cl">
+                                    <div class="demo__cl-row"><span class="demo__cl-box"><?= portalIcon('check') ?></span><i></i></div>
+                                    <div class="demo__cl-row"><span class="demo__cl-box"><?= portalIcon('check') ?></span><i></i></div>
+                                    <div class="demo__cl-row"><span class="demo__cl-box"><?= portalIcon('check') ?></span><i></i></div>
+                                    <div class="demo__cl-row"><span class="demo__cl-box"><?= portalIcon('check') ?></span><i></i></div>
+                                </div>
+                            </div>
+                            <!-- Acto 2: diseñamos (wireframe) -->
+                            <div class="demo__screen demo__screen--2">
                                 <div class="demo__nav"><span class="demo__brand">TU&nbsp;MARCA</span><span class="demo__links"><i></i><i></i><i></i></span></div>
                                 <div class="demo__sk demo__sk--h"></div>
                                 <div class="demo__sk demo__sk--w1"></div>
                                 <div class="demo__sk demo__sk--w2"></div>
                                 <div class="demo__grid"><span></span><span></span><span></span></div>
                             </div>
-                            <!-- Acto 2: tu sitio en vivo (a color, sitio terminado) -->
-                            <div class="demo__screen demo__screen--2">
+                            <!-- Acto 3: tu sitio en vivo (a color) -->
+                            <div class="demo__screen demo__screen--3">
                                 <div class="demo__nav"><span class="demo__brand">TU&nbsp;MARCA</span><span class="demo__links"><i></i><i></i><i></i></span></div>
                                 <div class="demo__live">
                                     <div class="demo__lcopy">
@@ -55,8 +65,21 @@ $maint = portalMaintenance();
                                 </div>
                                 <div class="demo__feats"><span></span><span></span><span></span></div>
                             </div>
-                            <!-- Acto 3: llegan consultas -->
-                            <div class="demo__screen demo__screen--3">
+                            <!-- Acto 4: perfecto en el celular (mockup teléfono) -->
+                            <div class="demo__screen demo__screen--4">
+                                <div class="demo__phone">
+                                    <div class="demo__phone-bar"><span></span></div>
+                                    <div class="demo__phone-body">
+                                        <div class="demo__phone-brand">TU&nbsp;MARCA</div>
+                                        <div class="demo__phone-hero"></div>
+                                        <div class="demo__phone-line"></div>
+                                        <div class="demo__phone-line demo__phone-line--short"></div>
+                                        <div class="demo__phone-btn"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Acto 5: llegan consultas (notificaciones) -->
+                            <div class="demo__screen demo__screen--5">
                                 <div class="demo__nav"><span class="demo__brand">TU&nbsp;MARCA</span><span class="demo__links"><i></i><i></i><i></i></span></div>
                                 <div class="demo__title demo__title--dim"></div>
                                 <div class="demo__notif"><span class="demo__check"><?= portalIcon('check') ?></span><b>Nueva consulta</b></div>
@@ -66,9 +89,11 @@ $maint = portalMaintenance();
                         </div>
                     </div>
                     <div class="demo__caption">
-                        <span class="demo__step demo__step--1">Diseñamos tu sitio</span>
-                        <span class="demo__step demo__step--2">Lo publicamos</span>
-                        <span class="demo__step demo__step--3">Llegan tus consultas</span>
+                        <span class="demo__step demo__step--1">Entendemos tu negocio</span>
+                        <span class="demo__step demo__step--2">Diseñamos tu sitio</span>
+                        <span class="demo__step demo__step--3">Lo publicamos</span>
+                        <span class="demo__step demo__step--4">Perfecto en el celular</span>
+                        <span class="demo__step demo__step--5">Llegan tus consultas</span>
                     </div>
                 </div>
             </div>

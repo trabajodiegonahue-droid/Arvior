@@ -269,28 +269,41 @@
     position: absolute; inset: 0;
     padding: 1.4rem; display: grid; gap: 0.8rem; align-content: start;
     opacity: 0;
-    animation: demoCycle 12s var(--ease-out-quart) infinite;
+    animation: demoCycle 15s var(--ease-out-quart) infinite;
 }
-.demo__screen--2 { animation-delay: 4s; }
-.demo__screen--3 { animation-delay: 8s; }
+.demo__screen--2 { animation-delay: 3s; }
+.demo__screen--3 { animation-delay: 6s; }
+.demo__screen--4 { animation-delay: 9s; align-content: center; justify-items: center; }
+.demo__screen--5 { animation-delay: 12s; }
 
 .demo__nav { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem; }
 .demo__brand { font-family: var(--font-display); font-weight: 600; color: var(--arvior-accent); letter-spacing: 0.12em; font-size: 0.8rem; }
 .demo__links { margin-left: auto; display: flex; gap: 0.5rem; }
 .demo__links i { width: 30px; height: 7px; border-radius: 4px; background: var(--arvior-surface-2); }
 
-/* Acto 1 — el sitio se "dibuja" */
+/* Acto 1 — diagnóstico (checklist) */
+.demo__cl { display: grid; gap: 0.7rem; margin-top: 0.4rem; }
+.demo__cl-row { display: flex; align-items: center; gap: 0.7rem; }
+.demo__cl-box { width: 22px; height: 22px; border-radius: 6px; background: #e9f6ef; border: 1px solid #aee0c6; color: #1F8A5B; display: grid; place-items: center; flex: 0 0 auto; }
+.demo__cl-box svg { width: 14px; height: 14px; }
+.demo__cl-row i { height: 9px; border-radius: 5px; background: var(--arvior-surface-2); }
+.demo__cl-row:nth-child(1) i { width: 78%; }
+.demo__cl-row:nth-child(2) i { width: 62%; }
+.demo__cl-row:nth-child(3) i { width: 72%; }
+.demo__cl-row:nth-child(4) i { width: 54%; }
+
+/* Acto 2 — el sitio se "dibuja" (wireframe) */
 .demo__sk { height: 10px; border-radius: 5px; background: var(--arvior-surface-2); transform-origin: left; }
-.demo__screen--1 .demo__sk { animation: demoDraw 12s var(--ease-out-quart) infinite; }
+.demo__screen--2 .demo__sk { animation: demoDraw 15s var(--ease-out-quart) infinite; animation-delay: 3s; }
 .demo__sk--h  { height: 16px; width: 65%; background: #dfe4ee; }
 .demo__sk--w1 { width: 90%; }
 .demo__sk--w2 { width: 75%; }
-.demo__screen--1 .demo__sk--w1 { animation-delay: 0.12s; }
-.demo__screen--1 .demo__sk--w2 { animation-delay: 0.24s; }
+.demo__screen--2 .demo__sk--w1 { animation-delay: 3.12s; }
+.demo__screen--2 .demo__sk--w2 { animation-delay: 3.24s; }
 .demo__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.2rem; }
 .demo__grid span { height: 50px; border-radius: 8px; border: 1px dashed var(--color-border-strong); background: var(--arvior-surface-2); }
 
-/* Acto 2 — sitio publicado, A COLOR (contrasta con el wireframe del acto 1) */
+/* Acto 3 — sitio publicado, A COLOR (contrasta con el wireframe) */
 .demo__live { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 0.9rem; align-items: center; }
 .demo__lcopy { display: grid; gap: 0.5rem; }
 .demo__ltitle { height: 14px; width: 88%; border-radius: 5px; background: var(--arvior-accent); }
@@ -304,11 +317,20 @@
 .demo__feats span:nth-child(2)::before { background: var(--arvior-violet); }
 .demo__feats span:nth-child(3)::before { background: #1F8A5B; }
 
-/* Acto 3 — título tenue del sitio ya en vivo */
+/* Acto 4 — perfecto en el celular (mockup de teléfono) */
+.demo__phone { width: 120px; border-radius: 18px; border: 1px solid var(--color-border-strong); background: #fff; overflow: hidden; box-shadow: 0 16px 30px -16px rgba(27, 42, 74, 0.4); }
+.demo__phone-bar { height: 15px; background: var(--arvior-surface-2); display: grid; place-items: center; }
+.demo__phone-bar span { width: 30px; height: 4px; border-radius: 3px; background: #cfc9bd; }
+.demo__phone-body { padding: 0.55rem 0.6rem 0.75rem; display: grid; gap: 0.4rem; }
+.demo__phone-brand { font-family: var(--font-display); font-weight: 600; font-size: 0.52rem; letter-spacing: 0.12em; color: var(--arvior-accent); }
+.demo__phone-hero { height: 42px; border-radius: 7px; background: linear-gradient(135deg, var(--arvior-accent), var(--arvior-violet)); }
+.demo__phone-line { height: 6px; border-radius: 4px; background: var(--arvior-surface-2); }
+.demo__phone-line--short { width: 58%; }
+.demo__phone-btn { height: 16px; width: 58px; border-radius: 5px; background: var(--arvior-accent); margin-top: 0.1rem; }
+
+/* Acto 5 — título tenue + entran las consultas */
 .demo__title { height: 18px; width: 70%; border-radius: 6px; background: #cfd6e6; }
 .demo__title--dim { opacity: 0.55; }
-
-/* Acto 3 — entran las consultas */
 .demo__notif {
     display: flex; align-items: center; gap: 0.6rem;
     background: #fff; border: 1px solid var(--arvior-border);
@@ -316,10 +338,10 @@
     box-shadow: 0 10px 20px -14px rgba(27, 42, 74, 0.35);
     font-size: 0.84rem; color: var(--arvior-text); font-weight: 600;
     opacity: 0;
-    animation: demoNotif 12s var(--ease-out-quart) infinite;
+    animation: demoNotif 15s var(--ease-out-quart) infinite;
 }
-.demo__notif:nth-of-type(3) { animation-delay: 0.4s; }
-.demo__notif:nth-of-type(4) { animation-delay: 0.8s; }
+.demo__notif:nth-of-type(4) { animation-delay: 0.3s; }
+.demo__notif:nth-of-type(5) { animation-delay: 0.6s; }
 .demo__check { width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; color: #1F8A5B; background: #e9f6ef; flex: 0 0 auto; }
 .demo__check svg { width: 15px; height: 15px; }
 
@@ -328,34 +350,37 @@
 .demo__step {
     position: absolute; left: 0; right: 0;
     font-weight: 600; color: var(--arvior-accent); font-size: 0.95rem;
-    opacity: 0; animation: demoCaption 12s var(--ease-out-quart) infinite;
+    opacity: 0; animation: demoCaption 15s var(--ease-out-quart) infinite;
 }
-.demo__step--2 { animation-delay: 4s; }
-.demo__step--3 { animation-delay: 8s; }
+.demo__step--2 { animation-delay: 3s; }
+.demo__step--3 { animation-delay: 6s; }
+.demo__step--4 { animation-delay: 9s; }
+.demo__step--5 { animation-delay: 12s; }
 
+/* Loop de 5 actos: cada uno visible ~20% del ciclo de 15s. */
 @keyframes demoCycle {
     0%, 100% { opacity: 0; transform: translateY(8px); }
-    4%  { opacity: 1; transform: none; }
-    29% { opacity: 1; transform: none; }
-    33% { opacity: 0; transform: translateY(-6px); }
+    3%  { opacity: 1; transform: none; }
+    17% { opacity: 1; transform: none; }
+    20% { opacity: 0; transform: translateY(-6px); }
 }
 @keyframes demoCaption {
     0%, 100% { opacity: 0; transform: translateY(6px); }
-    5%  { opacity: 1; transform: none; }
-    28% { opacity: 1; transform: none; }
-    33% { opacity: 0; }
+    3%  { opacity: 1; transform: none; }
+    17% { opacity: 1; transform: none; }
+    20% { opacity: 0; }
 }
 @keyframes demoDraw {
     0%  { transform: scaleX(0); opacity: 0.35; }
-    8%  { transform: scaleX(1); opacity: 1; }
-    29% { transform: scaleX(1); opacity: 1; }
-    33%, 100% { transform: scaleX(1); opacity: 0; }
+    6%  { transform: scaleX(1); opacity: 1; }
+    17% { transform: scaleX(1); opacity: 1; }
+    20%, 100% { transform: scaleX(1); opacity: 0; }
 }
 @keyframes demoNotif {
-    0%, 67% { opacity: 0; transform: translateX(14px); }
-    73% { opacity: 1; transform: none; }
-    91% { opacity: 1; transform: none; }
-    95%, 100% { opacity: 0; transform: none; }
+    0%, 80% { opacity: 0; transform: translateX(12px); }
+    86% { opacity: 1; transform: none; }
+    98% { opacity: 1; transform: none; }
+    100% { opacity: 0; }
 }
 @keyframes demoProgress { 0% { width: 0; } 100% { width: 100%; } }
 
@@ -363,8 +388,9 @@
     .demo__progress span,
     .demo__screen, .demo__step, .demo__sk, .demo__notif { animation: none !important; }
     /* Estado estático: mostramos el acto final (llegan consultas). */
-    .demo__screen--1, .demo__screen--2, .demo__step--1, .demo__step--2 { opacity: 0; }
-    .demo__screen--3, .demo__step--3, .demo__notif { opacity: 1; }
+    .demo__screen--1, .demo__screen--2, .demo__screen--3, .demo__screen--4,
+    .demo__step--1, .demo__step--2, .demo__step--3, .demo__step--4 { opacity: 0; }
+    .demo__screen--5, .demo__step--5, .demo__notif { opacity: 1; }
 }
 
 /* ==========================================================
