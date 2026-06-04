@@ -396,13 +396,17 @@
 /* ==========================================================
    4. Franja de confianza (reemplaza logos de clientes)
    ========================================================== */
+/* Franja de ancho completo: las líneas van de borde a borde de la pantalla,
+   los ítems quedan centrados dentro del contenedor. */
 .trust-strip {
+    padding: 1.3rem 0;
+    border-block: 1px solid var(--arvior-border);
+}
+.trust-strip__inner {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: clamp(1rem, 4vw, 2.8rem);
-    padding: 1.3rem 0;
-    border-block: 1px solid var(--arvior-border);
 }
 .trust-strip__item {
     display: inline-flex; align-items: center; gap: 0.55rem;

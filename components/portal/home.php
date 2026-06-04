@@ -101,9 +101,9 @@ $maint = portalMaintenance();
     </div>
 </section>
 
-<!-- ================= FRANJA DE CONFIANZA ================= -->
-<div class="container">
-    <div class="trust-strip reveal">
+<!-- ================= FRANJA DE CONFIANZA (ancho completo) ================= -->
+<div class="trust-strip reveal">
+    <div class="container trust-strip__inner">
         <?php foreach (portalTrust() as $t): ?>
             <span class="trust-strip__item"><?= portalIcon($t['icon']) ?> <?= htmlspecialchars($t['text']) ?></span>
         <?php endforeach; ?>
