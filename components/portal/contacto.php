@@ -4,7 +4,7 @@
 layoutStart([
     'current_slug' => 'contacto',
     'title'        => 'Contacto',
-    'description'  => 'Hablá con ARVIOR. Escribinos por formulario, WhatsApp o correo y te respondemos a la brevedad.',
+    'description'  => 'Habla con ARVIOR. Escríbenos por formulario, WhatsApp o correo y te respondemos a la brevedad.',
 ]);
 
 $bizPhone   = trim((string) getSetting('business_phone', ''));
@@ -19,45 +19,53 @@ $waLink     = whatsappLink((string) getSetting('business_whatsapp', ''), (string
     <div class="container">
         <span class="section__eyebrow">Contacto</span>
         <h1 class="page-hero__title">Hablemos de tu proyecto.</h1>
-        <p class="page-hero__lead">Escribinos por el medio que prefieras. Respondemos rápido.</p>
+        <p class="page-hero__lead">Escríbenos por el medio que prefieras. Respondemos rápido y hablas directo con quien construye tu sitio.</p>
     </div>
 </section>
 
 <section class="section section--tight">
     <div class="container">
         <div class="quote-layout reveal">
-            <div class="quote-layout__aside">
-                <h2 class="section__title">Datos de contacto</h2>
-                <ul class="contact-list">
-                    <?php if ($waLink): ?>
-                        <li><span class="contact-list__lb">WhatsApp</span><a href="<?= htmlspecialchars($waLink) ?>" target="_blank" rel="noopener">Escribir por WhatsApp</a></li>
-                    <?php endif; ?>
-                    <?php if ($bizEmail): ?>
-                        <li><span class="contact-list__lb">Correo</span><a href="mailto:<?= htmlspecialchars($bizEmail) ?>"><?= htmlspecialchars($bizEmail) ?></a></li>
-                    <?php endif; ?>
-                    <?php if ($bizPhone): ?>
-                        <li><span class="contact-list__lb">Teléfono</span><a href="tel:<?= htmlspecialchars(preg_replace('/\s+/', '', $bizPhone)) ?>"><?= htmlspecialchars($bizPhone) ?></a></li>
-                    <?php endif; ?>
-                    <?php if ($bizAddress || $bizCity): ?>
-                        <li><span class="contact-list__lb">Dirección</span>
-                            <?php if ($mapsUrl): ?><a href="<?= htmlspecialchars($mapsUrl) ?>" target="_blank" rel="noopener"><?php endif; ?>
-                            <?= htmlspecialchars(trim($bizAddress . ($bizCity ? ', ' . $bizCity : ''))) ?>
-                            <?php if ($mapsUrl): ?></a><?php endif; ?>
-                        </li>
-                    <?php endif; ?>
-                    <?php if ($bizHours): ?>
-                        <li><span class="contact-list__lb">Horario</span><?= htmlspecialchars($bizHours) ?></li>
-                    <?php endif; ?>
-                    <?php if (!$waLink && !$bizEmail && !$bizPhone && !$bizAddress && !$bizCity && !$bizHours): ?>
-                        <li class="text-muted">Completá el formulario y te respondemos a la brevedad.</li>
-                    <?php endif; ?>
-                </ul>
+            <div class="quote-aside">
+                <div class="quote-aside__card">
+                    <h2 class="section__title" style="font-size:1.25rem;">Datos de contacto</h2>
+                    <ul class="contact-list">
+                        <?php if ($waLink): ?>
+                            <li><span class="contact-list__lb">WhatsApp</span><a href="<?= htmlspecialchars($waLink) ?>" target="_blank" rel="noopener">Escribir por WhatsApp</a></li>
+                        <?php endif; ?>
+                        <?php if ($bizEmail): ?>
+                            <li><span class="contact-list__lb">Correo</span><a href="mailto:<?= htmlspecialchars($bizEmail) ?>"><?= htmlspecialchars($bizEmail) ?></a></li>
+                        <?php endif; ?>
+                        <?php if ($bizPhone): ?>
+                            <li><span class="contact-list__lb">Teléfono</span><a href="tel:<?= htmlspecialchars(preg_replace('/\s+/', '', $bizPhone)) ?>"><?= htmlspecialchars($bizPhone) ?></a></li>
+                        <?php endif; ?>
+                        <?php if ($bizAddress || $bizCity): ?>
+                            <li><span class="contact-list__lb">Dirección</span>
+                                <?php if ($mapsUrl): ?><a href="<?= htmlspecialchars($mapsUrl) ?>" target="_blank" rel="noopener"><?php endif; ?>
+                                <?= htmlspecialchars(trim($bizAddress . ($bizCity ? ', ' . $bizCity : ''))) ?>
+                                <?php if ($mapsUrl): ?></a><?php endif; ?>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($bizHours): ?>
+                            <li><span class="contact-list__lb">Horario</span><?= htmlspecialchars($bizHours) ?></li>
+                        <?php endif; ?>
+                        <?php if (!$waLink && !$bizEmail && !$bizPhone && !$bizAddress && !$bizCity && !$bizHours): ?>
+                            <li class="text-muted">Completa el formulario y te respondemos a la brevedad.</li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+                <div class="quote-aside__card">
+                    <ul class="benefit-list">
+                        <li><span class="benefit-list__ic"><?= portalIcon('check') ?></span>Respuesta rápida, sin intermediarios</li>
+                        <li><span class="benefit-list__ic"><?= portalIcon('check') ?></span>¿Listo para cotizar? <a href="/cotizacion">Pide tu cotización</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="quote-layout__form">
-                <h2 class="section__title">Enviá un mensaje</h2>
+                <h2 class="section__title">Envía un mensaje</h2>
                 <?php
-                $formSource = 'contacto';
-                $returnPath = '/contacto';
+                $formSource  = 'contacto';
+                $returnPath  = '/contacto';
                 $showService = true; $showBudget = false; $showCompany = true;
                 require __DIR__ . '/quote_form.php';
                 ?>

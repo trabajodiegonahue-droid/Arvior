@@ -22,25 +22,46 @@ layoutStart([
     <div class="container">
         <div class="service-detail reveal">
             <div class="service-detail__main">
-                <h2 class="section__title">De qué se trata</h2>
-                <p class="section__lead" style="margin-bottom:1.6rem;"><?= htmlspecialchars($svc['description']) ?></p>
+                <div class="service-meta">
+                    <div class="service-meta__item">
+                        <div class="service-meta__lb">Desde</div>
+                        <div class="service-meta__val"><?= htmlspecialchars(str_replace('Desde ', '', $svc['price'])) ?></div>
+                    </div>
+                    <div class="service-meta__item">
+                        <div class="service-meta__lb">Plazo</div>
+                        <div class="service-meta__val"><?= htmlspecialchars($svc['timeline']) ?></div>
+                    </div>
+                </div>
 
-                <h3 class="service-detail__subtitle">Qué obtenés</h3>
-                <ul class="benefit-list">
-                    <?php foreach ($svc['benefits'] as $b): ?>
+                <h2 class="section__title" style="font-size:1.5rem;">Qué problema resuelve</h2>
+                <p style="color:var(--arvior-text-2);line-height:1.7;margin-bottom:1.4rem;"><?= htmlspecialchars($svc['problem']) ?></p>
+
+                <h3 class="service-detail__subtitle">De qué se trata</h3>
+                <p style="color:var(--arvior-text-2);line-height:1.7;"><?= htmlspecialchars($svc['description']) ?></p>
+
+                <h3 class="service-detail__subtitle">Qué obtienes</h3>
+                <p style="color:var(--arvior-text-2);line-height:1.7;margin-bottom:1rem;"><?= htmlspecialchars($svc['gain']) ?></p>
+                <ul class="benefit-list benefit-list--cols">
+                    <?php foreach ($svc['includes'] as $b): ?>
                         <li><span class="benefit-list__ic"><?= portalIcon('check') ?></span><?= htmlspecialchars($b) ?></li>
                     <?php endforeach; ?>
                 </ul>
+
+                <div class="service-when">
+                    <strong>¿Cuándo te conviene?</strong> <?= htmlspecialchars($svc['when']) ?>
+                </div>
             </div>
 
             <aside class="service-detail__form" id="cotizar">
-                <h3>Solicitar información</h3>
-                <p class="text-muted" style="font-size:.9rem;margin:.2rem 0 1rem;">Te respondemos con una propuesta clara para <strong><?= htmlspecialchars($svc['title']) ?></strong>.</p>
+                <h3>Solicitar cotización</h3>
+                <p class="text-muted" style="font-size:.92rem;margin:.3rem 0 1.1rem;">Te respondemos con una propuesta clara para <strong><?= htmlspecialchars($svc['title']) ?></strong>, con precio y fecha.</p>
                 <?php
                 $formSource       = 'servicio:' . $svc['slug'];
                 $preselectService = $svc['title'];
                 $returnPath       = '/servicios/' . $svc['slug'];
+                $showService      = true;
                 $showBudget       = true;
+                $showCompany      = true;
                 require __DIR__ . '/quote_form.php';
                 ?>
             </aside>

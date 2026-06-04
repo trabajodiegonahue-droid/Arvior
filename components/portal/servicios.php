@@ -3,25 +3,29 @@
 layoutStart([
     'current_slug' => 'servicios',
     'title'        => 'Servicios',
-    'description'  => 'Desarrollo web, landing pages, tiendas online, Google y Meta Ads, SEO, automatización, CRM, software e inteligencia artificial. Conocé todos los servicios de ARVIOR.',
+    'description'  => 'Sitios web corporativos, landing pages, tiendas online y mantención. Conoce los servicios de desarrollo web de ARVIOR, con precio y fecha cerrados.',
 ]);
 ?>
 <section class="page-hero">
     <div class="container">
         <span class="section__eyebrow">Servicios</span>
-        <h1 class="page-hero__title">Soluciones para captar y convertir más clientes.</h1>
-        <p class="page-hero__lead">Cada servicio se diseña con un objetivo comercial concreto y se conecta a tu sistema de ventas. Elegí por dónde empezar.</p>
+        <h1 class="page-hero__title">Lo que construimos para tu empresa.</h1>
+        <p class="page-hero__lead">Cuatro servicios, hechos bien. Cada uno resuelve un problema concreto y todos comparten lo mismo: precio y fecha cerrados, foco en captar clientes y soporte después de entregar.</p>
     </div>
 </section>
 
 <section class="section section--tight">
     <div class="container">
-        <div class="card-grid reveal">
+        <div class="card-grid card-grid--2 reveal">
             <?php foreach (portalServices() as $s): ?>
                 <a class="s-card" href="/servicios/<?= htmlspecialchars($s['slug']) ?>">
                     <div class="s-card__icon"><?= portalIcon($s['icon']) ?></div>
                     <h3 class="s-card__title"><?= htmlspecialchars($s['title']) ?></h3>
                     <p class="s-card__text"><?= htmlspecialchars($s['summary']) ?></p>
+                    <div class="s-card__meta">
+                        <span><b><?= htmlspecialchars($s['price']) ?></b></span>
+                        <span><?= htmlspecialchars($s['timeline']) ?></span>
+                    </div>
                     <span class="s-card__more">Ver servicio →</span>
                 </a>
             <?php endforeach; ?>

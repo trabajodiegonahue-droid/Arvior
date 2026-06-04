@@ -1,6 +1,6 @@
 <?php
 /**
- * Formulario de cotización / contacto del portal (Fase 6).
+ * Formulario de cotización / contacto del portal.
  * Postea a la página actual (action=submit_lead) → leadCreate() → CRM.
  *
  * Variables opcionales (setear antes del require):
@@ -24,7 +24,7 @@ $error            = $error ?? '';
 ?>
 <?php if ($sent): ?>
     <div class="alert alert--success form-alert">
-        <strong>¡Gracias!</strong> Recibimos tu solicitud. Te vamos a contactar a la brevedad.
+        <strong>¡Gracias!</strong> Recibimos tu solicitud. Te contactamos a la brevedad, dentro de las próximas 24 horas hábiles.
     </div>
 <?php endif; ?>
 <?php if ($error !== ''): ?>
@@ -55,9 +55,9 @@ $error            = $error ?? '';
     </p>
     <?php if ($showService): ?>
     <p class="lead-form__field">
-        <label>Servicio de interés
+        <label>¿Qué necesitas?
             <select name="service">
-                <option value="">Seleccioná un servicio</option>
+                <option value="">Selecciona un servicio</option>
                 <?php foreach (portalServiceOptions() as $opt): ?>
                     <option value="<?= htmlspecialchars($opt) ?>" <?= $preselectService === $opt ? 'selected' : '' ?>><?= htmlspecialchars($opt) ?></option>
                 <?php endforeach; ?>
@@ -69,7 +69,7 @@ $error            = $error ?? '';
     <p class="lead-form__field">
         <label>Presupuesto aproximado
             <select name="budget">
-                <option value="">Seleccioná un rango</option>
+                <option value="">Prefiero que me orienten</option>
                 <?php foreach (portalBudgetOptions() as $opt): ?>
                     <option value="<?= htmlspecialchars($opt) ?>"><?= htmlspecialchars($opt) ?></option>
                 <?php endforeach; ?>
@@ -78,9 +78,10 @@ $error            = $error ?? '';
     </p>
     <?php endif; ?>
     <p class="lead-form__field lead-form__field--full">
-        <label>Mensaje <textarea name="message" rows="4" placeholder="Contanos brevemente qué necesitás"></textarea></label>
+        <label>Cuéntanos tu proyecto <textarea name="message" rows="4" placeholder="¿Qué necesitas y para cuándo? Mientras más nos cuentes, mejor será la propuesta."></textarea></label>
     </p>
     <p class="lead-form__submit lead-form__field--full">
         <button type="submit" class="btn">Enviar solicitud</button>
     </p>
+    <p class="lead-form__hint">Te respondemos en menos de 24 horas hábiles. Tus datos solo se usan para contactarte por tu solicitud.</p>
 </form>
