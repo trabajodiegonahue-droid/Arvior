@@ -97,8 +97,11 @@
     --arvior-accent:     #1B2A4A;   /* navy — primario */
     --arvior-accent-2:   #11203B;   /* navy hover */
     --arvior-steel:      #41587F;   /* azul acero — secundario */
-    --arvior-amber:      #D99A2B;   /* ámbar — acento (<10%) */
+    --arvior-amber:      #D99A2B;   /* ámbar — legacy, ya no se usa en UI */
     --arvior-amber-soft: #FAF1DC;
+    --arvior-violet:     #6A4FE6;   /* violeta — acento premium/tech (<10%) */
+    --arvior-violet-soft:#F0EDFD;
+    --arvior-violet-on-dark: #C2B6FF; /* destacado de violeta sobre navy */
     --arvior-glow:       #41587F;   /* compat: secundario */
     --arvior-glow-2:     #1B2A4A;
 }

@@ -102,8 +102,8 @@
     transition: border-color .15s, color .15s;
 }
 .site-navbar__menu a { color: var(--sh-fg); }
-.site-navbar__menu a:hover { color: var(--sh-accent); border-bottom-color: #D99A2B; }
-.site-navbar__menu a.is-active { border-bottom-color: #D99A2B; color: var(--sh-accent); }
+.site-navbar__menu a:hover { color: var(--sh-accent); border-bottom-color: #6A4FE6; }
+.site-navbar__menu a.is-active { border-bottom-color: #6A4FE6; color: var(--sh-accent); }
 
 .site-navbar__actions { display: flex; align-items: center; gap: .6rem; }
 .site-navbar__cta {
