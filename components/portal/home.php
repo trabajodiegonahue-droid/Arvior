@@ -150,7 +150,7 @@ $maint = portalMaintenance();
             <span class="section__eyebrow">Qué hacemos</span>
             <h2 class="section__title">Cuatro servicios, hechos bien.</h2>
         </div>
-        <div class="card-grid reveal">
+        <div class="card-grid reveal-stagger">
             <?php foreach (portalFeaturedServices(4) as $s): ?>
                 <a class="s-card" href="/servicios/<?= htmlspecialchars($s['slug']) ?>">
                     <div class="s-card__icon"><?= portalIcon($s['icon']) ?></div>
@@ -170,6 +170,20 @@ $maint = portalMaintenance();
     </div>
 </section>
 
+<!-- ================= RUBROS ================= -->
+<section class="section section--tight">
+    <div class="container">
+        <div class="sectors reveal">
+            <span class="sectors__label">Ideal para</span>
+            <div class="sectors__list">
+                <?php foreach (portalSectors() as $sec): ?>
+                    <span class="sectors__pill"><?= htmlspecialchars($sec) ?></span>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ================= POR QUÉ ARVIOR ================= -->
 <section class="section">
     <div class="container">
@@ -177,7 +191,7 @@ $maint = portalMaintenance();
             <span class="section__eyebrow">Por qué ARVIOR</span>
             <h2 class="section__title">Un socio que se hace cargo.</h2>
         </div>
-        <div class="card-grid reveal">
+        <div class="card-grid reveal-stagger">
             <?php foreach (portalBenefits() as $b): ?>
                 <article class="s-card s-card--static">
                     <div class="s-card__icon"><?= portalIcon($b['icon']) ?></div>
@@ -212,6 +226,36 @@ $maint = portalMaintenance();
     </div>
 </section>
 
+<!-- ================= GARANTÍA / COMPROMISO ================= -->
+<section class="section">
+    <div class="container">
+        <div class="section__head section__head--center reveal">
+            <span class="section__eyebrow">Sin riesgo</span>
+            <h2 class="section__title">Contratar no debería dar miedo.</h2>
+        </div>
+        <div class="card-grid reveal-stagger">
+            <?php foreach (portalGuarantee() as $g): ?>
+                <article class="guarantee">
+                    <div class="guarantee__icon"><?= portalIcon($g['icon']) ?></div>
+                    <h3 class="guarantee__title"><?= htmlspecialchars($g['title']) ?></h3>
+                    <p class="guarantee__text"><?= htmlspecialchars($g['text']) ?></p>
+                </article>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- ================= SOBRE ARVIOR ================= -->
+<section class="section section--alt">
+    <div class="container">
+        <div class="about reveal">
+            <span class="section__eyebrow">Sobre ARVIOR</span>
+            <h2 class="section__title">Un estudio chico, con atención de verdad.</h2>
+            <p class="about__text">Somos un estudio de desarrollo web en Chile. Trabajas directo con quien construye tu sitio, sin intermediarios. Tomamos pocos proyectos a la vez para cuidar cada detalle y cumplir los plazos.</p>
+        </div>
+    </div>
+</section>
+
 <!-- ================= PLANES / PRECIOS ================= -->
 <section class="section" id="planes">
     <div class="container">
@@ -219,7 +263,7 @@ $maint = portalMaintenance();
             <span class="section__eyebrow">Planes</span>
             <h2 class="section__title">Precios claros desde el día uno.</h2>
         </div>
-        <div class="plans reveal">
+        <div class="plans reveal-stagger">
             <?php foreach ($pkgs as $p): ?>
                 <article class="plan<?= !empty($p['featured']) ? ' plan--featured' : '' ?>">
                     <?php if (!empty($p['featured'])): ?><span class="plan__flag">Más elegido</span><?php endif; ?>
@@ -230,7 +274,7 @@ $maint = portalMaintenance();
                         <?php if ($p['unit'] === 'desde'): ?><span>desde</span><?php endif; ?>
                         <b><?= htmlspecialchars($p['price']) ?></b>
                     </div>
-                    <p class="plan__timeline">Entrega en <?= htmlspecialchars($p['timeline']) ?></p>
+                    <p class="plan__timeline">Entrega: <?= htmlspecialchars($p['timeline']) ?></p>
                     <ul class="plan__features">
                         <?php foreach ($p['features'] as $f): ?>
                             <li><?= portalIcon('check') ?> <?= htmlspecialchars($f) ?></li>
@@ -244,7 +288,7 @@ $maint = portalMaintenance();
             <span><?= portalIcon('shield') ?></span>
             <b><?= htmlspecialchars($maint['title']) ?>:</b> <?= htmlspecialchars($maint['price']) ?> — <?= htmlspecialchars($maint['text']) ?>
         </p>
-        <p class="plans-disclaimer reveal">Precios en CLP. Pago 50% al inicio y 50% contra entrega. El valor final se cierra según tu proyecto.</p>
+        <p class="plans-disclaimer reveal">Precios en CLP · Pago 50/50 · Valor final según tu proyecto.</p>
     </div>
 </section>
 

@@ -1,7 +1,7 @@
 <?php /* Script de aparición al scroll (compartido por las vistas del portal). Con fallback: si no hay IntersectionObserver, muestra todo. */ ?>
 <script>
 (function () {
-    var els = document.querySelectorAll('.reveal');
+    var els = document.querySelectorAll('.reveal, .reveal-stagger');
     if (!('IntersectionObserver' in window) || !els.length) {
         els.forEach(function (e) { e.classList.add('is-in'); });
         return;

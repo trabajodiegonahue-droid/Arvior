@@ -169,5 +169,13 @@ $socialIcon = function (string $key): string {
     bk.addEventListener('click', close);
     if (cl) cl.addEventListener('click', close);
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+    // Sombra sutil del header al hacer scroll (señal de profundidad).
+    var header = document.getElementById('site-header');
+    if (header) {
+        var onScroll = function(){ header.classList.toggle('is-scrolled', window.scrollY > 8); };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+    }
 })();
 </script>

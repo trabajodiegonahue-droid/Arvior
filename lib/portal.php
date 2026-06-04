@@ -245,6 +245,25 @@ function portalTrust(): array {
     ];
 }
 
+/** Rubros / tipos de negocio ideales (autoidentificación = relevancia). No
+ *  afirma que ya se trabajó con ellos: el copy del bloque dice "ideal para". */
+function portalSectors(): array {
+    return [
+        'Clínicas y salud', 'Estudios jurídicos', 'Constructoras', 'Retail y tiendas',
+        'Restaurantes', 'Servicios profesionales', 'Inmobiliarias', 'Educación',
+    ];
+}
+
+/** Compromisos de la marca (reversión de riesgo = empuja la cotización). */
+function portalGuarantee(): array {
+    return [
+        ['icon' => 'clock',  'title' => 'Precio y fecha cerrados', 'text' => 'Por escrito, antes de empezar.'],
+        ['icon' => 'check',  'title' => 'Apruebas el diseño',      'text' => 'No programamos sin tu visto bueno.'],
+        ['icon' => 'shield', 'title' => 'Soporte después',         'text' => 'Seguimos cuando ya estás en línea.'],
+        ['icon' => 'lock',   'title' => 'El sitio es tuyo',        'text' => 'Sin amarres: queda a tu nombre.'],
+    ];
+}
+
 /** Preguntas frecuentes (resuelven objeciones de venta antes del formulario). */
 function portalFaqs(): array {
     return [
