@@ -9,8 +9,8 @@ layoutStart([
 <section class="page-hero">
     <div class="container">
         <span class="section__eyebrow">Proyectos</span>
-        <h1 class="page-hero__title">Casos donde la tecnología generó resultados.</h1>
-        <p class="page-hero__lead">Una selección de proyectos que construimos para empresas de distintos rubros. Los datos son ilustrativos y se reemplazan por casos reales a medida que se publican.</p>
+        <h1 class="page-hero__title">Proyectos pensados para generar negocio.</h1>
+        <p class="page-hero__lead">Ejemplos representativos del tipo de proyectos que construimos en distintos rubros, con la capacidad que entrega cada uno. Sumamos casos de clientes con resultados verificados a medida que se publican.</p>
     </div>
 </section>
 

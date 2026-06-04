@@ -190,17 +190,19 @@ function portalBenefits(): array {
 }
 
 /**
- * Proyectos / casos demo. Contenido de muestra realista para visualizar el sitio
- * completo; reemplazable por casos reales editando este arreglo.
+ * Proyectos representativos por tipo de solución. NO son casos de clientes con
+ * métricas reales: el campo `result` describe la CAPACIDAD que entrega cada
+ * proyecto (qué obtiene el cliente), sin porcentajes ni estadísticas inventadas.
+ * Cuando haya casos reales con resultados verificados, se reemplaza este arreglo.
  */
 function portalProjects(): array {
     return [
-        ['tag' => 'Desarrollo Web', 'title' => 'Sitio corporativo — Constructora', 'text' => 'Nuevo sitio institucional con captación de cotizaciones conectada al CRM.', 'result' => '+38% solicitudes de presupuesto'],
-        ['tag' => 'Google Ads', 'title' => 'Campaña de búsqueda — Clínica', 'text' => 'Estrategia de búsqueda + landing dedicada para captar pacientes nuevos.', 'result' => 'Costo por lead -27%'],
-        ['tag' => 'Tienda Online', 'title' => 'E-commerce — Retail', 'text' => 'Tienda online con catálogo, pagos y reportes de venta integrados.', 'result' => 'Ventas online en 6 semanas'],
-        ['tag' => 'Automatización', 'title' => 'Motor de leads — Servicios B2B', 'text' => 'Captura, asignación y seguimiento automático de oportunidades.', 'result' => '0 leads sin seguimiento'],
-        ['tag' => 'CRM', 'title' => 'Pipeline comercial — Inmobiliaria', 'text' => 'Implementación de CRM con embudo, tareas y reportes de revenue.', 'result' => 'Visibilidad total del embudo'],
-        ['tag' => 'IA', 'title' => 'Asistente interno — Estudio profesional', 'text' => 'Asistente con IA para clasificar y responder consultas frecuentes.', 'result' => 'Respuesta en minutos'],
+        ['tag' => 'Desarrollo Web', 'title' => 'Sitio corporativo institucional', 'text' => 'Sitio profesional con captación de cotizaciones conectada directamente al CRM.', 'result' => 'Cotizaciones que entran directo al CRM'],
+        ['tag' => 'Google Ads', 'title' => 'Campaña de búsqueda + landing', 'text' => 'Estrategia de búsqueda con landing dedicada para captar demanda con intención de compra.', 'result' => 'Demanda calificada y medible'],
+        ['tag' => 'Tienda Online', 'title' => 'E-commerce con operación integrada', 'text' => 'Tienda online con catálogo, medios de pago y reportes de venta en un solo lugar.', 'result' => 'Catálogo, pagos y reportes integrados'],
+        ['tag' => 'Automatización', 'title' => 'Motor de captación de leads', 'text' => 'Captura, asignación y seguimiento automático de cada oportunidad comercial.', 'result' => 'Seguimiento sin leads olvidados'],
+        ['tag' => 'CRM', 'title' => 'Pipeline comercial por etapas', 'text' => 'Implementación de CRM con embudo, tareas, actividad por lead y reportes de revenue.', 'result' => 'Visibilidad completa del embudo'],
+        ['tag' => 'IA', 'title' => 'Asistente con inteligencia artificial', 'text' => 'Asistente que clasifica y responde consultas frecuentes integrado a tu operación.', 'result' => 'Respuestas más rápidas al cliente'],
     ];
 }
 

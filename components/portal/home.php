@@ -92,8 +92,8 @@ layoutStart([
     <div class="container">
         <div class="section__head reveal">
             <span class="section__eyebrow">Proyectos</span>
-            <h2 class="section__title">Resultados que hablan por nosotros.</h2>
-            <p class="section__lead">Una muestra de lo que construimos para empresas que quieren crecer.</p>
+            <h2 class="section__title">El tipo de proyectos que construimos.</h2>
+            <p class="section__lead">Ejemplos por rubro de lo que podemos construir para que tu negocio crezca.</p>
         </div>
         <div class="portfolio reveal">
             <?php foreach (array_slice(portalProjects(), 0, 3) as $p): ?>
