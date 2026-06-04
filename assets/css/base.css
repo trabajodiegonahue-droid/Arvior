@@ -80,22 +80,27 @@
     --ease-out-quart:    cubic-bezier(0.25, 1, 0.5, 1);
 
     /* --------------------------------------------------------
-       ARVIOR — Brand tokens (marca premium, tema dark).
-       Definidos a nivel global para poder referenciarlos, pero
-       el tema oscuro SOLO se activa bajo .site-body (ver site.css).
-       El admin y el login NO usan estos tokens.
+       ARVIOR — Brand tokens (Consultora Moderna, tema claro).
+       Estudio digital premium: navy + lino/arena + ámbar mínimo,
+       titulares serif (Fraunces). Definidos a nivel global pero el
+       tema SOLO se activa bajo .site-body (ver site.css). El admin
+       y el login NO usan estos tokens.
        -------------------------------------------------------- */
-    --arvior-bg:         #050505;
-    --arvior-surface:    #0B0B0F;
-    --arvior-surface-2:  #111118;
-    --arvior-text:       #F5F5F5;
-    --arvior-muted:      #8B8B93;
-    --arvior-border:     rgba(255, 255, 255, 0.10);
-    --arvior-border-2:   rgba(255, 255, 255, 0.06);
-    --arvior-accent:     #8B5CF6;
-    --arvior-accent-2:   #7C3AED;
-    --arvior-glow:       #A855F7;
-    --arvior-glow-2:     #3B82F6;
+    --arvior-bg:         #FBFAF8;   /* lino — fondo dominante */
+    --arvior-surface:    #FFFFFF;   /* tarjeta */
+    --arvior-surface-2:  #F3F1EC;   /* arena — secciones alternas */
+    --arvior-text:       #15233B;   /* tinta */
+    --arvior-text-2:     #3B4453;   /* pizarra */
+    --arvior-muted:      #6B7280;
+    --arvior-border:     #E7E3DB;
+    --arvior-border-2:   #F0EDE6;
+    --arvior-accent:     #1B2A4A;   /* navy — primario */
+    --arvior-accent-2:   #11203B;   /* navy hover */
+    --arvior-steel:      #41587F;   /* azul acero — secundario */
+    --arvior-amber:      #D99A2B;   /* ámbar — acento (<10%) */
+    --arvior-amber-soft: #FAF1DC;
+    --arvior-glow:       #41587F;   /* compat: secundario */
+    --arvior-glow-2:     #1B2A4A;
 }
 
 @media (prefers-reduced-motion: reduce) {

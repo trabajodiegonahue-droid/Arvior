@@ -35,11 +35,25 @@ try { $branches = branchesActive(); } catch (Throwable $e) { $branches = []; }
             <?php endif; ?>
         </div>
 
-        <?php if ($pages): ?>
+        <?php if (function_exists('portalServices')): ?>
         <div class="site-footer__col">
-            <h4>Sitio</h4>
+            <h4>Servicios</h4>
             <ul>
-                <li><a href="/">Inicio</a></li>
+                <?php foreach (portalServices() as $svc): ?>
+                    <li><a href="/servicios/<?= htmlspecialchars($svc['slug']) ?>"><?= htmlspecialchars($svc['title']) ?></a></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
+
+        <?php if (function_exists('portalNav')): ?>
+        <div class="site-footer__col">
+            <h4>Navegación</h4>
+            <ul>
+                <?php foreach (portalNav() as $n): ?>
+                    <li><a href="<?= htmlspecialchars($n['path']) ?>"><?= htmlspecialchars($n['label']) ?></a></li>
+                <?php endforeach; ?>
+                <li><a href="/cotizacion">Cotización</a></li>
                 <?php foreach ($pages as $p): ?>
                     <li><a href="/<?= htmlspecialchars($p['slug']) ?>"><?= htmlspecialchars($p['title']) ?></a></li>
                 <?php endforeach; ?>

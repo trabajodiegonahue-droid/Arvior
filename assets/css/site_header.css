@@ -1,18 +1,18 @@
 /* ============ Site header (público) ============ */
 
 :root {
-    /* ARVIOR — header dark premium (este archivo solo lo carga el front) */
-    --sh-bg: rgba(5, 5, 5, 0.72);
-    --sh-bg-solid: #0B0B0F;
-    --sh-fg: #F5F5F5;
-    --sh-muted: #8B8B93;
-    --sh-border: rgba(255, 255, 255, 0.10);
-    --sh-accent: #A855F7;
-    --sh-accent-hover: #8B5CF6;
+    /* ARVIOR — header claro premium (este archivo solo lo carga el front) */
+    --sh-bg: rgba(251, 250, 248, 0.85);
+    --sh-bg-solid: #FBFAF8;
+    --sh-fg: #15233B;
+    --sh-muted: #6B7280;
+    --sh-border: #E7E3DB;
+    --sh-accent: #1B2A4A;
+    --sh-accent-hover: #11203B;
     --sh-wa: #25d366;
     --sh-wa-hover: #1ebe57;
-    --sh-topbar-bg: #0B0B0F;
-    --sh-topbar-fg: #8B8B93;
+    --sh-topbar-bg: #1B2A4A;
+    --sh-topbar-fg: #c7cfde;
     --sh-topbar-fg-hover: #ffffff;
 }
 
@@ -76,12 +76,12 @@
 .site-navbar__brand {
     display: inline-flex;
     align-items: center;
-    color: var(--sh-fg);
+    color: var(--sh-accent);
     text-decoration: none;
-    font-family: "Space Grotesk", system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: 0.18em;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     flex-shrink: 0;
 }
@@ -101,8 +101,9 @@
     border-bottom: 2px solid transparent;
     transition: border-color .15s, color .15s;
 }
-.site-navbar__menu a:hover { color: var(--sh-accent); }
-.site-navbar__menu a.is-active { border-bottom-color: var(--sh-accent); color: var(--sh-fg); }
+.site-navbar__menu a { color: var(--sh-fg); }
+.site-navbar__menu a:hover { color: var(--sh-accent); border-bottom-color: #D99A2B; }
+.site-navbar__menu a.is-active { border-bottom-color: #D99A2B; color: var(--sh-accent); }
 
 .site-navbar__actions { display: flex; align-items: center; gap: .6rem; }
 .site-navbar__cta {
@@ -119,6 +120,14 @@
     transition: background .15s;
 }
 .site-navbar__cta:hover { background: var(--sh-wa-hover); color: #fff; }
+
+/* CTA "Cotización" del navbar: navy sólido (acción principal del sitio).
+   Prefijo .site-body para ganar especificidad a `.site-body a` (que pinta los
+   enlaces en navy y, sin esto, dejaría el texto del botón invisible). */
+.site-body .site-navbar__cta { color: #fff; }
+.site-body .site-navbar__cta:hover { color: #fff; }
+.site-navbar__cta--quote { background: var(--sh-accent); }
+.site-navbar__cta--quote:hover { background: var(--sh-accent-hover); }
 
 .site-navbar__burger {
     display: none;
@@ -203,8 +212,8 @@
     font-weight: 500;
     border-radius: 8px;
 }
-.site-drawer__menu a:hover { background: rgba(255, 255, 255, 0.05); }
-.site-drawer__menu a.is-active { color: #fff; background: rgba(139, 92, 246, 0.15); }
+.site-drawer__menu a:hover { background: var(--arvior-surface-2); }
+.site-drawer__menu a.is-active { color: var(--sh-accent); background: #eef1f7; }
 
 .site-drawer__contact {
     display: flex;
@@ -255,12 +264,10 @@
 
 /* ============ Site footer ============ */
 .site-footer {
-    background:
-        radial-gradient(700px circle at 15% 0%, rgba(139, 92, 246, 0.10), transparent 55%),
-        #0B0B0F;
-    color: #8B8B93;
+    background: #11203B;
+    color: #aab4c6;
     margin-top: 4rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.10);
+    border-top: 1px solid #1f3158;
 }
 .site-footer__inner {
     max-width: 1200px;
@@ -279,11 +286,11 @@
 }
 .site-footer__col p { margin: 0 0 .8rem; font-size: .9rem; line-height: 1.55; }
 .site-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; }
-.site-footer__col a { color: #8B8B93; text-decoration: none; transition: color .15s; }
+.site-footer__col a { color: #aab4c6; text-decoration: none; transition: color .15s; }
 .site-footer__col a:hover { color: #fff; }
 .site-footer__socials { display: flex; flex-wrap: wrap; gap: .8rem; font-size: .85rem; }
 .site-footer__bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid #1f3158;
     padding: 1rem 1.2rem;
     display: flex;
     justify-content: space-between;
@@ -292,9 +299,9 @@
     font-size: .82rem;
     max-width: 1200px;
     margin: 0 auto;
-    color: #6a6a72;
+    color: #7f8aa0;
 }
-.site-footer__legal a { color: #8B8B93; text-decoration: none; }
+.site-footer__legal a { color: #aab4c6; text-decoration: none; }
 .site-footer__legal a:hover { color: #fff; }
 
 /* ============ WhatsApp floating button ============ */
