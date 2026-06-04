@@ -288,14 +288,25 @@
 .demo__screen--1 .demo__sk--w1 { animation-delay: 0.12s; }
 .demo__screen--1 .demo__sk--w2 { animation-delay: 0.24s; }
 .demo__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.2rem; }
-.demo__grid span { height: 50px; border-radius: 8px; border: 1px solid var(--arvior-border); background: var(--arvior-surface-2); }
+.demo__grid span { height: 50px; border-radius: 8px; border: 1px dashed var(--color-border-strong); background: var(--arvior-surface-2); }
 
-/* Acto 2 — sitio publicado, prolijo */
+/* Acto 2 — sitio publicado, A COLOR (contrasta con el wireframe del acto 1) */
+.demo__live { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 0.9rem; align-items: center; }
+.demo__lcopy { display: grid; gap: 0.5rem; }
+.demo__ltitle { height: 14px; width: 88%; border-radius: 5px; background: var(--arvior-accent); }
+.demo__ltitle--accent { width: 58%; background: var(--arvior-violet); }
+.demo__lbtn { height: 26px; width: 92px; border-radius: 7px; background: var(--arvior-accent); margin-top: 0.35rem; }
+.demo__limg { height: 92px; border-radius: 10px; background: linear-gradient(135deg, var(--arvior-accent) 0%, var(--arvior-violet) 100%); }
+.demo__feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+.demo__feats span { height: 40px; border-radius: 8px; border: 1px solid var(--arvior-border); background: #fff; position: relative; }
+.demo__feats span::before { content: ""; position: absolute; top: 9px; left: 9px; width: 18px; height: 18px; border-radius: 5px; }
+.demo__feats span:nth-child(1)::before { background: var(--arvior-accent); }
+.demo__feats span:nth-child(2)::before { background: var(--arvior-violet); }
+.demo__feats span:nth-child(3)::before { background: #1F8A5B; }
+
+/* Acto 3 — título tenue del sitio ya en vivo */
 .demo__title { height: 18px; width: 70%; border-radius: 6px; background: #cfd6e6; }
 .demo__title--dim { opacity: 0.55; }
-.demo__text { height: 9px; width: 88%; border-radius: 5px; background: var(--arvior-surface-2); }
-.demo__text--short { width: 62%; }
-.demo__btn { height: 30px; width: 132px; border-radius: 7px; background: var(--arvior-accent); margin-top: 0.3rem; }
 
 /* Acto 3 — entran las consultas */
 .demo__notif {

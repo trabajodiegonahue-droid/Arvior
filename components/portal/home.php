@@ -42,13 +42,18 @@ $maint = portalMaintenance();
                                 <div class="demo__sk demo__sk--w2"></div>
                                 <div class="demo__grid"><span></span><span></span><span></span></div>
                             </div>
-                            <!-- Acto 2: tu sitio en vivo -->
+                            <!-- Acto 2: tu sitio en vivo (a color, sitio terminado) -->
                             <div class="demo__screen demo__screen--2">
                                 <div class="demo__nav"><span class="demo__brand">TU&nbsp;MARCA</span><span class="demo__links"><i></i><i></i><i></i></span></div>
-                                <div class="demo__title"></div>
-                                <div class="demo__text"></div>
-                                <div class="demo__text demo__text--short"></div>
-                                <div class="demo__btn"></div>
+                                <div class="demo__live">
+                                    <div class="demo__lcopy">
+                                        <div class="demo__ltitle"></div>
+                                        <div class="demo__ltitle demo__ltitle--accent"></div>
+                                        <div class="demo__lbtn"></div>
+                                    </div>
+                                    <div class="demo__limg"></div>
+                                </div>
+                                <div class="demo__feats"><span></span><span></span><span></span></div>
                             </div>
                             <!-- Acto 3: llegan consultas -->
                             <div class="demo__screen demo__screen--3">
