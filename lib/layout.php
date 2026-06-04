@@ -37,7 +37,12 @@ function layoutStart(array $opts = []): void {
         return $base . (str_starts_with($p, '/') ? $p : '/' . $p);
     };
 
-    $canonical = trim((string) ($opts['canonical'] ?? ($_SERVER['REQUEST_URI'] ?? '/')));
+    // Canonical sin query string: evita que /cotizacion?sent=1 se autocanonicalice
+    // con parámetros. Si el caller pasa un canonical explícito, se respeta tal cual.
+    $canonical = trim((string) ($opts['canonical'] ?? ''));
+    if ($canonical === '') {
+        $canonical = (string) (parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
+    }
     $canonical = $absolutize($canonical);
     $ogImageAbs = $ogImage !== '' ? $absolutize($ogImage) : '';
 
@@ -57,7 +62,7 @@ function layoutStart(array $opts = []): void {
     $GLOBALS['__layout_opts'] = $opts + ['hide_chrome' => $hideChrome];
     $h = htmlspecialchars(...);
     ?><!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

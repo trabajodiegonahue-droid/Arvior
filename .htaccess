@@ -22,6 +22,17 @@ RewriteRule ^migrations/    - [F,L]
 RewriteRule ^components/    - [F,L]
 RewriteRule ^uploads/logs/  - [F,L]
 
+# Nunca exponer el repositorio ni la documentación interna por web.
+RewriteRule ^\.git          - [F,L]
+RewriteRule ^docs/          - [F,L]
+RewriteRule ^Guias/         - [F,L]
+RewriteRule ^DEPLOY\.md$    - [F,L]
+
+# Bloquear cualquier archivo/carpeta oculta (.git, .env, etc.).
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
 <IfModule mod_headers.c>
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
     Header set X-Frame-Options "SAMEORIGIN"
