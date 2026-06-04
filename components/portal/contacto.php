@@ -49,7 +49,7 @@ $waLink     = whatsappLink((string) getSetting('business_whatsapp', ''), (string
                         <li><span class="contact-list__lb">Horario</span><?= htmlspecialchars($bizHours) ?></li>
                     <?php endif; ?>
                     <?php if (!$waLink && !$bizEmail && !$bizPhone && !$bizAddress && !$bizCity && !$bizHours): ?>
-                        <li class="text-muted">Configurá los datos de contacto en Admin → Negocio.</li>
+                        <li class="text-muted">Completá el formulario y te respondemos a la brevedad.</li>
                     <?php endif; ?>
                 </ul>
             </div>
