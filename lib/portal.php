@@ -215,11 +215,11 @@ function portalMaintenance(): array {
 /** Proceso de trabajo (5 etapas). Transparencia = menos riesgo percibido. */
 function portalProcess(): array {
     return [
-        ['num' => '01', 'icon' => 'compass',   'title' => 'Diagnóstico',          'text' => 'Entendemos tu negocio y qué necesitas lograr. Sin tecnicismos.'],
-        ['num' => '02', 'icon' => 'message',    'title' => 'Propuesta clara',      'text' => 'Alcance, precio y fecha cerrados antes de empezar.'],
-        ['num' => '03', 'icon' => 'layers',     'title' => 'Diseño',               'text' => 'Lo apruebas antes de que escribamos una línea de código.'],
-        ['num' => '04', 'icon' => 'spark',      'title' => 'Desarrollo y entrega', 'text' => 'Construimos, publicamos y te explicamos cómo usarlo.'],
-        ['num' => '05', 'icon' => 'handshake',  'title' => 'Soporte',              'text' => 'Seguimos disponibles. Con el plan de mantención, cuidado mes a mes.'],
+        ['num' => '01', 'icon' => 'compass',   'title' => 'Diagnóstico',          'text' => 'Entendemos tu negocio y qué necesitas lograr. Sin tecnicismos.',     'deliverable' => 'Llamada + resumen de objetivos'],
+        ['num' => '02', 'icon' => 'message',    'title' => 'Propuesta clara',      'text' => 'Alcance, precio y fecha cerrados antes de empezar.',                 'deliverable' => 'Propuesta con precio y fecha'],
+        ['num' => '03', 'icon' => 'layers',     'title' => 'Diseño',               'text' => 'Lo apruebas antes de que escribamos una línea de código.',           'deliverable' => 'Diseño aprobado por ti'],
+        ['num' => '04', 'icon' => 'spark',      'title' => 'Desarrollo y entrega', 'text' => 'Construimos, publicamos y te explicamos cómo usarlo.',               'deliverable' => 'Sitio en vivo + capacitación'],
+        ['num' => '05', 'icon' => 'handshake',  'title' => 'Soporte',              'text' => 'Seguimos disponibles. Con el plan de mantención, cuidado mes a mes.', 'deliverable' => 'Plan de mantención (opcional)'],
     ];
 }
 

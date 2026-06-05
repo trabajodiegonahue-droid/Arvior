@@ -1097,3 +1097,28 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
 @media (max-width: 600px) {
     .contact-method { text-align: left; }
 }
+
+/* ---- Proceso: timeline con tarjetas + entregable + íconos a color ---- */
+.timeline { max-width: 840px; }
+.timeline__card { background: #fff; border: 1px solid var(--arvior-border); border-radius: 14px; padding: 1.3rem 1.5rem; box-shadow: var(--shadow-xs); transition: border-color var(--transition-slow), box-shadow var(--transition-slow); }
+.timeline__item:hover .timeline__card { border-color: var(--color-border-strong); box-shadow: 0 16px 36px -24px rgba(27,42,74,0.28); }
+.timeline__card h3 { margin: 0.2rem 0 0.4rem; font-size: 1.2rem; }
+.timeline__card p { margin: 0; color: var(--arvior-text-2); line-height: 1.6; }
+.timeline__step { font-family: var(--font-family-mono); font-size: 0.74rem; letter-spacing: 0.1em; color: var(--arvior-violet); text-transform: uppercase; }
+.timeline__deliv { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.95rem; padding: 0.35rem 0.8rem; border-radius: 999px; background: var(--arvior-violet-soft); color: var(--arvior-accent); font-size: 0.84rem; font-weight: 600; }
+.timeline__deliv svg { width: 15px; height: 15px; color: #1F8A5B; }
+.timeline__item:not(:last-child)::before { top: 60px; }
+.timeline__item:nth-child(5n+1) .timeline__num { color:#6A4FE6; background:#efedfd; border-color:#ddd6fb; }
+.timeline__item:nth-child(5n+2) .timeline__num { color:#2563EB; background:#e8f0fe; border-color:#d4e2fd; }
+.timeline__item:nth-child(5n+3) .timeline__num { color:#0E9488; background:#e1f6f3; border-color:#c4efe8; }
+.timeline__item:nth-child(5n+4) .timeline__num { color:#E0892B; background:#fdf0dc; border-color:#f7e1bd; }
+.timeline__item:nth-child(5n+5) .timeline__num { color:#DB2777; background:#fce8f1; border-color:#f7cde0; }
+
+/* ---- Detalle de servicio: más escaneable y con color ---- */
+.service-meta__val--price { color: var(--arvior-violet); }
+.page-hero__icon { color: var(--arvior-violet); background: var(--arvior-violet-soft); border-color: #ddd6fb; }
+.svc-block { margin-bottom: 1.7rem; }
+.svc-block__eyebrow { display: inline-block; font-family: var(--font-family-mono); font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--arvior-violet); margin-bottom: 0.5rem; }
+.svc-block p { color: var(--arvior-text-2); line-height: 1.7; margin: 0; }
+.svc-block__lead { font-size: 1.12rem; color: var(--color-text-strong) !important; font-weight: 500; }
+.svc-block .benefit-list { margin-top: 1rem; }
