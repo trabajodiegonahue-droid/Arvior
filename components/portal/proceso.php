@@ -3,7 +3,7 @@
 layoutStart([
     'current_slug' => 'proceso',
     'title'        => 'Proceso de trabajo',
-    'description'  => 'Cómo trabajamos en ARVIOR: diagnóstico, propuesta con precio y fecha cerrados, diseño que apruebas, desarrollo, entrega y soporte. Un camino claro, sin sorpresas.',
+    'description'  => 'Cómo trabajamos en KOVA: diagnóstico, propuesta con precio y fecha cerrados, diseño que apruebas, desarrollo, entrega y soporte. Un camino claro, sin sorpresas.',
 ]);
 ?>
 <section class="page-hero">

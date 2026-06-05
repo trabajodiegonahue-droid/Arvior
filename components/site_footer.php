@@ -24,7 +24,7 @@ try { $branches = branchesActive(); } catch (Throwable $e) { $branches = []; }
     <div class="site-footer__inner">
 
         <div class="site-footer__col">
-            <h4><?= htmlspecialchars($siteName) ?></h4>
+            <h4 class="site-footer__brand"><img src="/assets/logo-k.svg" alt="" width="26" height="26" aria-hidden="true"><span><?= htmlspecialchars($siteName) ?></span></h4>
             <?php if ($about): ?><p><?= htmlspecialchars($about) ?></p><?php endif; ?>
             <?php if ($socials): ?>
                 <div class="site-footer__socials">

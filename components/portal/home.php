@@ -16,7 +16,7 @@ layoutStart([
     'current_slug' => '',
     // Título SEO descriptivo (la portada es la que más posiciona): keyword-led + marca.
     'title'        => 'Diseño y desarrollo de sitios web para empresas',
-    'description'  => 'ARVIOR — Estudio de desarrollo web. Diseñamos sitios corporativos, landing pages y tiendas online pensados para que tu empresa se vea profesional y reciba más consultas. Precio y fecha cerrados.',
+    'description'  => 'KOVA — Estudio de desarrollo web. Diseñamos sitios corporativos, landing pages y tiendas online pensados para que tu empresa se vea profesional y reciba más consultas. Precio y fecha cerrados.',
     'jsonld'       => [$faqJsonLd],
 ]);
 $pkgs = portalPackages();
@@ -37,7 +37,7 @@ $maint = portalMaintenance();
                 </div>
                 <p class="hero__note">Respuesta en <strong>menos de 24 h</strong>. Sin compromiso.</p>
             </div>
-            <?php /* Mini-demo animado (CSS, sin video): así es trabajar con ARVIOR. */ ?>
+            <?php /* Mini-demo animado (CSS, sin video): así es trabajar con KOVA. */ ?>
             <div class="hero__visual reveal">
                 <div class="demo" aria-hidden="true">
                     <div class="demo__window">
@@ -218,11 +218,11 @@ $maint = portalMaintenance();
     </div>
 </section>
 
-<!-- ================= POR QUÉ ARVIOR ================= -->
+<!-- ================= POR QUÉ KOVA ================= -->
 <section class="section">
     <div class="container">
         <div class="section__head section__head--center reveal">
-            <span class="section__eyebrow">[ 04 ] · Por qué ARVIOR</span>
+            <span class="section__eyebrow">[ 04 ] · Por qué KOVA</span>
             <h2 class="section__title">Un socio que se hace cargo.</h2>
         </div>
         <div class="card-grid reveal-stagger">
@@ -279,11 +279,11 @@ $maint = portalMaintenance();
     </div>
 </section>
 
-<!-- ================= SOBRE ARVIOR (banda oscura) ================= -->
+<!-- ================= SOBRE KOVA (banda oscura) ================= -->
 <section class="section section--dark">
     <div class="container">
         <div class="about reveal">
-            <span class="section__eyebrow">Sobre ARVIOR</span>
+            <span class="section__eyebrow">Sobre KOVA</span>
             <h2 class="section__title">Un estudio pequeño, con atención <span class="text-gradient">cercana</span>.</h2>
             <p class="about__text">Somos un estudio de desarrollo web en Chile. Trabajas directo con quien construye tu sitio, sin intermediarios. Tomamos pocos proyectos a la vez para cuidar cada detalle y cumplir los plazos.</p>
             <p class="about__scarcity"><span class="dot"></span> Cupos limitados: tomamos pocos proyectos al mes para asegurar calidad.</p>

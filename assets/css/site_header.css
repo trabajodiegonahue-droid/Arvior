@@ -88,6 +88,17 @@
     flex-shrink: 0;
 }
 .site-navbar__brand img { display: block; max-height: 44px; width: auto; }
+/* Marca KOVA por defecto: mark "K" + wordmark sans (sin logo subido). */
+.site-navbar__brand { gap: 0.55rem; }
+.site-navbar__mark { max-height: 34px; }
+.site-navbar__word {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: 0.30em;
+    text-transform: uppercase;
+    padding-left: 0.30em;
+}
 
 .site-navbar__menu {
     display: flex;
@@ -189,6 +200,9 @@
     color: var(--sh-fg);
     text-decoration: none;
     font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 .site-drawer__brand img { display: block; max-height: 36px; width: auto; }
 .site-drawer__close {
@@ -286,6 +300,9 @@
     letter-spacing: .03em;
     text-transform: uppercase;
 }
+.site-footer__brand { display: inline-flex; align-items: center; gap: .5rem; }
+.site-footer__brand img { display: block; }
+.site-footer__brand span { letter-spacing: .22em; }
 .site-footer__col p { margin: 0 0 .8rem; font-size: .9rem; line-height: 1.55; }
 .site-footer__col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; font-size: .9rem; }
 .site-footer__col a { color: #aab4c6; text-decoration: none; transition: color .15s; }
