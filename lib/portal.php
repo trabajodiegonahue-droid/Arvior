@@ -62,7 +62,7 @@ function portalServices(): array {
             'title' => 'Sitios Web Corporativos',
             'tagline' => 'La cara de tu empresa, hecha para generar confianza y contactos.',
             'summary' => 'La cara profesional de tu empresa.',
-            'price' => 'Desde $990.000',
+            'price' => 'Desde $590.000',
             'timeline' => 'Listo en 3 semanas',
             'problem' => 'Tu empresa se ve menos profesional de lo que es y las visitas no te escriben.',
             'gain' => 'Un sitio claro y rápido que genera confianza y deja cada consulta lista para atender.',
@@ -82,7 +82,7 @@ function portalServices(): array {
             'title' => 'Landing Pages',
             'tagline' => 'Una página con un solo objetivo: que te contacten.',
             'summary' => 'Una página con un solo objetivo: captar.',
-            'price' => 'Desde $450.000',
+            'price' => 'Desde $250.000',
             'timeline' => 'Lista en 1 semana',
             'problem' => 'Inviertes en publicidad, pero el tráfico llega a un lugar que no convierte.',
             'gain' => 'Una página directa, sin distracciones, hecha para que dejen sus datos.',
@@ -102,7 +102,7 @@ function portalServices(): array {
             'title' => 'Tiendas Online',
             'tagline' => 'Vende en línea con una operación ordenada, no solo con un catálogo bonito.',
             'summary' => 'Vende tus productos por internet.',
-            'price' => 'Desde $1.800.000',
+            'price' => 'Desde $990.000',
             'timeline' => 'Plazo según catálogo',
             'problem' => 'Quieres vender por internet, pero armar la tienda te parece complejo.',
             'gain' => 'Una tienda lista para recibir pedidos y pagos, fácil de administrar.',
@@ -122,7 +122,7 @@ function portalServices(): array {
             'title' => 'Mantención y Soporte',
             'tagline' => 'Tu sitio cuidado, actualizado y respaldado, mes a mes.',
             'summary' => 'Tu sitio siempre al día.',
-            'price' => 'Desde $35.000 / mes',
+            'price' => 'Desde $25.000 / mes',
             'timeline' => 'Plan mensual continuo',
             'problem' => 'Lanzaste tu sitio y nadie lo cuida: queda lento, desactualizado o caído.',
             'gain' => 'Tranquilidad: alguien se hace cargo de que tu sitio esté arriba, seguro y al día.',
@@ -163,11 +163,11 @@ function portalServiceOptions(): array {
 /** Opciones de presupuesto aproximado (CLP) para el formulario de cotización. */
 function portalBudgetOptions(): array {
     return [
-        'Menos de $500.000',
-        '$500.000 – $1.000.000',
-        '$1.000.000 – $2.000.000',
-        '$2.000.000 – $4.000.000',
-        'Más de $4.000.000',
+        'Menos de $300.000',
+        '$300.000 – $600.000',
+        '$600.000 – $1.200.000',
+        '$1.200.000 – $2.500.000',
+        'Más de $2.500.000',
         'A definir',
     ];
 }
@@ -181,21 +181,21 @@ function portalPackages(): array {
     return [
         [
             'name' => 'Landing Page', 'icon' => 'landing',
-            'price' => '$450.000', 'unit' => 'proyecto', 'timeline' => '1 semana',
+            'price' => '$250.000', 'unit' => 'proyecto', 'timeline' => '1 semana',
             'tagline' => 'Una página enfocada en captar contactos.',
             'features' => ['Una página a medida', 'Pensada para campañas', 'Formulario conectado', 'Lista en 1 semana'],
             'cta' => 'Cotizar landing', 'service' => 'Landing Pages', 'featured' => false,
         ],
         [
             'name' => 'Sitio Corporativo', 'icon' => 'web',
-            'price' => '$990.000', 'unit' => 'proyecto', 'timeline' => '3 semanas',
+            'price' => '$590.000', 'unit' => 'proyecto', 'timeline' => '3 semanas',
             'tagline' => 'La opción ideal para la mayoría de las empresas.',
             'features' => ['Hasta 6 secciones', 'Diseño profesional a medida', 'SEO técnico y velocidad', 'Capacitación incluida'],
             'cta' => 'Cotizar mi sitio', 'service' => 'Sitios Web Corporativos', 'featured' => true,
         ],
         [
             'name' => 'Tienda Online', 'icon' => 'shop',
-            'price' => '$1.800.000', 'unit' => 'desde', 'timeline' => 'según catálogo',
+            'price' => '$990.000', 'unit' => 'desde', 'timeline' => 'según catálogo',
             'tagline' => 'Para vender tus productos por internet.',
             'features' => ['Catálogo y carrito', 'Medios de pago', 'Panel de administración', 'Experiencia optimizada'],
             'cta' => 'Cotizar mi tienda', 'service' => 'Tiendas Online', 'featured' => false,
@@ -207,7 +207,7 @@ function portalPackages(): array {
 function portalMaintenance(): array {
     return [
         'title' => 'Plan de Mantención',
-        'price' => 'Desde $35.000 / mes',
+        'price' => 'Desde $25.000 / mes',
         'text'  => 'Hosting, respaldos, seguridad y cambios mensuales para mantener tu sitio al día.',
     ];
 }
@@ -296,7 +296,7 @@ function portalPains(): array {
 function portalFaqs(): array {
     return [
         ['q' => '¿Cuánto se demora?', 'a' => 'Una landing en ~1 semana y un sitio corporativo en ~3. La fecha exacta queda cerrada en la propuesta.'],
-        ['q' => '¿Cuánto cuesta?', 'a' => 'Landing desde $450.000, sitio desde $990.000 y tienda desde $1.800.000. El precio final lo confirmamos según tu proyecto.'],
+        ['q' => '¿Cuánto cuesta?', 'a' => 'Landing desde $250.000, sitio desde $590.000 y tienda desde $990.000. El precio final lo confirmamos según tu proyecto.'],
         ['q' => '¿Qué necesitan de mí?', 'a' => 'Tus textos, imágenes y logo si los tienes. Si no, te guiamos para armarlos.'],
         ['q' => '¿Cómo es el pago?', 'a' => '50% al inicio y 50% contra entrega. Todo por escrito antes de partir.'],
         ['q' => '¿Y después de entregar?', 'a' => 'Seguimos disponibles. Puedes sumar el plan de mantención para mantenerlo al día.'],
