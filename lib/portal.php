@@ -264,6 +264,32 @@ function portalGuarantee(): array {
     ];
 }
 
+/** Objetivos para el selector tipo "wizard" del hero (qué necesita el cliente).
+ *  Cada uno enlaza a /cotizacion con el servicio preseleccionado. */
+function portalGoals(): array {
+    return [
+        ['icon' => 'web',     'title' => 'Verme más profesional', 'text' => 'Un sitio que dé confianza',  'service' => 'Sitios Web Corporativos'],
+        ['icon' => 'landing', 'title' => 'Captar más clientes',    'text' => 'Una página para campañas',   'service' => 'Landing Pages'],
+        ['icon' => 'shop',    'title' => 'Vender por internet',    'text' => 'Una tienda online',          'service' => 'Tiendas Online'],
+        ['icon' => 'wrench',  'title' => 'Cuidar mi sitio',        'text' => 'Mantención y soporte',       'service' => 'Mantención y Soporte'],
+    ];
+}
+
+/** Palabras para el marquee animado bajo el hero. */
+function portalMarqueeWords(): array {
+    return ['Captar', 'Convertir', 'Vender', 'Crecer', 'Profesionalizar', 'Posicionar'];
+}
+
+/** "Dolores" del cliente (sección Problema como grilla numerada). */
+function portalPains(): array {
+    return [
+        ['icon' => 'google',  'title' => 'No te encuentran',   'text' => 'Sin estructura SEO, tu sitio es invisible en Google.'],
+        ['icon' => 'message', 'title' => 'No llegan consultas','text' => 'Se ve lindo, pero nadie termina escribiéndote.'],
+        ['icon' => 'clock',   'title' => 'Carga lento',        'text' => 'Cada segundo de más espanta visitas y posiciones.'],
+        ['icon' => 'shield',  'title' => 'No da confianza',    'text' => 'No representa el nivel real de tu empresa.'],
+    ];
+}
+
 /** Preguntas frecuentes (resuelven objeciones de venta antes del formulario). */
 function portalFaqs(): array {
     return [

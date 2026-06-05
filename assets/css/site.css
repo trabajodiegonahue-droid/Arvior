@@ -1004,3 +1004,65 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
 .site-body .hero .btn--secondary:hover {
     background: rgba(255, 255, 255, 0.12); color: #fff; border-color: #fff;
 }
+
+/* ==========================================================
+   20. Adaptaciones (Nova / Primeros Resultados)
+   ========================================================== */
+
+/* Eyebrows editoriales: monoespaciado + sin rayita (el [ 0X ] marca el ritmo) */
+.section__eyebrow { font-family: var(--font-family-mono); letter-spacing: 0.10em; }
+.section__eyebrow::before { display: none; }
+
+/* Titular del hero más grueso (energía) */
+.hero__title { font-weight: 700; }
+
+/* ---- Marquee ---- */
+.marquee { overflow: hidden; border-block: 1px solid var(--arvior-border); background: var(--arvior-surface-2); padding: 0.85rem 0; }
+.marquee__track { display: inline-flex; align-items: center; gap: 1.4rem; white-space: nowrap; animation: marquee 26s linear infinite; will-change: transform; }
+.marquee__word { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.05rem, 2.4vw, 1.55rem); color: var(--color-text-strong); letter-spacing: -0.01em; }
+.marquee__sep { color: var(--arvior-violet); font-size: 1.1rem; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
+
+/* ---- Selector de objetivos (wizard-lite) ---- */
+.goals { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+.goal { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem; border: 1px solid var(--arvior-border); border-radius: 14px; background: #fff; box-shadow: var(--shadow-xs); text-decoration: none; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+.goal:hover { transform: translateY(-2px); border-color: var(--arvior-violet); box-shadow: 0 16px 36px -22px rgba(106, 79, 230, 0.4); }
+.goal__icon { width: 46px; height: 46px; flex: 0 0 auto; border-radius: 11px; display: grid; place-items: center; color: var(--arvior-accent); background: #eef1f7; border: 1px solid #e1e6ef; }
+.goal__icon svg { width: 22px; height: 22px; }
+.goal__body { flex: 1; }
+.goal__title { font-size: 1.05rem; margin: 0 0 0.15rem; color: var(--color-text-strong); }
+.goal__text { margin: 0; color: var(--arvior-muted); font-size: 0.9rem; }
+.goal__arrow { flex: 0 0 auto; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--arvior-violet-soft); color: var(--arvior-violet); font-size: 1rem; transition: background var(--transition), color var(--transition), transform var(--transition); }
+.goal:hover .goal__arrow { background: var(--arvior-violet); color: #fff; transform: translateX(2px); }
+
+/* ---- Pain cards (problema) ---- */
+.pain { padding: 1.6rem; border-radius: 14px; background: #fff; border: 1px solid var(--arvior-border); box-shadow: var(--shadow-xs); }
+.pain__num { font-family: var(--font-family-mono); font-size: 0.78rem; color: var(--arvior-violet); }
+.pain__icon { width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center; margin: 0.7rem 0 0.9rem; color: #B3261E; background: #fdeceb; border: 1px solid #f3c0bc; }
+.pain__icon svg { width: 22px; height: 22px; }
+.pain__title { font-size: 1.08rem; margin: 0 0 0.35rem; }
+.pain__text { margin: 0; color: var(--arvior-text-2); font-size: 0.93rem; line-height: 1.55; }
+
+/* ---- Banda oscura (ritmo) ---- */
+.section--dark { background: linear-gradient(180deg, #16223c, #1b2a4a); color: #fff; }
+.section--dark .section__title { color: #fff; }
+.section--dark .section__eyebrow { color: #c2b6ff; }
+.section--dark .about__text { color: rgba(255, 255, 255, 0.82); }
+.section--dark .text-gradient { color: #c2b6ff; -webkit-text-fill-color: currentColor; }
+.about__scarcity { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.4rem; font-size: 0.92rem; color: rgba(255, 255, 255, 0.72); }
+.about__scarcity .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--arvior-amber); box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.20); }
+
+/* ---- Botón con flecha en círculo ---- */
+.btn--arrow::after { content: "→"; display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; margin-left: 0.55rem; background: rgba(255, 255, 255, 0.20); font-size: 0.95rem; line-height: 1; transition: transform var(--transition); }
+.btn--arrow:hover::after { transform: translateX(2px); }
+.site-body .cta .btn--arrow::after { background: rgba(27, 42, 74, 0.12); color: var(--arvior-accent); }
+
+/* ---- Responsive de lo nuevo ---- */
+@media (max-width: 760px) { .goals { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+    .goal { text-align: left; }
+    .pain { text-align: center; }
+    .pain__icon { margin-left: auto; margin-right: auto; }
+    .about__scarcity { text-align: left; }
+}

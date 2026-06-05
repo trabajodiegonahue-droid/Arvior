@@ -19,7 +19,7 @@ $maint = portalMaintenance();
                 <h1 class="hero__title">Tu sitio web debería <span class="text-gradient">traerte clientes</span>.</h1>
                 <p class="hero__sub">Sitios web que te hacen ver profesional y te traen consultas.</p>
                 <div class="hero__actions">
-                    <a href="/cotizacion" class="btn">Solicitar cotización</a>
+                    <a href="/cotizacion" class="btn btn--arrow">Solicitar cotización</a>
                     <a href="/servicios" class="btn btn--secondary">Ver servicios</a>
                 </div>
                 <p class="hero__note">Respuesta en <strong>menos de 24 h</strong>. Sin compromiso.</p>
@@ -110,35 +110,56 @@ $maint = portalMaintenance();
     </div>
 </div>
 
-<!-- ================= PROBLEMA + PUNTO DE VISTA ================= -->
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+        <?php for ($mi = 0; $mi < 2; $mi++): foreach (portalMarqueeWords() as $w): ?>
+            <span class="marquee__word"><?= htmlspecialchars($w) ?></span>
+            <span class="marquee__sep">•</span>
+        <?php endforeach; endfor; ?>
+    </div>
+</div>
+
+<!-- ================= ¿QUÉ NECESITAS? (selector → cotización) ================= -->
+<section class="section section--tight">
+    <div class="container">
+        <div class="section__head section__head--center reveal">
+            <span class="section__eyebrow">[ 01 ] · Empecemos</span>
+            <h2 class="section__title">¿Qué necesitas?</h2>
+            <p class="section__lead">Elige tu objetivo y te llevamos directo a una cotización, con el servicio ya seleccionado.</p>
+        </div>
+        <div class="goals reveal-stagger">
+            <?php foreach (portalGoals() as $g): ?>
+                <a class="goal" href="/cotizacion?servicio=<?= urlencode($g['service']) ?>">
+                    <div class="goal__icon"><?= portalIcon($g['icon']) ?></div>
+                    <div class="goal__body">
+                        <h3 class="goal__title"><?= htmlspecialchars($g['title']) ?></h3>
+                        <p class="goal__text"><?= htmlspecialchars($g['text']) ?></p>
+                    </div>
+                    <span class="goal__arrow">→</span>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- ================= PROBLEMA (grilla de dolores) ================= -->
 <section class="section">
     <div class="container">
-        <div class="split">
-            <div class="split__copy">
-                <span class="section__eyebrow">El problema</span>
-                <h2 class="section__title">Se ven bien. Pocas <span class="text-gradient">hacen vender</span>.</h2>
-                <p class="section__lead">Una web que nadie usa para escribirte es un gasto. La nuestra está hecha para que te contacten.</p>
-            </div>
-            <div class="split__media reveal">
-                <div class="compare">
-                    <div class="compare__row compare__row--bad">
-                        <span class="ic"><?= portalIcon('x') ?></span>
-                        <p><strong>Web común:</strong> el visitante entra, mira y se va sin dejar rastro.</p>
-                    </div>
-                    <div class="compare__row compare__row--bad">
-                        <span class="ic"><?= portalIcon('x') ?></span>
-                        <p><strong>Web común:</strong> no se entiende rápido qué haces.</p>
-                    </div>
-                    <div class="compare__row compare__row--good">
-                        <span class="ic"><?= portalIcon('check') ?></span>
-                        <p><strong>Web ARVIOR:</strong> mensaje claro y un camino directo al contacto.</p>
-                    </div>
-                    <div class="compare__row compare__row--good">
-                        <span class="ic"><?= portalIcon('check') ?></span>
-                        <p><strong>Web ARVIOR:</strong> cada consulta llega ordenada y lista para responder.</p>
-                    </div>
-                </div>
-            </div>
+        <div class="section__head section__head--center reveal">
+            <span class="section__eyebrow">[ 02 ] · El problema</span>
+            <h2 class="section__title">Tener una web linda no es <span class="text-gradient">suficiente</span>.</h2>
+            <p class="section__lead">Si no te encuentran, no da confianza o nadie te escribe, tu web es un gasto. La nuestra está hecha para que te contacten.</p>
+        </div>
+        <div class="card-grid reveal-stagger">
+            <?php foreach (portalPains() as $pi => $p): ?>
+                <article class="pain">
+                    <span class="pain__num">/ 0<?= $pi + 1 ?></span>
+                    <div class="pain__icon"><?= portalIcon($p['icon']) ?></div>
+                    <h3 class="pain__title"><?= htmlspecialchars($p['title']) ?></h3>
+                    <p class="pain__text"><?= htmlspecialchars($p['text']) ?></p>
+                </article>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -147,7 +168,7 @@ $maint = portalMaintenance();
 <section class="section section--alt" id="servicios">
     <div class="container">
         <div class="section__head reveal">
-            <span class="section__eyebrow">Qué hacemos</span>
+            <span class="section__eyebrow">[ 03 ] · Qué hacemos</span>
             <h2 class="section__title">Cuatro servicios, hechos bien.</h2>
         </div>
         <div class="card-grid reveal-stagger">
@@ -188,7 +209,7 @@ $maint = portalMaintenance();
 <section class="section">
     <div class="container">
         <div class="section__head section__head--center reveal">
-            <span class="section__eyebrow">Por qué ARVIOR</span>
+            <span class="section__eyebrow">[ 04 ] · Por qué ARVIOR</span>
             <h2 class="section__title">Un socio que se hace cargo.</h2>
         </div>
         <div class="card-grid reveal-stagger">
@@ -207,7 +228,7 @@ $maint = portalMaintenance();
 <section class="section section--alt">
     <div class="container">
         <div class="section__head reveal">
-            <span class="section__eyebrow">Cómo trabajamos</span>
+            <span class="section__eyebrow">[ 05 ] · Cómo trabajamos</span>
             <h2 class="section__title">Un camino claro, sin sorpresas.</h2>
         </div>
         <div class="process reveal">
@@ -245,13 +266,14 @@ $maint = portalMaintenance();
     </div>
 </section>
 
-<!-- ================= SOBRE ARVIOR ================= -->
-<section class="section section--alt">
+<!-- ================= SOBRE ARVIOR (banda oscura) ================= -->
+<section class="section section--dark">
     <div class="container">
         <div class="about reveal">
             <span class="section__eyebrow">Sobre ARVIOR</span>
-            <h2 class="section__title">Un estudio chico, con atención de verdad.</h2>
+            <h2 class="section__title">Un estudio chico, con atención <span class="text-gradient">de verdad</span>.</h2>
             <p class="about__text">Somos un estudio de desarrollo web en Chile. Trabajas directo con quien construye tu sitio, sin intermediarios. Tomamos pocos proyectos a la vez para cuidar cada detalle y cumplir los plazos.</p>
+            <p class="about__scarcity"><span class="dot"></span> Cupos limitados: tomamos pocos proyectos al mes para asegurar calidad.</p>
         </div>
     </div>
 </section>
@@ -260,7 +282,7 @@ $maint = portalMaintenance();
 <section class="section" id="planes">
     <div class="container">
         <div class="section__head section__head--center reveal">
-            <span class="section__eyebrow">Planes</span>
+            <span class="section__eyebrow">[ 06 ] · Planes</span>
             <h2 class="section__title">Precios claros desde el día uno.</h2>
         </div>
         <div class="plans reveal-stagger">
@@ -317,7 +339,7 @@ $maint = portalMaintenance();
             <h2 class="cta__title">Cuéntanos tu proyecto y recibe una <span class="text-gradient">propuesta clara</span>.</h2>
             <p class="cta__sub">Alcance, precio y fecha en menos de 24 h. Sin compromiso.</p>
             <div class="hero__actions" style="justify-content:center;">
-                <a href="/cotizacion" class="btn">Solicitar cotización</a>
+                <a href="/cotizacion" class="btn btn--arrow">Solicitar cotización</a>
                 <a href="/contacto" class="btn btn--secondary">Hablar con nosotros</a>
             </div>
         </div>

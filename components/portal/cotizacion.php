@@ -42,6 +42,9 @@ layoutStart([
                 $formSource  = 'cotizacion';
                 $returnPath  = '/cotizacion';
                 $showService = true; $showBudget = true; $showCompany = true;
+                // Preselección del servicio desde el selector "¿Qué necesitas?" (?servicio=).
+                $reqSvc = trim((string) ($_GET['servicio'] ?? ''));
+                $preselectService = in_array($reqSvc, portalServiceOptions(), true) ? $reqSvc : '';
                 require __DIR__ . '/quote_form.php';
                 ?>
             </div>
