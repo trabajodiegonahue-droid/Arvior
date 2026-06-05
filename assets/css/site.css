@@ -262,7 +262,7 @@
     font-family: var(--font-family-mono);
 }
 .demo__progress { height: 3px; background: var(--arvior-surface-2); }
-.demo__progress span { display: block; height: 100%; width: 0; background: var(--arvior-accent); animation: demoProgress 12s linear infinite; }
+.demo__progress span { display: block; height: 100%; width: 0; background: var(--arvior-accent); animation: demoProgress 15s linear infinite; }
 
 .demo__stage { position: relative; height: 252px; }
 .demo__screen {
