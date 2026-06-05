@@ -1135,3 +1135,6 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
 .site-body .quote-wa { color: #19a64c; }
 .site-body .quote-wa:hover { color: #15803d; }
 .quote-layout__form--accent { border-top: 3px solid var(--arvior-violet); }
+
+/* Fix: ícono del badge de resultado en Proyectos (evita el check gigante) */
+.proj__result svg { width: 15px; height: 15px; flex: 0 0 auto; }
