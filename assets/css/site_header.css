@@ -26,7 +26,9 @@
     z-index: 80;
     padding: 0;        /* anula el padding legacy de layout.css */
     margin-bottom: 0;  /* el hero va a ras del header */
+    transition: box-shadow .2s ease;
 }
+.site-header.is-scrolled { box-shadow: 0 6px 24px -10px rgba(27, 42, 74, 0.14); }
 
 /* ---- Topbar ---- */
 .site-topbar {

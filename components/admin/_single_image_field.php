@@ -139,7 +139,7 @@ $sifId          = $sifId          ?? 'sif_' . bin2hex(random_bytes(3));
         </div>
         <div class="sifck-grid" id="sif-grid"></div>
         <footer class="sifck-footer">
-            <div class="sifck-selected" id="sif-selected">Hacé click en una imagen para seleccionarla.</div>
+            <div class="sifck-selected" id="sif-selected">Haz clic en una imagen para seleccionarla.</div>
             <div class="sifck-actions">
                 <a href="/admin/?view=media" target="_blank" style="color:#6b7280;font-size:.85rem;">Abrir Medios →</a>
                 <button type="button" class="btn" id="sif-confirm" disabled>Usar imagen</button>
@@ -209,7 +209,7 @@ $sifId          = $sifId          ?? 'sif_' . bin2hex(random_bytes(3));
         selected = null;
         if (search) search.value = '';
         if (folderSel) folderSel.value = '';
-        selectedEl.textContent = 'Hacé click en una imagen para seleccionarla.';
+        selectedEl.textContent = 'Haz clic en una imagen para seleccionarla.';
         confirmBtn.disabled = true;
         render();
         modal.hidden = false;

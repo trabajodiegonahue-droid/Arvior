@@ -10,7 +10,7 @@ layoutStart([
     <div class="container">
         <span class="section__eyebrow">Servicios</span>
         <h1 class="page-hero__title">Lo que construimos para tu empresa.</h1>
-        <p class="page-hero__lead">Cuatro servicios, hechos bien. Cada uno resuelve un problema concreto y todos comparten lo mismo: precio y fecha cerrados, foco en captar clientes y soporte después de entregar.</p>
+        <p class="page-hero__lead">Cuatro servicios, hechos bien. Precio y fecha cerrados, y soporte después de entregar.</p>
     </div>
 </section>
 

@@ -27,7 +27,7 @@ $flashErr = flashGet('account_error');
 <?php if (empty($accounts)): ?>
     <div class="empty">
         <h3>No hay cuentas todavía</h3>
-        <p>Creá la primera cuenta de cliente para empezar a recibir sus leads.</p>
+        <p>Crea la primera cuenta de cliente para empezar a recibir sus leads.</p>
     </div>
 <?php else: ?>
     <table class="table">

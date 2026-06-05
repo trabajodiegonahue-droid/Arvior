@@ -19,7 +19,7 @@ $waLink     = whatsappLink((string) getSetting('business_whatsapp', ''), (string
     <div class="container">
         <span class="section__eyebrow">Contacto</span>
         <h1 class="page-hero__title">Hablemos de tu proyecto.</h1>
-        <p class="page-hero__lead">Escríbenos por el medio que prefieras. Respondemos rápido y hablas directo con quien construye tu sitio.</p>
+        <p class="page-hero__lead">Escríbenos por donde prefieras. Respondemos rápido.</p>
     </div>
 </section>
 
@@ -27,38 +27,53 @@ $waLink     = whatsappLink((string) getSetting('business_whatsapp', ''), (string
     <div class="container">
         <div class="quote-layout reveal">
             <div class="quote-aside">
+                <?php if ($waLink): ?>
+                <a href="<?= htmlspecialchars($waLink) ?>" target="_blank" rel="noopener" class="contact-wa">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 3.5A11 11 0 0 0 3.6 18.2L2 22l3.9-1.6A11 11 0 1 0 20 3.5zm-8 18a9 9 0 0 1-4.6-1.3l-.3-.2-2.3 1 .8-2.3-.2-.3a9 9 0 1 1 6.6 3zm5-7c-.3-.1-1.7-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.2-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4a8.6 8.6 0 0 1-1.5-2c-.2-.3 0-.4.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.1-.6-1.4-.8-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-.9.9-.9 2.2 0 1.3.9 2.6 1 2.8.1.2 1.8 2.8 4.5 3.9a15 15 0 0 0 1.6.6c.7.2 1.3.2 1.7.1.5-.1 1.7-.7 2-1.4.2-.6.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+                    <span class="contact-wa__txt"><b>Escríbenos por WhatsApp</b><small>La vía más rápida — te respondemos enseguida</small></span>
+                </a>
+                <?php endif; ?>
+
                 <div class="quote-aside__card">
-                    <h2 class="section__title" style="font-size:1.25rem;">Datos de contacto</h2>
-                    <ul class="contact-list">
-                        <?php if ($waLink): ?>
-                            <li><span class="contact-list__lb">WhatsApp</span><a href="<?= htmlspecialchars($waLink) ?>" target="_blank" rel="noopener">Escribir por WhatsApp</a></li>
-                        <?php endif; ?>
+                    <h2 class="section__title" style="font-size:1.2rem;">Otros canales</h2>
+                    <ul class="contact-methods">
                         <?php if ($bizEmail): ?>
-                            <li><span class="contact-list__lb">Correo</span><a href="mailto:<?= htmlspecialchars($bizEmail) ?>"><?= htmlspecialchars($bizEmail) ?></a></li>
+                            <li class="contact-method">
+                                <span class="contact-method__ic"><?= portalIcon('mail') ?></span>
+                                <span><span class="contact-method__lb">Correo</span><a href="mailto:<?= htmlspecialchars($bizEmail) ?>"><?= htmlspecialchars($bizEmail) ?></a></span>
+                            </li>
                         <?php endif; ?>
                         <?php if ($bizPhone): ?>
-                            <li><span class="contact-list__lb">Teléfono</span><a href="tel:<?= htmlspecialchars(preg_replace('/\s+/', '', $bizPhone)) ?>"><?= htmlspecialchars($bizPhone) ?></a></li>
+                            <li class="contact-method">
+                                <span class="contact-method__ic"><?= portalIcon('phone') ?></span>
+                                <span><span class="contact-method__lb">Teléfono</span><a href="tel:<?= htmlspecialchars(preg_replace('/\s+/', '', $bizPhone)) ?>"><?= htmlspecialchars($bizPhone) ?></a></span>
+                            </li>
                         <?php endif; ?>
                         <?php if ($bizAddress || $bizCity): ?>
-                            <li><span class="contact-list__lb">Dirección</span>
-                                <?php if ($mapsUrl): ?><a href="<?= htmlspecialchars($mapsUrl) ?>" target="_blank" rel="noopener"><?php endif; ?>
-                                <?= htmlspecialchars(trim($bizAddress . ($bizCity ? ', ' . $bizCity : ''))) ?>
-                                <?php if ($mapsUrl): ?></a><?php endif; ?>
+                            <li class="contact-method">
+                                <span class="contact-method__ic"><?= portalIcon('pin') ?></span>
+                                <span><span class="contact-method__lb">Dirección</span>
+                                    <?php if ($mapsUrl): ?><a href="<?= htmlspecialchars($mapsUrl) ?>" target="_blank" rel="noopener"><?php endif; ?>
+                                    <?= htmlspecialchars(trim($bizAddress . ($bizCity ? ', ' . $bizCity : ''))) ?>
+                                    <?php if ($mapsUrl): ?></a><?php endif; ?>
+                                </span>
                             </li>
                         <?php endif; ?>
                         <?php if ($bizHours): ?>
-                            <li><span class="contact-list__lb">Horario</span><?= htmlspecialchars($bizHours) ?></li>
+                            <li class="contact-method">
+                                <span class="contact-method__ic"><?= portalIcon('clock') ?></span>
+                                <span><span class="contact-method__lb">Horario</span><span class="contact-method__val"><?= htmlspecialchars($bizHours) ?></span></span>
+                            </li>
                         <?php endif; ?>
-                        <?php if (!$waLink && !$bizEmail && !$bizPhone && !$bizAddress && !$bizCity && !$bizHours): ?>
+                        <?php if (!$bizEmail && !$bizPhone && !$bizAddress && !$bizCity && !$bizHours): ?>
                             <li class="text-muted">Completa el formulario y te respondemos a la brevedad.</li>
                         <?php endif; ?>
                     </ul>
                 </div>
-                <div class="quote-aside__card">
-                    <ul class="benefit-list">
-                        <li><span class="benefit-list__ic"><?= portalIcon('check') ?></span>Respuesta rápida, sin intermediarios</li>
-                        <li><span class="benefit-list__ic"><?= portalIcon('check') ?></span>¿Listo para cotizar? <a href="/cotizacion">Pide tu cotización</a></li>
-                    </ul>
+
+                <div class="quote-aside__card contact-quote">
+                    <p><strong>¿Prefieres una propuesta con precio y fecha?</strong> Pide una cotización y te respondemos en menos de 24 h.</p>
+                    <a href="/cotizacion" class="btn btn--secondary">Solicitar cotización</a>
                 </div>
             </div>
             <div class="quote-layout__form">

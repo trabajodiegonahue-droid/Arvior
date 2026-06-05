@@ -25,7 +25,7 @@ layoutStart([
                 <div class="service-meta">
                     <div class="service-meta__item">
                         <div class="service-meta__lb">Desde</div>
-                        <div class="service-meta__val"><?= htmlspecialchars(str_replace('Desde ', '', $svc['price'])) ?></div>
+                        <div class="service-meta__val service-meta__val--price"><?= htmlspecialchars(str_replace('Desde ', '', $svc['price'])) ?></div>
                     </div>
                     <div class="service-meta__item">
                         <div class="service-meta__lb">Plazo</div>
@@ -33,19 +33,25 @@ layoutStart([
                     </div>
                 </div>
 
-                <h2 class="section__title" style="font-size:1.5rem;">Qué problema resuelve</h2>
-                <p style="color:var(--arvior-text-2);line-height:1.7;margin-bottom:1.4rem;"><?= htmlspecialchars($svc['problem']) ?></p>
+                <div class="svc-block">
+                    <span class="svc-block__eyebrow">El problema</span>
+                    <p class="svc-block__lead"><?= htmlspecialchars($svc['problem']) ?></p>
+                </div>
 
-                <h3 class="service-detail__subtitle">De qué se trata</h3>
-                <p style="color:var(--arvior-text-2);line-height:1.7;"><?= htmlspecialchars($svc['description']) ?></p>
+                <div class="svc-block">
+                    <span class="svc-block__eyebrow">De qué se trata</span>
+                    <p><?= htmlspecialchars($svc['description']) ?></p>
+                </div>
 
-                <h3 class="service-detail__subtitle">Qué obtienes</h3>
-                <p style="color:var(--arvior-text-2);line-height:1.7;margin-bottom:1rem;"><?= htmlspecialchars($svc['gain']) ?></p>
-                <ul class="benefit-list benefit-list--cols">
-                    <?php foreach ($svc['includes'] as $b): ?>
-                        <li><span class="benefit-list__ic"><?= portalIcon('check') ?></span><?= htmlspecialchars($b) ?></li>
-                    <?php endforeach; ?>
-                </ul>
+                <div class="svc-block">
+                    <span class="svc-block__eyebrow">Qué obtienes</span>
+                    <p><?= htmlspecialchars($svc['gain']) ?></p>
+                    <ul class="benefit-list benefit-list--cols">
+                        <?php foreach ($svc['includes'] as $b): ?>
+                            <li><span class="benefit-list__ic"><?= portalIcon('check') ?></span><?= htmlspecialchars($b) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
 
                 <div class="service-when">
                     <strong>¿Cuándo te conviene?</strong> <?= htmlspecialchars($svc['when']) ?>

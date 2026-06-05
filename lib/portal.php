@@ -39,6 +39,8 @@ function portalIcon(string $key): string {
         'layers'  => "<polygon points='12 3 21 8 12 13 3 8 12 3'/><polyline points='3 13 12 18 21 13'/>",
         'spark'   => "<path d='M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18'/><circle cx='12' cy='12' r='2.4'/>",
         'phone'   => "<path d='M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.8 2z'/>",
+        'mail'    => "<rect x='3' y='5' width='18' height='14' rx='2'/><path d='m3 7 9 6 9-6'/>",
+        'pin'     => "<path d='M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z'/><circle cx='12' cy='10' r='2.5'/>",
         'handshake' => "<path d='M11 17l2 2a1.5 1.5 0 0 0 2.1-2.1'/><path d='M14 16l1.8 1.8a1.5 1.5 0 0 0 2.1-2.1L13 11'/><path d='M3 8l3-3 5 5-1.5 1.5a1.5 1.5 0 0 1-2.1 0L6 11'/><path d='M21 8l-3-3-4 4'/>",
     ];
     $p = $icons[$key] ?? $icons['web'];
@@ -59,8 +61,8 @@ function portalServices(): array {
             'slug' => 'sitios-web', 'icon' => 'web',
             'title' => 'Sitios Web Corporativos',
             'tagline' => 'La cara de tu empresa, hecha para generar confianza y contactos.',
-            'summary' => 'Un sitio profesional que ordena lo que haces y convierte visitas en consultas reales.',
-            'price' => 'Desde $990.000',
+            'summary' => 'La cara profesional de tu empresa.',
+            'price' => 'Desde $590.000',
             'timeline' => 'Listo en 3 semanas',
             'problem' => 'Tu empresa se ve menos profesional de lo que es y las visitas no te escriben.',
             'gain' => 'Un sitio claro y rápido que genera confianza y deja cada consulta lista para atender.',
@@ -79,8 +81,8 @@ function portalServices(): array {
             'slug' => 'landing-pages', 'icon' => 'landing',
             'title' => 'Landing Pages',
             'tagline' => 'Una página con un solo objetivo: que te contacten.',
-            'summary' => 'Página de aterrizaje enfocada en una sola acción, ideal para campañas y lanzamientos.',
-            'price' => 'Desde $450.000',
+            'summary' => 'Una página con un solo objetivo: captar.',
+            'price' => 'Desde $250.000',
             'timeline' => 'Lista en 1 semana',
             'problem' => 'Inviertes en publicidad, pero el tráfico llega a un lugar que no convierte.',
             'gain' => 'Una página directa, sin distracciones, hecha para que dejen sus datos.',
@@ -99,8 +101,8 @@ function portalServices(): array {
             'slug' => 'tiendas-online', 'icon' => 'shop',
             'title' => 'Tiendas Online',
             'tagline' => 'Vende en línea con una operación ordenada, no solo con un catálogo bonito.',
-            'summary' => 'Ecommerce con catálogo, medios de pago y procesos pensados para vender y crecer.',
-            'price' => 'Desde $1.800.000',
+            'summary' => 'Vende tus productos por internet.',
+            'price' => 'Desde $990.000',
             'timeline' => 'Plazo según catálogo',
             'problem' => 'Quieres vender por internet, pero armar la tienda te parece complejo.',
             'gain' => 'Una tienda lista para recibir pedidos y pagos, fácil de administrar.',
@@ -119,8 +121,8 @@ function portalServices(): array {
             'slug' => 'mantencion', 'icon' => 'wrench',
             'title' => 'Mantención y Soporte',
             'tagline' => 'Tu sitio cuidado, actualizado y respaldado, mes a mes.',
-            'summary' => 'Plan mensual de hosting, soporte y cambios para que tu sitio siempre funcione bien.',
-            'price' => 'Desde $35.000 / mes',
+            'summary' => 'Tu sitio siempre al día.',
+            'price' => 'Desde $25.000 / mes',
             'timeline' => 'Plan mensual continuo',
             'problem' => 'Lanzaste tu sitio y nadie lo cuida: queda lento, desactualizado o caído.',
             'gain' => 'Tranquilidad: alguien se hace cargo de que tu sitio esté arriba, seguro y al día.',
@@ -161,11 +163,11 @@ function portalServiceOptions(): array {
 /** Opciones de presupuesto aproximado (CLP) para el formulario de cotización. */
 function portalBudgetOptions(): array {
     return [
-        'Menos de $500.000',
-        '$500.000 – $1.000.000',
-        '$1.000.000 – $2.000.000',
-        '$2.000.000 – $4.000.000',
-        'Más de $4.000.000',
+        'Menos de $300.000',
+        '$300.000 – $600.000',
+        '$600.000 – $1.200.000',
+        '$1.200.000 – $2.500.000',
+        'Más de $2.500.000',
         'A definir',
     ];
 }
@@ -179,21 +181,21 @@ function portalPackages(): array {
     return [
         [
             'name' => 'Landing Page', 'icon' => 'landing',
-            'price' => '$450.000', 'unit' => 'proyecto', 'timeline' => '1 semana',
+            'price' => '$250.000', 'unit' => 'proyecto', 'timeline' => '1 semana',
             'tagline' => 'Una página enfocada en captar contactos.',
             'features' => ['Una página a medida', 'Pensada para campañas', 'Formulario conectado', 'Lista en 1 semana'],
             'cta' => 'Cotizar landing', 'service' => 'Landing Pages', 'featured' => false,
         ],
         [
             'name' => 'Sitio Corporativo', 'icon' => 'web',
-            'price' => '$990.000', 'unit' => 'proyecto', 'timeline' => '3 semanas',
+            'price' => '$590.000', 'unit' => 'proyecto', 'timeline' => '3 semanas',
             'tagline' => 'La opción ideal para la mayoría de las empresas.',
             'features' => ['Hasta 6 secciones', 'Diseño profesional a medida', 'SEO técnico y velocidad', 'Capacitación incluida'],
             'cta' => 'Cotizar mi sitio', 'service' => 'Sitios Web Corporativos', 'featured' => true,
         ],
         [
             'name' => 'Tienda Online', 'icon' => 'shop',
-            'price' => '$1.800.000', 'unit' => 'desde', 'timeline' => 'según catálogo',
+            'price' => '$990.000', 'unit' => 'desde', 'timeline' => 'según catálogo',
             'tagline' => 'Para vender tus productos por internet.',
             'features' => ['Catálogo y carrito', 'Medios de pago', 'Panel de administración', 'Experiencia optimizada'],
             'cta' => 'Cotizar mi tienda', 'service' => 'Tiendas Online', 'featured' => false,
@@ -205,19 +207,19 @@ function portalPackages(): array {
 function portalMaintenance(): array {
     return [
         'title' => 'Plan de Mantención',
-        'price' => 'Desde $35.000 / mes',
-        'text'  => 'Todo proyecto puede sumar hosting, respaldos, seguridad y cambios mensuales para mantener tu sitio siempre al día.',
+        'price' => 'Desde $25.000 / mes',
+        'text'  => 'Hosting, respaldos, seguridad y cambios mensuales para mantener tu sitio al día.',
     ];
 }
 
 /** Proceso de trabajo (5 etapas). Transparencia = menos riesgo percibido. */
 function portalProcess(): array {
     return [
-        ['num' => '01', 'icon' => 'compass',   'title' => 'Diagnóstico',          'text' => 'Entendemos tu negocio y qué necesitas lograr. Sin tecnicismos.'],
-        ['num' => '02', 'icon' => 'message',    'title' => 'Propuesta clara',      'text' => 'Alcance, precio y fecha cerrados antes de empezar.'],
-        ['num' => '03', 'icon' => 'layers',     'title' => 'Diseño',               'text' => 'Lo apruebas antes de que escribamos una línea de código.'],
-        ['num' => '04', 'icon' => 'spark',      'title' => 'Desarrollo y entrega', 'text' => 'Construimos, publicamos y te explicamos cómo usarlo.'],
-        ['num' => '05', 'icon' => 'handshake',  'title' => 'Soporte',              'text' => 'Seguimos disponibles. Con el plan de mantención, cuidado mes a mes.'],
+        ['num' => '01', 'icon' => 'compass',   'title' => 'Diagnóstico',          'text' => 'Entendemos tu negocio y qué necesitas lograr. Sin tecnicismos.',     'deliverable' => 'Llamada + resumen de objetivos'],
+        ['num' => '02', 'icon' => 'message',    'title' => 'Propuesta clara',      'text' => 'Alcance, precio y fecha cerrados antes de empezar.',                 'deliverable' => 'Propuesta con precio y fecha'],
+        ['num' => '03', 'icon' => 'layers',     'title' => 'Diseño',               'text' => 'Lo apruebas antes de que escribamos una línea de código.',           'deliverable' => 'Diseño aprobado por ti'],
+        ['num' => '04', 'icon' => 'spark',      'title' => 'Desarrollo y entrega', 'text' => 'Construimos, publicamos y te explicamos cómo usarlo.',               'deliverable' => 'Sitio en vivo + capacitación'],
+        ['num' => '05', 'icon' => 'handshake',  'title' => 'Soporte',              'text' => 'Seguimos disponibles. Con el plan de mantención, cuidado mes a mes.', 'deliverable' => 'Plan de mantención (opcional)'],
     ];
 }
 
@@ -228,10 +230,10 @@ function portalProcess(): array {
  */
 function portalBenefits(): array {
     return [
-        ['icon' => 'target',    'title' => 'Pensado para captar',     'text' => 'Diseñamos para que tus visitas se conviertan en consultas.'],
-        ['icon' => 'clock',     'title' => 'Precio y fecha cerrados', 'text' => 'Sabes cuánto y cuándo antes de partir. Sin sorpresas.'],
-        ['icon' => 'phone',     'title' => 'Atención directa',        'text' => 'Hablas con quien construye tu sitio, no con un intermediario.'],
-        ['icon' => 'shield',    'title' => 'Soporte después',         'text' => 'No desaparecemos al entregar. Cuidamos tu sitio.'],
+        ['icon' => 'target',    'title' => 'Pensado para captar',   'text' => 'Lo diseñamos para que te escriban.'],
+        ['icon' => 'phone',     'title' => 'Atención directa',      'text' => 'Hablas con quien construye, sin intermediarios.'],
+        ['icon' => 'spark',     'title' => 'Rápido y seguro',       'text' => 'Tecnología que carga al instante.'],
+        ['icon' => 'compass',   'title' => 'Claro, sin tecnicismos', 'text' => 'Te explicamos todo en simple.'],
     ];
 }
 
@@ -245,11 +247,56 @@ function portalTrust(): array {
     ];
 }
 
+/** Rubros / tipos de negocio ideales (autoidentificación = relevancia). No
+ *  afirma que ya se trabajó con ellos: el copy del bloque dice "ideal para". */
+function portalSectors(): array {
+    return [
+        'Clínicas y salud', 'Estudios jurídicos', 'Constructoras', 'Retail y tiendas',
+        'Restaurantes', 'Servicios profesionales', 'Inmobiliarias', 'Educación',
+    ];
+}
+
+/** Compromisos de la marca (reversión de riesgo = empuja la cotización). */
+function portalGuarantee(): array {
+    return [
+        ['icon' => 'clock',  'title' => 'Precio y fecha cerrados', 'text' => 'Por escrito, antes de empezar.'],
+        ['icon' => 'check',  'title' => 'Apruebas el diseño',      'text' => 'No programamos sin tu visto bueno.'],
+        ['icon' => 'shield', 'title' => 'Soporte después',         'text' => 'Seguimos cuando ya estás en línea.'],
+        ['icon' => 'lock',   'title' => 'El sitio es tuyo',        'text' => 'Sin ataduras: queda a tu nombre.'],
+    ];
+}
+
+/** Objetivos para el selector tipo "wizard" del hero (qué necesita el cliente).
+ *  Cada uno enlaza a /cotizacion con el servicio preseleccionado. */
+function portalGoals(): array {
+    return [
+        ['icon' => 'web',     'title' => 'Verme más profesional', 'text' => 'Un sitio que dé confianza',  'service' => 'Sitios Web Corporativos'],
+        ['icon' => 'landing', 'title' => 'Captar más clientes',    'text' => 'Una página para campañas',   'service' => 'Landing Pages'],
+        ['icon' => 'shop',    'title' => 'Vender por internet',    'text' => 'Una tienda online',          'service' => 'Tiendas Online'],
+        ['icon' => 'wrench',  'title' => 'Cuidar mi sitio',        'text' => 'Mantención y soporte',       'service' => 'Mantención y Soporte'],
+    ];
+}
+
+/** Palabras para el marquee animado bajo el hero. */
+function portalMarqueeWords(): array {
+    return ['Captar', 'Convertir', 'Vender', 'Crecer', 'Profesionalizar', 'Posicionar'];
+}
+
+/** "Dolores" del cliente (sección Problema como grilla numerada). */
+function portalPains(): array {
+    return [
+        ['icon' => 'google',  'title' => 'No te encuentran',   'text' => 'Sin estructura SEO, tu sitio es invisible en Google.'],
+        ['icon' => 'message', 'title' => 'No llegan consultas','text' => 'Se ve lindo, pero nadie termina escribiéndote.'],
+        ['icon' => 'clock',   'title' => 'Carga lento',        'text' => 'Cada segundo de más aleja visitas y baja tu posición en Google.'],
+        ['icon' => 'shield',  'title' => 'No da confianza',    'text' => 'No representa el nivel real de tu empresa.'],
+    ];
+}
+
 /** Preguntas frecuentes (resuelven objeciones de venta antes del formulario). */
 function portalFaqs(): array {
     return [
-        ['q' => '¿Cuánto se demora?', 'a' => 'Una landing en ~1 semana y un sitio corporativo en ~3. La fecha exacta queda cerrada en la propuesta.'],
-        ['q' => '¿Cuánto cuesta?', 'a' => 'Landing desde $450.000, sitio desde $990.000 y tienda desde $1.800.000. El precio final lo confirmamos según tu proyecto.'],
+        ['q' => '¿Cuánto se demora?', 'a' => 'Una landing en alrededor de 1 semana y un sitio corporativo en unas 3. La fecha exacta queda cerrada en la propuesta.'],
+        ['q' => '¿Cuánto cuesta?', 'a' => 'Landing desde $250.000, sitio desde $590.000 y tienda desde $990.000. El precio final lo confirmamos según tu proyecto.'],
         ['q' => '¿Qué necesitan de mí?', 'a' => 'Tus textos, imágenes y logo si los tienes. Si no, te guiamos para armarlos.'],
         ['q' => '¿Cómo es el pago?', 'a' => '50% al inicio y 50% contra entrega. Todo por escrito antes de partir.'],
         ['q' => '¿Y después de entregar?', 'a' => 'Seguimos disponibles. Puedes sumar el plan de mantención para mantenerlo al día.'],

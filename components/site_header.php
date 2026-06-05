@@ -85,13 +85,10 @@ $socialIcon = function (string $key): string {
             </a>
 
             <nav class="site-navbar__menu" aria-label="Principal">
+                <?php /* Menú curado del portal. Las páginas del CMS (legales, etc.)
+                          viven en el footer, no saturan la navegación principal. */ ?>
                 <?php foreach (portalNav() as $n): ?>
                     <a href="<?= htmlspecialchars($n['path']) ?>" class="<?= $currentSlug === $n['slug'] ? 'is-active' : '' ?>"><?= htmlspecialchars($n['label']) ?></a>
-                <?php endforeach; ?>
-                <?php foreach ($menu as $p): ?>
-                    <a href="/<?= htmlspecialchars($p['slug']) ?>" class="<?= $currentSlug === $p['slug'] ? 'is-active' : '' ?>">
-                        <?= htmlspecialchars($p['title']) ?>
-                    </a>
                 <?php endforeach; ?>
             </nav>
 
@@ -129,11 +126,6 @@ $socialIcon = function (string $key): string {
         <nav class="site-drawer__menu" aria-label="Principal (mobile)">
             <?php foreach (portalNav() as $n): ?>
                 <a href="<?= htmlspecialchars($n['path']) ?>" class="<?= $currentSlug === $n['slug'] ? 'is-active' : '' ?>"><?= htmlspecialchars($n['label']) ?></a>
-            <?php endforeach; ?>
-            <?php foreach ($menu as $p): ?>
-                <a href="/<?= htmlspecialchars($p['slug']) ?>" class="<?= $currentSlug === $p['slug'] ? 'is-active' : '' ?>">
-                    <?= htmlspecialchars($p['title']) ?>
-                </a>
             <?php endforeach; ?>
             <a href="/cotizacion" class="site-drawer__cta" style="margin-top:.4rem;">Solicitar cotización</a>
         </nav>
@@ -177,5 +169,13 @@ $socialIcon = function (string $key): string {
     bk.addEventListener('click', close);
     if (cl) cl.addEventListener('click', close);
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+    // Sombra sutil del header al hacer scroll (señal de profundidad).
+    var header = document.getElementById('site-header');
+    if (header) {
+        var onScroll = function(){ header.classList.toggle('is-scrolled', window.scrollY > 8); };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+    }
 })();
 </script>

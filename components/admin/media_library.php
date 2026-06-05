@@ -147,7 +147,7 @@ $kb = fn(int $b) => $b < 1024 * 1024 ? round($b / 1024) . ' KB' : round($b / 102
             </div>
             <div class="ml-dropzone__text">
                 <strong>Arrastrá imágenes aquí</strong>
-                <span>o <button type="button" class="ml-link" onclick="document.getElementById('ml-file-input').click()">elegí desde tu equipo</button></span>
+                <span>o <button type="button" class="ml-link" onclick="document.getElementById('ml-file-input').click()">elige desde tu equipo</button></span>
                 <small>JPG · PNG · WebP · hasta 10MB cada una · se convierten a WebP optimizado<?= $current ? ' · destino: <strong>' . htmlspecialchars($current['name']) . '</strong>' : '' ?></small>
             </div>
             <div class="ml-dropzone__queue" id="ml-queue" hidden></div>
