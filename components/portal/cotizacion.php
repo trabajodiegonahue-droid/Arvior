@@ -30,10 +30,10 @@ $waLink = whatsappLink((string) getSetting('business_whatsapp', ''), (string) ge
                 </div>
                 <div class="quote-aside__card">
                     <ul class="assure">
-                        <li><span class="assure__ic"><?= portalIcon('clock') ?></span>Respuesta en <strong>menos de 24 h</strong></li>
-                        <li><span class="assure__ic"><?= portalIcon('check') ?></span>Precio y fecha <strong>cerrados</strong></li>
-                        <li><span class="assure__ic"><?= portalIcon('phone') ?></span>Atención directa, sin intermediarios</li>
-                        <li><span class="assure__ic"><?= portalIcon('shield') ?></span>Sin compromiso ni letra chica</li>
+                        <li><span class="assure__ic"><?= portalIcon('clock') ?></span><span>Respuesta en <strong>menos de 24 h</strong></span></li>
+                        <li><span class="assure__ic"><?= portalIcon('check') ?></span><span>Precio y fecha <strong>cerrados</strong></span></li>
+                        <li><span class="assure__ic"><?= portalIcon('phone') ?></span><span>Atención directa, sin intermediarios</span></li>
+                        <li><span class="assure__ic"><?= portalIcon('shield') ?></span><span>Sin compromiso ni letra chica</span></li>
                     </ul>
                     <p class="quote-scarcity"><span class="dot"></span> Cupos limitados: tomamos pocos proyectos al mes.</p>
                     <?php if ($waLink): ?>
