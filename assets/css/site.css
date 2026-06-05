@@ -914,3 +914,57 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
     .section { padding: clamp(2.4rem, 9vw, 3.2rem) 0; }
     .sectors__label { width: 100%; }           /* "Ideal para" en su línea, centrado */
 }
+
+/* ==========================================================
+   18. Color & vida — acentos vibrantes (premium, no apagado)
+   ========================================================== */
+
+/* Eyebrows con color (antes gris acero) */
+.site-body .section__eyebrow { color: var(--arvior-violet); }
+
+/* "Ver más" siempre en violeta */
+.site-body .s-card__more { color: var(--arvior-violet); }
+
+/* Íconos a color — paleta rotativa para dar variedad y vida.
+   (violeta · azul · teal · ámbar, y rosa para el 5º del proceso) */
+.card-grid > *:nth-child(4n+1) .s-card__icon,
+.card-grid > *:nth-child(4n+1) .guarantee__icon { color:#6A4FE6; background:#efedfd; border-color:#ddd6fb; }
+.card-grid > *:nth-child(4n+2) .s-card__icon,
+.card-grid > *:nth-child(4n+2) .guarantee__icon { color:#2563EB; background:#e8f0fe; border-color:#d4e2fd; }
+.card-grid > *:nth-child(4n+3) .s-card__icon,
+.card-grid > *:nth-child(4n+3) .guarantee__icon { color:#0E9488; background:#e1f6f3; border-color:#c4efe8; }
+.card-grid > *:nth-child(4n+4) .s-card__icon,
+.card-grid > *:nth-child(4n+4) .guarantee__icon { color:#E0892B; background:#fdf0dc; border-color:#f7e1bd; }
+
+.process__step:nth-child(5n+1) .process__icon { color:#6A4FE6; background:#efedfd; border-color:#ddd6fb; }
+.process__step:nth-child(5n+2) .process__icon { color:#2563EB; background:#e8f0fe; border-color:#d4e2fd; }
+.process__step:nth-child(5n+3) .process__icon { color:#0E9488; background:#e1f6f3; border-color:#c4efe8; }
+.process__step:nth-child(5n+4) .process__icon { color:#E0892B; background:#fdf0dc; border-color:#f7e1bd; }
+.process__step:nth-child(5n+5) .process__icon { color:#DB2777; background:#fce8f1; border-color:#f7cde0; }
+
+.plan:nth-child(1) .plan__icon { color:#2563EB; background:#e8f0fe; border-color:#d4e2fd; }
+.plan:nth-child(2) .plan__icon { color:#6A4FE6; background:#efedfd; border-color:#ddd6fb; }
+.plan:nth-child(3) .plan__icon { color:#0E9488; background:#e1f6f3; border-color:#c4efe8; }
+
+/* Número del proceso a tono con su ícono */
+.process__num { color: inherit; opacity: .85; }
+
+/* Rubros con vida al pasar el mouse */
+.sectors__pill:hover { background: var(--arvior-violet-soft); border-color: var(--arvior-violet); color: var(--arvior-accent); }
+
+/* Precio del plan destacado en violeta (resalta el ancla) */
+.plan--featured .plan__price b { color: var(--arvior-violet); }
+
+/* Hover con vida: el ícono salta levemente y la tarjeta toma color */
+.s-card__icon, .guarantee__icon { transition: transform var(--transition-slow); }
+.s-card:hover .s-card__icon { transform: translateY(-3px) scale(1.06); }
+.s-card:hover { border-color: #ddd6fb; box-shadow: 0 18px 42px -22px rgba(106, 79, 230, 0.28); }
+
+/* Demo: progreso con un toque de degradado (más vivo) */
+.demo__progress span { background: linear-gradient(90deg, var(--arvior-accent), var(--arvior-violet)); }
+
+/* Más pop: plan destacado y eyebrow del hero en violeta */
+.plan--featured { border-color: var(--arvior-violet); box-shadow: 0 24px 50px -28px rgba(106, 79, 230, 0.5); }
+.plan__flag { background: var(--arvior-violet); }
+.hero__eyebrow { background: var(--arvior-violet-soft); border-color: #ddd6fb; color: var(--arvior-accent); }
+.plan .btn--secondary:hover { border-color: var(--arvior-violet); color: var(--arvior-violet); }

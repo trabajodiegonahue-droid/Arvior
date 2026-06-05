@@ -59,7 +59,7 @@ function portalServices(): array {
             'slug' => 'sitios-web', 'icon' => 'web',
             'title' => 'Sitios Web Corporativos',
             'tagline' => 'La cara de tu empresa, hecha para generar confianza y contactos.',
-            'summary' => 'Un sitio profesional que convierte visitas en consultas.',
+            'summary' => 'La cara profesional de tu empresa.',
             'price' => 'Desde $990.000',
             'timeline' => 'Listo en 3 semanas',
             'problem' => 'Tu empresa se ve menos profesional de lo que es y las visitas no te escriben.',
@@ -79,7 +79,7 @@ function portalServices(): array {
             'slug' => 'landing-pages', 'icon' => 'landing',
             'title' => 'Landing Pages',
             'tagline' => 'Una página con un solo objetivo: que te contacten.',
-            'summary' => 'Una página enfocada en captar contactos, ideal para campañas.',
+            'summary' => 'Una página con un solo objetivo: captar.',
             'price' => 'Desde $450.000',
             'timeline' => 'Lista en 1 semana',
             'problem' => 'Inviertes en publicidad, pero el tráfico llega a un lugar que no convierte.',
@@ -99,7 +99,7 @@ function portalServices(): array {
             'slug' => 'tiendas-online', 'icon' => 'shop',
             'title' => 'Tiendas Online',
             'tagline' => 'Vende en línea con una operación ordenada, no solo con un catálogo bonito.',
-            'summary' => 'Ecommerce con catálogo y medios de pago, listo para vender.',
+            'summary' => 'Vende tus productos por internet.',
             'price' => 'Desde $1.800.000',
             'timeline' => 'Plazo según catálogo',
             'problem' => 'Quieres vender por internet, pero armar la tienda te parece complejo.',
@@ -119,7 +119,7 @@ function portalServices(): array {
             'slug' => 'mantencion', 'icon' => 'wrench',
             'title' => 'Mantención y Soporte',
             'tagline' => 'Tu sitio cuidado, actualizado y respaldado, mes a mes.',
-            'summary' => 'Hosting, soporte y cambios mensuales para tu sitio.',
+            'summary' => 'Tu sitio siempre al día.',
             'price' => 'Desde $35.000 / mes',
             'timeline' => 'Plan mensual continuo',
             'problem' => 'Lanzaste tu sitio y nadie lo cuida: queda lento, desactualizado o caído.',
@@ -228,10 +228,10 @@ function portalProcess(): array {
  */
 function portalBenefits(): array {
     return [
-        ['icon' => 'target',    'title' => 'Pensado para captar',     'text' => 'Diseñamos para que tus visitas se conviertan en consultas.'],
-        ['icon' => 'clock',     'title' => 'Precio y fecha cerrados', 'text' => 'Sabes cuánto y cuándo antes de partir. Sin sorpresas.'],
-        ['icon' => 'phone',     'title' => 'Atención directa',        'text' => 'Hablas con quien construye tu sitio, no con un intermediario.'],
-        ['icon' => 'shield',    'title' => 'Soporte después',         'text' => 'No desaparecemos al entregar. Cuidamos tu sitio.'],
+        ['icon' => 'target',    'title' => 'Pensado para captar',   'text' => 'Lo diseñamos para que te escriban.'],
+        ['icon' => 'phone',     'title' => 'Atención directa',      'text' => 'Hablas con quien construye, sin intermediarios.'],
+        ['icon' => 'spark',     'title' => 'Rápido y seguro',       'text' => 'Tecnología que carga al instante.'],
+        ['icon' => 'compass',   'title' => 'Claro, sin tecnicismos', 'text' => 'Te explicamos todo en simple.'],
     ];
 }
 
