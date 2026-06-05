@@ -57,7 +57,7 @@ $resendOk = $provider === 'resend' && trim((string) ($settings['resend_api_key']
     <div class="card">
         <h3 class="card__title">Configuración de Resend</h3>
         <p class="text-muted" style="margin:0 0 1rem;font-size:.88rem;">
-            Creá una API key en <a href="https://resend.com/api-keys" target="_blank" rel="noopener">resend.com/api-keys</a> y verificá tu dominio en
+            Crea una API key en <a href="https://resend.com/api-keys" target="_blank" rel="noopener">resend.com/api-keys</a> y verifica tu dominio en
             <a href="https://resend.com/domains" target="_blank" rel="noopener">Domains</a>. El From debe ser de un dominio verificado.
         </p>
         <p class="form__field"><label>API Key

@@ -18,7 +18,7 @@
 <?php if (empty($pages)): ?>
     <div class="empty">
         <h3>Sin páginas</h3>
-        <p>Creá tu primera página para agregarle contenido al sitio (ej. "Sobre nosotros", "Términos").</p>
+        <p>Crea tu primera página para agregarle contenido al sitio (ej. "Sobre nosotros", "Términos").</p>
         <p style="margin-top:1rem;"><a class="btn" href="/admin/?view=page&amp;id=new">+ Crear primera página</a></p>
     </div>
 <?php else: ?>

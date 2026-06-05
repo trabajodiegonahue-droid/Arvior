@@ -28,7 +28,7 @@ if ($faviconPath && @file_exists($faviconAbs)): ?>
         </div>
 
         <h1>Bienvenido</h1>
-        <p class="auth-subtitle">Iniciá sesión para acceder al panel.</p>
+        <p class="auth-subtitle">Inicia sesión para acceder al panel.</p>
 
         <?php if (!empty($loginError)): ?>
             <div class="auth-alert auth-alert--error">
@@ -42,7 +42,7 @@ if ($faviconPath && @file_exists($faviconAbs)): ?>
 
             <div class="auth-field">
                 <label for="email">Email</label>
-                <input id="email" type="email" name="email" required autofocus autocomplete="email" placeholder="vos@ejemplo.com">
+                <input id="email" type="email" name="email" required autofocus autocomplete="email" placeholder="tu@correo.cl">
             </div>
 
             <div class="auth-field auth-field--password">
