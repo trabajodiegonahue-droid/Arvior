@@ -1066,3 +1066,34 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
     .pain__icon { margin-left: auto; margin-right: auto; }
     .about__scarcity { text-align: left; }
 }
+
+/* ---- Contacto: WhatsApp prominente + canales con íconos ---- */
+.contact-wa {
+    display: flex; align-items: center; gap: 0.85rem;
+    background: #25d366; color: #fff; text-decoration: none;
+    border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 1.1rem;
+    box-shadow: 0 14px 30px -12px rgba(37, 211, 102, 0.5);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+.site-body .contact-wa, .site-body .contact-wa:hover { color: #fff; }
+.contact-wa:hover { transform: translateY(-2px); box-shadow: 0 18px 38px -12px rgba(37, 211, 102, 0.6); }
+.contact-wa svg { width: 30px; height: 30px; flex: 0 0 auto; }
+.contact-wa__txt { display: flex; flex-direction: column; line-height: 1.25; }
+.contact-wa__txt b { font-size: 1rem; }
+.contact-wa__txt small { font-size: 0.84rem; opacity: 0.92; }
+
+.contact-methods { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem; }
+.contact-method { display: flex; align-items: center; gap: 0.85rem; }
+.contact-method__ic { width: 42px; height: 42px; flex: 0 0 auto; border-radius: 11px; display: grid; place-items: center; color: var(--arvior-accent); background: #eef1f7; border: 1px solid #e1e6ef; }
+.contact-method__ic svg { width: 20px; height: 20px; }
+.contact-method__lb { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--arvior-steel); font-weight: 600; }
+.contact-method a, .contact-method__val { color: var(--arvior-text); font-size: 0.96rem; }
+.contact-method a:hover { color: var(--arvior-violet); }
+
+.contact-quote p { margin: 0 0 0.9rem; color: var(--arvior-text-2); font-size: 0.95rem; line-height: 1.55; }
+.contact-quote strong { color: var(--color-text-strong); }
+.contact-quote .btn { width: 100%; }
+
+@media (max-width: 600px) {
+    .contact-method { text-align: left; }
+}
