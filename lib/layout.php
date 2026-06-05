@@ -28,6 +28,8 @@ function layoutStart(array $opts = []): void {
 
     $ogImage = trim((string) ($opts['og_image'] ?? ''));
     if ($ogImage === '') $ogImage = trim((string) getSetting('seo_default_image', ''));
+    // Imagen OG de marca por defecto (si no hay una configurada en el admin).
+    if ($ogImage === '') $ogImage = '/assets/og-default.png';
 
     $host  = $_SERVER['HTTP_HOST'] ?? '';
     $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
