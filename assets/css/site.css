@@ -968,3 +968,39 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
 .plan__flag { background: var(--arvior-violet); }
 .hero__eyebrow { background: var(--arvior-violet-soft); border-color: #ddd6fb; color: var(--arvior-accent); }
 .plan .btn--secondary:hover { border-color: var(--arvior-violet); color: var(--arvior-violet); }
+
+/* ==========================================================
+   19. Hero oscuro (estilo familia: Nova / Primeros Resultados)
+   — un hero navy con el acento violeta que explota; cuerpo sigue claro.
+   ========================================================== */
+.hero {
+    background:
+        radial-gradient(900px circle at 82% -10%, rgba(106, 79, 230, 0.40), transparent 55%),
+        radial-gradient(680px circle at 12% 115%, rgba(37, 99, 235, 0.28), transparent 55%),
+        linear-gradient(180deg, #16223c 0%, #1b2a4a 100%);
+    color: #fff;
+    border-radius: 0 0 30px 30px;
+}
+.hero::before { display: none; }                       /* anula el glow claro anterior */
+.hero__title { color: #fff; }
+.hero .text-gradient { color: #c2b6ff; -webkit-text-fill-color: currentColor; }
+.hero__sub { color: rgba(255, 255, 255, 0.80); }
+.hero__note { color: rgba(255, 255, 255, 0.62); }
+.hero__note strong { color: #fff; }
+.hero__eyebrow { background: rgba(255, 255, 255, 0.07); border-color: rgba(255, 255, 255, 0.18); color: #fff; }
+.hero__eyebrow .dot { background: #c2b6ff; box-shadow: 0 0 0 3px rgba(194, 182, 255, 0.18); }
+
+/* CTAs sobre el hero oscuro: primario violeta vibrante, secundario glass */
+.site-body .hero .btn:not(.btn--secondary):not(.btn--ghost) {
+    background: var(--arvior-violet); border-color: var(--arvior-violet);
+    box-shadow: 0 14px 32px -10px rgba(106, 79, 230, 0.6);
+}
+.site-body .hero .btn:not(.btn--secondary):not(.btn--ghost):hover {
+    background: #5a3fd0; border-color: #5a3fd0; transform: translateY(-1px);
+}
+.site-body .hero .btn--secondary {
+    background: rgba(255, 255, 255, 0.06); color: #fff; border-color: rgba(255, 255, 255, 0.30);
+}
+.site-body .hero .btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.12); color: #fff; border-color: #fff;
+}
