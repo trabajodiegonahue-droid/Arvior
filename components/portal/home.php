@@ -271,7 +271,7 @@ $maint = portalMaintenance();
     <div class="container">
         <div class="about reveal">
             <span class="section__eyebrow">Sobre ARVIOR</span>
-            <h2 class="section__title">Un estudio chico, con atención <span class="text-gradient">de verdad</span>.</h2>
+            <h2 class="section__title">Un estudio pequeño, con atención <span class="text-gradient">cercana</span>.</h2>
             <p class="about__text">Somos un estudio de desarrollo web en Chile. Trabajas directo con quien construye tu sitio, sin intermediarios. Tomamos pocos proyectos a la vez para cuidar cada detalle y cumplir los plazos.</p>
             <p class="about__scarcity"><span class="dot"></span> Cupos limitados: tomamos pocos proyectos al mes para asegurar calidad.</p>
         </div>

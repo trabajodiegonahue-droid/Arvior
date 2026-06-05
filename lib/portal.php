@@ -262,7 +262,7 @@ function portalGuarantee(): array {
         ['icon' => 'clock',  'title' => 'Precio y fecha cerrados', 'text' => 'Por escrito, antes de empezar.'],
         ['icon' => 'check',  'title' => 'Apruebas el diseño',      'text' => 'No programamos sin tu visto bueno.'],
         ['icon' => 'shield', 'title' => 'Soporte después',         'text' => 'Seguimos cuando ya estás en línea.'],
-        ['icon' => 'lock',   'title' => 'El sitio es tuyo',        'text' => 'Sin amarres: queda a tu nombre.'],
+        ['icon' => 'lock',   'title' => 'El sitio es tuyo',        'text' => 'Sin ataduras: queda a tu nombre.'],
     ];
 }
 
@@ -287,7 +287,7 @@ function portalPains(): array {
     return [
         ['icon' => 'google',  'title' => 'No te encuentran',   'text' => 'Sin estructura SEO, tu sitio es invisible en Google.'],
         ['icon' => 'message', 'title' => 'No llegan consultas','text' => 'Se ve lindo, pero nadie termina escribiéndote.'],
-        ['icon' => 'clock',   'title' => 'Carga lento',        'text' => 'Cada segundo de más espanta visitas y posiciones.'],
+        ['icon' => 'clock',   'title' => 'Carga lento',        'text' => 'Cada segundo de más aleja visitas y baja tu posición en Google.'],
         ['icon' => 'shield',  'title' => 'No da confianza',    'text' => 'No representa el nivel real de tu empresa.'],
     ];
 }
@@ -295,7 +295,7 @@ function portalPains(): array {
 /** Preguntas frecuentes (resuelven objeciones de venta antes del formulario). */
 function portalFaqs(): array {
     return [
-        ['q' => '¿Cuánto se demora?', 'a' => 'Una landing en ~1 semana y un sitio corporativo en ~3. La fecha exacta queda cerrada en la propuesta.'],
+        ['q' => '¿Cuánto se demora?', 'a' => 'Una landing en alrededor de 1 semana y un sitio corporativo en unas 3. La fecha exacta queda cerrada en la propuesta.'],
         ['q' => '¿Cuánto cuesta?', 'a' => 'Landing desde $250.000, sitio desde $590.000 y tienda desde $990.000. El precio final lo confirmamos según tu proyecto.'],
         ['q' => '¿Qué necesitan de mí?', 'a' => 'Tus textos, imágenes y logo si los tienes. Si no, te guiamos para armarlos.'],
         ['q' => '¿Cómo es el pago?', 'a' => '50% al inicio y 50% contra entrega. Todo por escrito antes de partir.'],
