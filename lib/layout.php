@@ -95,6 +95,10 @@ function layoutStart(array $opts = []): void {
 
 <?php if ($faviconHref): ?>
 <link rel="icon" href="<?= $h($faviconHref) ?>">
+<?php else: /* Favicon de marca por defecto (si no hay uno subido en el admin). */ ?>
+<link rel="icon" type="image/svg+xml" href="<?= $h($assetUrl('/assets/favicon.svg')) ?>">
+<link rel="icon" type="image/png" sizes="32x32" href="<?= $h($assetUrl('/assets/favicon-32.png')) ?>">
+<link rel="apple-touch-icon" href="<?= $h($assetUrl('/assets/apple-touch-icon.png')) ?>">
 <?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
