@@ -45,7 +45,7 @@ function imagePipelineProcess(array $file, string $destDirAbs, string $destDirPu
         'image/webp' => fn($p) => function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($p) : false,
     ];
     if (!isset($loaders[$mime])) {
-        return ['ok' => false, 'error' => 'Formato no permitido (usá JPG, PNG o WebP).'];
+        return ['ok' => false, 'error' => 'Formato no permitido (usa JPG, PNG o WebP).'];
     }
 
     $src = $loaders[$mime]($file['tmp_name']);

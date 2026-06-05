@@ -1,10 +1,23 @@
 <?php
 /** Home del portal comercial. Render desde index.php (scope: $error, $sent). */
+
+// JSON-LD adicional para la portada: FAQPage (resultados enriquecidos en Google)
+// + lista de servicios ofrecidos. Se inyecta vía la opción 'jsonld' del layout.
+$faqJsonLd = ['@context' => 'https://schema.org', '@type' => 'FAQPage', 'mainEntity' => []];
+foreach (portalFaqs() as $f) {
+    $faqJsonLd['mainEntity'][] = [
+        '@type'          => 'Question',
+        'name'           => $f['q'],
+        'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+    ];
+}
+
 layoutStart([
     'current_slug' => '',
     // Título SEO descriptivo (la portada es la que más posiciona): keyword-led + marca.
     'title'        => 'Diseño y desarrollo de sitios web para empresas',
     'description'  => 'ARVIOR — Estudio de desarrollo web. Diseñamos sitios corporativos, landing pages y tiendas online pensados para que tu empresa se vea profesional y reciba más consultas. Precio y fecha cerrados.',
+    'jsonld'       => [$faqJsonLd],
 ]);
 $pkgs = portalPackages();
 $maint = portalMaintenance();
@@ -332,19 +345,44 @@ $maint = portalMaintenance();
     </div>
 </section>
 
-<!-- ================= CTA COTIZACIÓN ================= -->
-<section class="section section--tight">
+<!-- ================= CTA COTIZACIÓN (formulario embebido) ================= -->
+<section class="section section--tight" id="cotizar">
     <div class="container">
-        <div class="cta reveal">
-            <h2 class="cta__title">Cuéntanos tu proyecto y recibe una <span class="text-gradient">propuesta clara</span>.</h2>
-            <p class="cta__sub">Alcance, precio y fecha en menos de 24 h. Sin compromiso.</p>
-            <div class="hero__actions" style="justify-content:center;">
-                <a href="/cotizacion" class="btn btn--arrow">Solicitar cotización</a>
-                <a href="/contacto" class="btn btn--secondary">Hablar con nosotros</a>
+        <div class="cta-form reveal">
+            <div class="cta-form__intro">
+                <span class="section__eyebrow">[ 07 ] · Empecemos</span>
+                <h2 class="cta__title">Cuéntanos tu proyecto y recibe una <span class="text-gradient">propuesta clara</span>.</h2>
+                <p class="cta__sub">Alcance, precio y fecha en menos de 24 h hábiles. Sin compromiso.</p>
+                <ul class="assure assure--cta">
+                    <li><span class="assure__ic"><?= portalIcon('clock') ?></span><span>Respuesta en <strong>menos de 24 h</strong></span></li>
+                    <li><span class="assure__ic"><?= portalIcon('check') ?></span><span>Precio y fecha <strong>cerrados</strong></span></li>
+                    <li><span class="assure__ic"><?= portalIcon('phone') ?></span><span>Atención directa, sin intermediarios</span></li>
+                    <li><span class="assure__ic"><?= portalIcon('shield') ?></span><span>Sin compromiso ni letra chica</span></li>
+                </ul>
+            </div>
+            <div class="cta-form__card">
+                <?php
+                // Formulario embebido: elimina el clic intermedio a /cotizacion.
+                // El POST cae en index.php (action=submit_lead) → leadCreate() → CRM.
+                $formSource  = 'home';
+                $returnPath  = '/';
+                $showService = true; $showBudget = true; $showCompany = true;
+                require __DIR__ . '/quote_form.php';
+                ?>
             </div>
         </div>
     </div>
 </section>
+
+<?php if ($sent): ?>
+<!-- Tras enviar el formulario embebido, lleva el foco al mensaje de éxito (queda abajo). -->
+<script>
+(function(){
+    var el = document.getElementById('cotizar');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+})();
+</script>
+<?php endif; ?>
 
 <?php require __DIR__ . '/_reveal.php'; ?>
 <?php layoutEnd(); ?>

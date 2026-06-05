@@ -80,7 +80,7 @@ $g = fn(string $k) => htmlspecialchars((string) ($settings[$k] ?? ''));
 
     <div class="card">
         <h3 class="card__title">Redes sociales</h3>
-        <p class="text-muted" style="margin:0 0 1rem;font-size:.88rem;">Pegá la URL completa de cada perfil. Las que dejes vacías no se mostrarán.</p>
+        <p class="text-muted" style="margin:0 0 1rem;font-size:.88rem;">Pega la URL completa de cada perfil. Las que dejes vacías no se mostrarán.</p>
         <?php foreach (BUSINESS_SOCIAL_KEYS as $key => $label): ?>
             <p class="form__field"><label><?= htmlspecialchars($label) ?>
                 <input type="url" name="b[<?= $key ?>]" value="<?= $g($key) ?>" placeholder="https://...">

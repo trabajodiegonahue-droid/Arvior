@@ -56,7 +56,7 @@ $STATUSES = ['active' => 'Activa', 'paused' => 'Pausada', 'archived' => 'Archiva
   &lt;textarea name="message" placeholder="Mensaje"&gt;&lt;/textarea&gt;
   &lt;button type="submit"&gt;Enviar&lt;/button&gt;
 &lt;/form&gt;</pre>
-        <p class="text-muted" style="font-size:.82rem;">Para integración por <code>fetch</code> cross-domain, agregá <code>format=json</code> y leé la respuesta JSON <code>{ ok, message }</code>.</p>
+        <p class="text-muted" style="font-size:.82rem;">Para integración por <code>fetch</code> cross-domain, agrega <code>format=json</code> y lee la respuesta JSON <code>{ ok, message }</code>.</p>
     </details>
 
     <form method="post" onsubmit="return confirm('¿Regenerar el token? La landing actual del cliente dejará de funcionar hasta que actualices el token allí.')" style="margin:0;">

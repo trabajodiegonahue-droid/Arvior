@@ -83,7 +83,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && ($_POST['action'] ?? '') ==
         $accountId = leadsSchemaReady() ? accountInternalId() : null;
         if ($accountId === null) {
             error_log('index.php submit_lead: esquema multi-cuenta no disponible.');
-            $error = 'No pudimos procesar tu solicitud en este momento. Probá de nuevo en unos minutos o escribinos por otro medio.';
+            $error = 'No pudimos procesar tu solicitud en este momento. Prueba de nuevo en unos minutos o escríbenos por otro medio.';
         } else {
             $result = leadCreate([
                 'name' => $name, 'email' => $email, 'phone' => $phone,
