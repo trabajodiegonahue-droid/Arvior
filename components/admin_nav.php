@@ -24,8 +24,10 @@ $activeLeads = $view === '' || $view === 'leads';
         <?php endif; ?>
     </a>
 
-    <?php /* Reorganizado: primero lo que se edita del sitio, luego clientes (CRM),
-              y al final lo técnico (Sistema). No se quita ninguna funcionalidad. */ ?>
+    <?php /* Menú minimalista: lo justo para editar el sitio (Negocio, Páginas,
+              Medios, Configuración), recibir leads y gestionar tu cuenta.
+              Las secciones técnicas (Tareas, Reportes, Cuentas, Usuarios,
+              Mailing) se ocultan del menú pero NO se eliminan. */ ?>
     <div class="admin-sidebar__section">Tu sitio</div>
 
     <a class="admin-sidebar__link<?= $is('business') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=business">
@@ -55,37 +57,18 @@ $activeLeads = $view === '' || $view === 'leads';
         <span>Leads</span>
     </a>
 
-    <a class="admin-sidebar__link<?= $is('tasks') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=tasks">
-        <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        <span>Tareas</span>
-    </a>
-
-    <a class="admin-sidebar__link<?= $is('reports') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=reports">
-        <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="7"/><rect x="12" y="6" width="3" height="11"/><rect x="17" y="13" width="3" height="4"/></svg>
-        <span>Reportes</span>
-    </a>
-
-    <div class="admin-sidebar__section">Sistema</div>
-
-    <a class="admin-sidebar__link<?= $is('accounts') || $is('account_edit') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=accounts">
-        <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/><path d="M8 11v6"/><path d="M16 11v6"/></svg>
-        <span>Cuentas</span>
-    </a>
-
-    <a class="admin-sidebar__link<?= $is('users') || $is('user') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=users">
-        <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        <span>Usuarios</span>
-    </a>
-
-    <a class="admin-sidebar__link<?= $is('mailing') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=mailing">
-        <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span>Mailing</span>
-    </a>
+    <div class="admin-sidebar__section">Cuenta</div>
 
     <a class="admin-sidebar__link<?= $is('account') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=account">
         <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         <span>Mi cuenta</span>
     </a>
+
+    <?php /* Menú minimalista: lo justo para editar el sitio y recibir leads.
+              Estas secciones siguen FUNCIONANDO y se acceden por URL si las
+              necesitas (no se borró nada): Tareas (/admin/?view=tasks),
+              Reportes (?view=reports), Cuentas (?view=accounts),
+              Usuarios (?view=users), Mailing (?view=mailing). */ ?>
 
     <a class="admin-sidebar__viewsite" href="/" target="_blank" rel="noopener" title="Abrir el sitio público en una nueva pestaña">
         <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
