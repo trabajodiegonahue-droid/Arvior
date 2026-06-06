@@ -3,7 +3,7 @@
 layoutStart([
     'current_slug' => 'servicios',
     'title'        => 'Servicios',
-    'description'  => 'Sitios web corporativos, landing pages, tiendas online y mantención. Conoce los servicios de desarrollo web de ARVIOR, con precio y fecha cerrados.',
+    'description'  => 'Sitios web corporativos, landing pages, tiendas online y mantención. Conoce los servicios de desarrollo web de KOVA, con precio y fecha cerrados.',
 ]);
 ?>
 <section class="page-hero">

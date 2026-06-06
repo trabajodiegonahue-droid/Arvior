@@ -80,7 +80,8 @@ $socialIcon = function (string $key): string {
                 <?php if ($logoExists): ?>
                     <img src="<?= htmlspecialchars($logoPath) ?>" alt="<?= htmlspecialchars($siteName) ?>">
                 <?php else: ?>
-                    <span><?= htmlspecialchars($siteName) ?></span>
+                    <img src="/assets/logo-k.svg" alt="" class="site-navbar__mark" width="34" height="34" aria-hidden="true">
+                    <span class="site-navbar__word"><?= htmlspecialchars($siteName) ?></span>
                 <?php endif; ?>
             </a>
 
@@ -115,7 +116,8 @@ $socialIcon = function (string $key): string {
                 <?php if ($logoExists): ?>
                     <img src="<?= htmlspecialchars($logoPath) ?>" alt="<?= htmlspecialchars($siteName) ?>">
                 <?php else: ?>
-                    <span><?= htmlspecialchars($siteName) ?></span>
+                    <img src="/assets/logo-k.svg" alt="" class="site-navbar__mark" width="30" height="30" aria-hidden="true">
+                    <span class="site-navbar__word"><?= htmlspecialchars($siteName) ?></span>
                 <?php endif; ?>
             </a>
             <button type="button" class="site-drawer__close" id="site-drawer-close" aria-label="Cerrar menú">

@@ -449,7 +449,7 @@ if ($user) {
         csrfCheck();
         $targetId = (int) ($_POST['id'] ?? 0);
         if ($targetId <= 0 || $targetId === (int) $user['id']) {
-            flashSet('user_error', 'No podés modificar tu propio estado de acceso.');
+            flashSet('user_error', 'No puedes modificar tu propio estado de acceso.');
             redirect('/admin/?view=users');
         }
         $target = userGet($targetId);
@@ -459,7 +459,7 @@ if ($user) {
         }
         $willDeactivate = (int) $target['is_active'] === 1;
         if ($willDeactivate && activeUserCount() <= 1) {
-            flashSet('user_error', 'No podés desactivar al último usuario activo.');
+            flashSet('user_error', 'No puedes desactivar al último usuario activo.');
             redirect('/admin/?view=user&id=' . $targetId);
         }
         userSetActive($targetId, !$willDeactivate);
@@ -471,7 +471,7 @@ if ($user) {
         csrfCheck();
         $targetId = (int) ($_POST['id'] ?? 0);
         if ($targetId <= 0 || $targetId === (int) $user['id']) {
-            flashSet('user_error', 'No podés eliminar tu propia cuenta.');
+            flashSet('user_error', 'No puedes eliminar tu propia cuenta.');
             redirect('/admin/?view=users');
         }
         $target = userGet($targetId);
@@ -480,7 +480,7 @@ if ($user) {
             redirect('/admin/?view=users');
         }
         if ((int) $target['is_active'] === 1 && activeUserCount() <= 1) {
-            flashSet('user_error', 'No podés eliminar al último usuario activo.');
+            flashSet('user_error', 'No puedes eliminar al último usuario activo.');
             redirect('/admin/?view=user&id=' . $targetId);
         }
         userDelete($targetId);

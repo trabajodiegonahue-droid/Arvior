@@ -5,7 +5,7 @@
 layoutStart([
     'current_slug' => 'proyectos',
     'title'        => 'Proyectos',
-    'description'  => 'Los tipos de proyecto que construimos en ARVIOR: sitios corporativos, landing pages y tiendas online, con lo que entrega cada uno.',
+    'description'  => 'Los tipos de proyecto que construimos en KOVA: sitios corporativos, landing pages y tiendas online, con lo que entrega cada uno.',
 ]);
 ?>
 <section class="page-hero">

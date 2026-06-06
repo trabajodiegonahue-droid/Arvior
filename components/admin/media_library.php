@@ -158,7 +158,7 @@ $kb = fn(int $b) => $b < 1024 * 1024 ? round($b / 1024) . ' KB' : round($b / 102
             <div class="ml-empty">
                 <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".4"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
                 <h3><?= $search ? 'Sin resultados' : 'Carpeta vacía' ?></h3>
-                <p><?= $search ? 'Probá con otra búsqueda o limpiá los filtros.' : 'Subí tu primera imagen arrastrándola al área de arriba.' ?></p>
+                <p><?= $search ? 'Prueba con otra búsqueda o limpia los filtros.' : 'Sube tu primera imagen arrastrándola al área de arriba.' ?></p>
                 <?php if ($search): ?><a href="/admin/?view=media<?= $folderId ? '&folder=' . $folderId : '' ?>" class="btn btn--ghost">Limpiar búsqueda</a><?php endif; ?>
             </div>
         <?php else: ?>

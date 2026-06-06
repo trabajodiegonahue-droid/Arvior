@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="KOVA">
+  <defs>
+    <linearGradient id="fk" x1="18" y1="14" x2="46" y2="50" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CDBCFF"/><stop offset="1" stop-color="#8B6FF0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#1B2A4A"/>
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke="url(#fk)" stroke-width="8">
+    <line x1="23" y1="16" x2="23" y2="48"/>
+    <line x1="25" y1="34" x2="45" y2="16"/>
+    <line x1="28" y1="33" x2="45" y2="48"/>
+  </g>
+</svg>

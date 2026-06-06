@@ -601,6 +601,35 @@ a.s-card { text-decoration: none; color: inherit; display: block; }
 .site-body .cta .btn:not(.btn--secondary):not(.btn--ghost) { background: #fff; color: var(--arvior-accent); border-color: #fff; box-shadow: none; }
 .site-body .cta .btn:not(.btn--secondary):not(.btn--ghost):hover { background: var(--arvior-violet-soft); color: var(--arvior-accent-2); border-color: var(--arvior-violet-soft); transform: translateY(-1px); }
 
+/* CTA final con formulario embebido en la Home (quita el clic a /cotizacion). */
+.cta-form {
+    position: relative;
+    border-radius: 20px;
+    background: var(--arvior-accent);
+    color: #fff;
+    padding: clamp(1.8rem, 5vw, 3.4rem);
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+    overflow: hidden;
+}
+.cta-form__intro .section__eyebrow { color: var(--arvior-violet-on-dark); }
+.cta-form__intro .cta__title { text-align: left; max-width: 18ch; margin: 0 0 0.7rem; }
+.cta-form__intro .cta__sub { text-align: left; max-width: 46ch; margin: 0 0 1.5rem; }
+.assure--cta li { color: rgba(255,255,255,0.85); }
+.assure--cta li strong { color: #fff; }
+.assure--cta .assure__ic { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); color: #fff; }
+.cta-form__card {
+    background: #fff;
+    border-radius: 16px;
+    padding: clamp(1.4rem, 3vw, 2.2rem);
+    box-shadow: var(--shadow-md);
+}
+@media (max-width: 860px) {
+    .cta-form { grid-template-columns: 1fr; }
+}
+
 /* ==========================================================
    11. Páginas internas del CMS (<main class="container">)
    ========================================================== */

@@ -28,6 +28,8 @@ function layoutStart(array $opts = []): void {
 
     $ogImage = trim((string) ($opts['og_image'] ?? ''));
     if ($ogImage === '') $ogImage = trim((string) getSetting('seo_default_image', ''));
+    // Imagen OG de marca por defecto (si no hay una configurada en el admin).
+    if ($ogImage === '') $ogImage = '/assets/og-default.png';
 
     $host  = $_SERVER['HTTP_HOST'] ?? '';
     $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
@@ -95,6 +97,10 @@ function layoutStart(array $opts = []): void {
 
 <?php if ($faviconHref): ?>
 <link rel="icon" href="<?= $h($faviconHref) ?>">
+<?php else: /* Favicon de marca por defecto (si no hay uno subido en el admin). */ ?>
+<link rel="icon" type="image/svg+xml" href="<?= $h($assetUrl('/assets/favicon.svg')) ?>">
+<link rel="icon" type="image/png" sizes="32x32" href="<?= $h($assetUrl('/assets/favicon-32.png')) ?>">
+<link rel="apple-touch-icon" href="<?= $h($assetUrl('/assets/apple-touch-icon.png')) ?>">
 <?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

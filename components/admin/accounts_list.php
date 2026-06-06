@@ -6,7 +6,7 @@ $flashErr = flashGet('account_error');
 <header class="admin-header">
     <div>
         <h1>Cuentas</h1>
-        <div class="admin-header__sub">Clientes cuyas landings capturan leads hacia ARVIOR.</div>
+        <div class="admin-header__sub">Clientes cuyas landings capturan leads hacia KOVA.</div>
     </div>
 </header>
 

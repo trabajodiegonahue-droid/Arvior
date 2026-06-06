@@ -4,7 +4,7 @@
 layoutStart([
     'current_slug' => 'contacto',
     'title'        => 'Contacto',
-    'description'  => 'Habla con ARVIOR. Escríbenos por formulario, WhatsApp o correo y te respondemos a la brevedad.',
+    'description'  => 'Habla con KOVA. Escríbenos por formulario, WhatsApp o correo y te respondemos a la brevedad.',
 ]);
 
 $bizPhone   = trim((string) getSetting('business_phone', ''));
