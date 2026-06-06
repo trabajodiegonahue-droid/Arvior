@@ -1,16 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="KOVA">
   <defs>
-    <linearGradient id="kovaL" x1="20" y1="20" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#B9A5FF"/><stop offset="1" stop-color="#6A4FE6"/>
-    </linearGradient>
-    <linearGradient id="kovaD" x1="40" y1="55" x2="95" y2="105" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7C5CF0"/><stop offset="1" stop-color="#4F33C0"/>
+    <linearGradient id="kova" x1="24" y1="104" x2="104" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3D5AF1"/>
+      <stop offset=".55" stop-color="#7C5CF0"/>
+      <stop offset="1" stop-color="#A78BFA"/>
     </linearGradient>
   </defs>
-  <g stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <line x1="31" y1="22" x2="31" y2="98" stroke="url(#kovaL)" stroke-width="17"/>
-    <line x1="35" y1="60" x2="86" y2="22" stroke="url(#kovaL)" stroke-width="17"/>
-    <line x1="41" y1="58" x2="86" y2="98" stroke="url(#kovaD)" stroke-width="17"/>
+  <g fill="none" stroke="url(#kova)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="31" y1="20" x2="31" y2="100"/>
+    <path d="M34 62 L100 20"/>
+    <path d="M34 60 L92 100"/>
   </g>
-  <path d="M60 42 L75 31 L66 53 Z" fill="#D6CBFF" opacity=".55"/>
+  <path d="M66 41 L84 30 L74 53 Z" fill="#C4B5FD" opacity=".55"/>
 </svg>
