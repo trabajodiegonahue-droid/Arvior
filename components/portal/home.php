@@ -29,7 +29,7 @@ $maint = portalMaintenance();
         <div class="hero__inner">
             <div class="hero__copy">
                 <span class="hero__eyebrow"><span class="dot"></span> Estudio de desarrollo web</span>
-                <h1 class="hero__title">Tu sitio web debería <span class="text-gradient">traerte clientes</span>.</h1>
+                <h1 class="hero__title">Tu sitio web, <span class="text-gradient">trabajando para ti</span>.</h1>
                 <p class="hero__sub">Sitios web que te hacen ver profesional y te traen consultas.</p>
                 <div class="hero__actions">
                     <a href="/cotizacion" class="btn btn--arrow">Solicitar cotización</a>
