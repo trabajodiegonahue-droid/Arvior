@@ -321,11 +321,105 @@ function portalProjects(): array {
     ];
 }
 
+// ─────────────────────────── Portafolio (DB) ───────────────────────────
+// Proyectos reales del estudio, administrados en /admin/?view=portfolio y
+// mostrados en /proyectos (filtrable) y /proyectos/{slug}. La tabla
+// `portfolio_projects` la crea la migración 025. Cuando no hay proyectos
+// publicados, la vista pública cae a portalProjects() (contenido descriptivo).
+
+/** Categorías de proyecto (clave => etiqueta). El orden define el de los filtros. */
+function portfolioCategories(): array {
+    return [
+        'corporativo' => 'Sitios Corporativos',
+        'landing'     => 'Landing Pages',
+        'ecommerce'   => 'Tiendas Online',
+        'mantencion'  => 'Mantención',
+        'otro'        => 'Otros',
+    ];
+}
+
+/** Etiqueta legible de una categoría; si no existe, devuelve la clave capitalizada. */
+function portfolioCategoryLabel(string $key): string {
+    return portfolioCategories()[$key] ?? ucfirst($key);
+}
+
+/** ¿La tabla del portafolio ya existe? (ventana de migración). */
+function portfolioReady(): bool {
+    static $ready = null;
+    if ($ready !== null) return $ready;
+    try {
+        getDB()->query('SELECT 1 FROM portfolio_projects LIMIT 1');
+        $ready = true;
+    } catch (Throwable $e) {
+        $ready = false;
+    }
+    return $ready;
+}
+
+/** Decodifica el JSON de galería de un proyecto a un arreglo de paths. */
+function portfolioGallery(?string $json): array {
+    if (!$json) return [];
+    $arr = json_decode($json, true);
+    return is_array($arr) ? array_values(array_filter($arr, 'is_string')) : [];
+}
+
+/**
+ * Proyectos del portafolio. $category null/'' = todas. $publishedOnly limita a
+ * publicados (front). Orden: sort_order asc, luego más reciente.
+ */
+function portfolioProjects(?string $category = null, bool $publishedOnly = true): array {
+    if (!portfolioReady()) return [];
+    $where = [];
+    $args  = [];
+    if ($publishedOnly)            { $where[] = 'is_published = 1'; }
+    if ($category !== null && $category !== '') { $where[] = 'category = ?'; $args[] = $category; }
+    $sql = 'SELECT * FROM portfolio_projects'
+         . ($where ? ' WHERE ' . implode(' AND ', $where) : '')
+         . ' ORDER BY sort_order ASC, created_at DESC, id DESC';
+    try {
+        $stmt = getDB()->prepare($sql);
+        $stmt->execute($args);
+        return $stmt->fetchAll();
+    } catch (Throwable $e) {
+        error_log('portfolioProjects: ' . $e->getMessage());
+        return [];
+    }
+}
+
+/** Un proyecto publicado por slug, o null. */
+function portfolioProjectBySlug(string $slug, bool $publishedOnly = true): ?array {
+    if (!portfolioReady()) return null;
+    try {
+        $sql = 'SELECT * FROM portfolio_projects WHERE slug = ?' . ($publishedOnly ? ' AND is_published = 1' : '');
+        $stmt = getDB()->prepare($sql);
+        $stmt->execute([$slug]);
+        return $stmt->fetch() ?: null;
+    } catch (Throwable $e) {
+        return null;
+    }
+}
+
+/** Cantidad de proyectos publicados por categoría (para badges de filtros). */
+function portfolioCounts(): array {
+    if (!portfolioReady()) return [];
+    try {
+        $rows = getDB()->query(
+            'SELECT category, COUNT(*) AS n FROM portfolio_projects WHERE is_published = 1 GROUP BY category'
+        )->fetchAll();
+        $out = [];
+        foreach ($rows as $r) { $out[$r['category']] = (int) $r['n']; }
+        return $out;
+    } catch (Throwable $e) {
+        return [];
+    }
+}
+
 /** Navegación principal del portal (orden del menú). */
 function portalNav(): array {
     return [
         ['path' => '/',           'label' => 'Inicio',    'slug' => ''],
         ['path' => '/servicios',  'label' => 'Servicios', 'slug' => 'servicios'],
+        ['path' => '/proyectos',  'label' => 'Proyectos', 'slug' => 'proyectos'],
         ['path' => '/proceso',    'label' => 'Proceso',   'slug' => 'proceso'],
         ['path' => '/contacto',   'label' => 'Contacto',  'slug' => 'contacto'],
     ];

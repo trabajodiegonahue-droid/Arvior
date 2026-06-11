@@ -40,6 +40,11 @@ $activeLeads = $view === '' || $view === 'leads';
         <span>Páginas</span>
     </a>
 
+    <a class="admin-sidebar__link<?= $is('portfolio') || $is('project') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=portfolio">
+        <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        <span>Portafolio</span>
+    </a>
+
     <a class="admin-sidebar__link<?= $is('media') ? ' admin-sidebar__link--active' : '' ?>" href="/admin/?view=media">
         <svg class="admin-sidebar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         <span>Medios</span>
