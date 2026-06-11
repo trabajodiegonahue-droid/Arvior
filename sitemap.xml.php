@@ -23,6 +23,18 @@ if (function_exists('portalServices')) {
     }
 }
 
+// Detalle de cada proyecto publicado del portafolio: /proyectos/{slug}.
+if (function_exists('portfolioProjects')) {
+    foreach (portfolioProjects(null, true) as $p) {
+        if (!empty($p['slug'])) {
+            $urls[] = [
+                'loc'     => $base . '/proyectos/' . $p['slug'],
+                'lastmod' => substr((string) ($p['updated_at'] ?? $today), 0, 10),
+            ];
+        }
+    }
+}
+
 // Páginas del CMS publicadas.
 try {
     foreach (getDB()->query('SELECT slug, updated_at FROM pages WHERE is_published = 1 ORDER BY updated_at DESC')->fetchAll() as $p) {

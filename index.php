@@ -125,6 +125,12 @@ if ($parts[0] === 'servicios' && isset($parts[1])) {
     if ($service) { require __DIR__ . '/components/portal/servicio.php'; exit; }
     portalRender404(); exit;
 }
+// Detalle de proyecto del portafolio: /proyectos/{slug}
+if ($parts[0] === 'proyectos' && isset($parts[1])) {
+    $project = portfolioProjectBySlug(slugify($parts[1]));
+    if ($project) { require __DIR__ . '/components/portal/proyecto.php'; exit; }
+    portalRender404(); exit;
+}
 // Vistas del portal.
 if ($path === 'servicios')  { require __DIR__ . '/components/portal/servicios.php'; exit; }
 if ($path === 'proyectos')  { require __DIR__ . '/components/portal/proyectos.php';  exit; }

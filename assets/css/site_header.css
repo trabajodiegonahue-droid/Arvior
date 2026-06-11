@@ -268,14 +268,21 @@
 @media (max-width: 860px) {
     .site-navbar__menu { display: none; }
     .site-navbar__burger { display: inline-flex; }
-    .site-topbar__contact { font-size: .78rem; gap: .9rem; }
+    /* La marca empuja la hamburguesa al extremo derecho (el menú ya no la centra). */
+    .site-navbar__actions { margin-left: auto; }
+    /* Los CTAs del navbar son redundantes en móvil: ya están en la barra fija
+       inferior y dentro del drawer. Header limpio = marca + hamburguesa. */
+    .site-navbar__cta { display: none; }
+    .site-topbar__contact { font-size: .8rem; gap: 1rem; }
     .site-topbar__hours { display: none; }
 }
 @media (max-width: 540px) {
-    .site-topbar__inner { padding: .5rem .9rem; }
+    .site-topbar__inner { padding: .5rem .9rem; justify-content: center; }
     .site-navbar__inner { padding: .7rem .9rem; gap: .8rem; }
-    .site-navbar__cta span { display: none; }
-    .site-navbar__cta { padding: .5rem .65rem; }
+    /* En teléfonos chicos la topbar deja solo el teléfono (el email es largo y
+       parte la línea); el email/horario quedan en el drawer. */
+    .site-topbar__contact a[href^="mailto"] { display: none; }
+    .site-navbar__word { letter-spacing: 0.22em; }
 }
 
 /* ============ Site footer ============ */

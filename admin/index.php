@@ -682,6 +682,68 @@ if ($user) {
             }
         }
     }
+
+    if ($action === 'save_project' || $action === 'delete_project') {
+        csrfCheck();
+        $id = (int) ($_POST['id'] ?? 0);
+
+        if ($action === 'delete_project' && $id > 0) {
+            $stmt = getDB()->prepare('DELETE FROM portfolio_projects WHERE id = ?');
+            $stmt->execute([$id]);
+            flashSet('project_success', 'Proyecto eliminado.');
+            redirect('/admin/?view=portfolio');
+        }
+
+        $title    = trim($_POST['title'] ?? '');
+        $category = (string) ($_POST['category'] ?? 'corporativo');
+        if (!isset(portfolioCategories()[$category])) $category = 'corporativo';
+        // Slug: el que escriba el admin, o derivado del título.
+        $slug     = slugify($_POST['slug'] ?? '') ?: slugify($title);
+        $client   = trim($_POST['client_name'] ?? '');
+        $summary  = trim($_POST['summary'] ?? '');
+        $desc     = trim($_POST['description'] ?? '');
+        $cover    = trim($_POST['cover_image'] ?? '');
+        $liveUrl  = trim($_POST['live_url'] ?? '');
+        $result   = trim($_POST['result'] ?? '');
+        $sortOrd  = (int) ($_POST['sort_order'] ?? 0);
+        $featured = !empty($_POST['is_featured']) ? 1 : 0;
+        $pub      = !empty($_POST['is_published']) ? 1 : 0;
+        // Galería: descarta slots vacíos, normaliza a lista, guarda como JSON.
+        $galleryArr = array_values(array_filter(array_map('trim', (array) ($_POST['gallery'] ?? [])), fn($s) => $s !== ''));
+        $galleryJson = $galleryArr ? json_encode($galleryArr, JSON_UNESCAPED_SLASHES) : null;
+
+        $projectFormData = [
+            'id' => $id, 'title' => $title, 'category' => $category, 'slug' => $slug,
+            'client_name' => $client, 'summary' => $summary, 'description' => $desc,
+            'cover_image' => $cover, 'gallery' => $galleryJson, 'live_url' => $liveUrl,
+            'result' => $result, 'sort_order' => $sortOrd, 'is_featured' => $featured,
+            'is_published' => $pub,
+        ];
+
+        if (!$title || !$slug) {
+            $projectError = 'El título es requerido.';
+            $view = 'project';
+        } else {
+            try {
+                if ($id > 0) {
+                    $stmt = getDB()->prepare(
+                        'UPDATE portfolio_projects SET slug=?, title=?, category=?, client_name=?, summary=?, description=?, cover_image=?, gallery=?, live_url=?, result=?, sort_order=?, is_featured=?, is_published=? WHERE id=?'
+                    );
+                    $stmt->execute([$slug, $title, $category, $client, $summary, $desc, $cover, $galleryJson, $liveUrl, $result, $sortOrd, $featured, $pub, $id]);
+                } else {
+                    $stmt = getDB()->prepare(
+                        'INSERT INTO portfolio_projects (slug, title, category, client_name, summary, description, cover_image, gallery, live_url, result, sort_order, is_featured, is_published) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+                    );
+                    $stmt->execute([$slug, $title, $category, $client, $summary, $desc, $cover, $galleryJson, $liveUrl, $result, $sortOrd, $featured, $pub]);
+                }
+                flashSet('project_success', 'Proyecto guardado.');
+                redirect('/admin/?view=portfolio');
+            } catch (PDOException $e) {
+                $projectError = 'No se pudo guardar (¿slug duplicado?). Prueba con otro slug.';
+                $view = 'project';
+            }
+        }
+    }
 }
 
 // -------------------- datos para views --------------------
@@ -712,6 +774,9 @@ $totalPages   = 1;
 $settings     = [];
 $pages        = [];
 $pageRec      = $pageFormData ?? null; // datos del registro/form (distinto de $page paginación)
+$projects     = [];
+$projectRec   = $projectFormData ?? null; // datos del proyecto/form
+$projectError = $projectError ?? '';
 $users        = [];
 $userRec      = null;
 $userFormError = $userFormError ?? '';
@@ -746,6 +811,17 @@ if ($user) {
                 $stmt = $db->prepare('SELECT * FROM pages WHERE id = ?');
                 $stmt->execute([(int) $pid]);
                 $pageRec = $stmt->fetch() ?: null;
+            }
+        }
+    } elseif ($view === 'portfolio') {
+        $projects = portfolioProjects(null, false); // todos (incluye borradores), orden de admin
+    } elseif ($view === 'project') {
+        if ($projectRec === null) { // no vino de una re-render por error
+            $pid = $_GET['id'] ?? '';
+            if ($pid !== 'new' && $pid !== '') {
+                $stmt = $db->prepare('SELECT * FROM portfolio_projects WHERE id = ?');
+                $stmt->execute([(int) $pid]);
+                $projectRec = $stmt->fetch() ?: null;
             }
         }
     } elseif ($view === 'users') {
@@ -955,6 +1031,10 @@ if ($faviconPath && @file_exists($faviconAbs)):
             require __DIR__ . '/../components/admin/business.php';
         } elseif ($view === 'pages') {
             require __DIR__ . '/../components/admin/pages_list.php';
+        } elseif ($view === 'portfolio') {
+            require __DIR__ . '/../components/admin/portfolio_list.php';
+        } elseif ($view === 'project') {
+            require __DIR__ . '/../components/admin/portfolio_edit.php';
         } elseif ($view === 'page') {
             $page = $pageRec;
             require __DIR__ . '/../components/admin/page_edit.php';
